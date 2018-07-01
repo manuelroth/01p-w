@@ -4,7 +4,7 @@
   "description": "This repository contains all project files for 01p-w",
   "main": "index.js",
   "scripts": {
-    "test": "echo ''"
+    "test": "echo"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/manuelroth/01p-w/issues"
   },
-  "homepage": "https://github.com/manuelroth/01p-w#readme"
+  "homepage": "https://github.com/manuelroth/01p-w#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "sw-precache": "^5.2.1"
+  }
 }
