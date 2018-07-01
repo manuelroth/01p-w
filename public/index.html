@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>01p-w</title>
+  <meta content="01p-w is the outcome of an in-depth research about the essence of photography, its influence on the construction of identity and the instruments for archiving imagery
+	in the past and athe present. 01p-w is neither a further social network nor another app to publicly exhibit your private photos – 01p-w does just the opposite. It stands
+	for radical limitation in a world of unlimited noise, for a conscious engagement with photography; a medium once a word of almost magical properties described as an
+	emanation of reality." name="description">
+  <meta content="01p-w" name="author">
+  <meta content="http://01p-w.com/img/fb.png" property="og:image">
+  <meta content="01p-w" property="og:title">
+  <meta content="http://01p-w.com" property="og:url">
+  <meta content="01p-w is the outcome of an in-depth research about the essence of photography, its influence on the construction of identity and the instruments for archiving imagery
+	in the past and the present. 01p-w is neither a further social network nor another app to publicly exhibit your private photos – 01p-w does just the opposite. It stands
+	for radical limitation in a world of unlimited noise, for a conscious engagement with photography; a medium once a word of almost magical properties described as an
+	emanation of reality." property="og:description">
+  <link href="./css/style.css" rel="stylesheet">
+  <link href="./favicon.png" rel="shortcut icon">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+  <script defer src="./js/fullscreen.js"></script>
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/5.2.0/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/5.2.0/firebase-auth.js"></script>
+  <script defer src="/__/firebase/5.2.0/firebase-storage.js"></script>
+  <script defer src="/__/firebase/5.2.0/firebase-firestore.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1 id="logo">
+      <a href="/">01p-w</a>
+    </h1>
+    <h1 id="user"></h1>
+  </header>
+  <footer>
+    <div id="captionbar">
+      <span id="all">All</span>
+      <span id="yearfull">
+        2018</span>
+      <span id="view">View</span>
+      <span id="save">Save</span>
+      <span id="download">Download</span>
+      <span id="quit">
+        <a href="/2018/01">Quit</a>
+      </span>
+    </div>
+    <ul class="dropdown" id="year">
+      <a href="https://01p-w.com/2016">
+        <li>2016</li>
+      </a>
+      <a href="https://01p-w.com/2017">
+        <li>2017</li>
+      </a>
+      <a href="https://01p-w.com/2018">
+        <li>2018</li>
+      </a>
+    </ul>
+    <ul class="dropdown" id="downloadtype">
+      <a href="https://01p-w.com/media/collection.zip" target="_blank">
+        <li>Print</li>
+      </a>
+      <a href="https://01p-w.com/media/collection.zip" target="_blank">
+        <li>Desktop</li>
+      </a>
+      <a href="https://01p-w.com/media/collection.zip" target="_blank">
+        <li>Mobile</li>
+      </a>
+    </ul>
+
+  </footer>
+  <div id="gallery">
+    <script id="entry-template" type="text/x-handlebars-template">
+      {{#each images}}
+        <div id="captionbar">
+          <span onclick="return false" id="currentweek">
+            {{week}}</span>
+          <span onclick="return false" id="currentyear">
+            {{year}}</span>{{caption}}
+          <span id="fullscreen"></span>
+          <a href="https://01p-w.com/2018">
+            <span id="galeriebutton"></span>
+          </a>
+        </div>
+        <a href="https://01p-w.com/2018/{{label}}">
+          <article class="image inactive" style="background-image:url({{downloadUrl}})">
+            <p class="number">{{label}}</p>
+            <div id="cross"></div>
+          </article>
+        </a>
+      {{/each}}
+    </script>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      try {
+        let app = firebase.app();
+        const firestore = firebase.firestore();
+        const settings = { timestampsInSnapshots: true };
+        firestore.settings(settings);
+        const email = "oliver.kerrison@neusicht.ch";
+        const password = "onepasswordperweek";
+        const displayName = "Oliver Kerrison";
+        signIn(email, password);
+
+        firebase.auth().onAuthStateChanged(function (user) {
+          if (user) {
+            if (user.displayName) {
+              document.querySelector("#user").textContent = user.displayName;
+            } else {
+              user.updateProfile({
+                displayName: displayName
+              }).then(function () {
+                document.querySelector("#user").textContent = user.displayName;
+              });
+            }
+            getImagesByUserId(user.uid);
+          }
+        });
+
+      } catch (e) {
+        console.error(e);
+      }
+    });
+
+    function signIn(email, password) {
+      firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+        console.error(`(signin): (${error.code}) ${error.message}`)
+      });
+    }
+
+    function getImagesByUserId(userId) {
+      firebase.firestore().collection("images").where("uid", "==", userId).get().then(function (querySnapshot) {
+        let images = [];
+        querySnapshot.forEach((doc) => {
+          images.push(doc.data());
+        });
+        images.sort(((a, b) => parseInt(a.label) - parseInt(b.label)));
+        const source = document.getElementById("entry-template").innerHTML;
+        const template = Handlebars.compile(source);
+        const context = { images: images };
+        document.querySelector("#gallery").innerHTML = template(context);
+        addAnimation();
+      });
+    }
+
+    function addAnimation() {
+      $("#currentweek").click(function () {
+        $("#week").toggleClass("visible");
+      });
+      $("#gallery .image").click(function () {
+        $(this).toggleClass("active");
+        $(this).toggleClass("inactive");
+      });
+      $("#waitinglist a").click(function () {
+        $("#loginfield")
+          .addClass("down")
+          .removeClass("up");
+      });
+      $("#loginfield #closecross").click(function () {
+        $("#loginfield")
+          .addClass("up")
+          .removeClass("down");
+      });
+      $("#currentyear, #yearfull").click(function () {
+        $("#year").toggleClass("visible");
+      });
+      $("#download").click(function () {
+        $("#downloadtype").toggleClass("visible");
+      });
+      $("#view").click(function () {
+        $(".inactive").hide();
+      });
+      $("#all").click(function () {
+        $(".inactive").show();
+        $("#gallery .image").addClass("inactive");
+        $("#gallery .image").removeClass("active");
+      });
+      document.getElementById("fullscreen").addEventListener("click", () => {
+        if (screenfull.enabled) {
+          screenfull.request();
+          $("header, footer, #captionbar").addClass("invisible");
+          $("article").addClass("fullsize");
+        } else {
+        }
+      });
+
+      document.getElementById("cross").addEventListener("click", () => {
+        if (screenfull.enabled) {
+          screenfull.exit();
+          $("header, footer, #captionbar").removeClass("invisible");
+          $("article").removeClass("fullsize");
+        } else {
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>
