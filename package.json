@@ -1,0 +1,19 @@
+{
+  "name": "01p-w",
+  "version": "1.0.0",
+  "description": "This repository contains all project files for 01p-w",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo ''"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuelroth/01p-w.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manuelroth/01p-w/issues"
+  },
+  "homepage": "https://github.com/manuelroth/01p-w#readme"
+}
