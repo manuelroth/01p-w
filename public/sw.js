@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["/404.html","40c85a43b75e284bf0e78e4a38028a42"],["/css/style.css","6361bc7e52f3c524da3406fac76c393b"],["/img/cross.png","e253495968ad3b7eabad886a843eb8e0"],["/img/fullscreen.png","39e102b354375070c9eba6a743b10704"],["/img/galerie.png","a64bb485f547d3c459eeffb8e22a1937"],["/img/pfeillinks.png","7a6c8e9fa772768ebb94997afe204f6b"],["/img/pfeilrechts.png","8088cdc8adf11442b4ad64ee1f49b995"],["/index.html","6ce5fb62384f23cc5d7e1758d0ca8161"],["/js/fullscreen.js","e2ed68c03a762f9ab84938c483df7600"],["/template.html","f8e325c53f0671de2c2a9f5841e26e2f"]];
+var precacheConfig = [["/css/style.css","6361bc7e52f3c524da3406fac76c393b"],["/img/cross.png","e253495968ad3b7eabad886a843eb8e0"],["/img/fullscreen.png","39e102b354375070c9eba6a743b10704"],["/img/galerie.png","a64bb485f547d3c459eeffb8e22a1937"],["/img/pfeillinks.png","7a6c8e9fa772768ebb94997afe204f6b"],["/img/pfeilrechts.png","8088cdc8adf11442b4ad64ee1f49b995"],["/index.html","7b47889fae918423243bd6c9efec1220"],["/js/fullscreen.js","e2ed68c03a762f9ab84938c483df7600"],["/template.html","f8e325c53f0671de2c2a9f5841e26e2f"]];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 
 

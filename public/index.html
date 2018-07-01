@@ -154,7 +154,7 @@
     }
 
     function addAnimation() {
-      $("#currentweek").click(function () {
+      $(".currentweek").click(function () {
         $("#week").toggleClass("visible");
       });
       $("#gallery .image").click(function () {
@@ -171,7 +171,7 @@
           .addClass("up")
           .removeClass("down");
       });
-      $("#currentyear, #yearfull").click(function () {
+      $(".currentyear, #yearfull").click(function () {
         $("#year").toggleClass("visible");
       });
       $("#download").click(function () {
@@ -185,19 +185,19 @@
         $("#gallery .image").addClass("inactive");
         $("#gallery .image").removeClass("active");
       });
-      document.getElementById("fullscreen").addEventListener("click", () => {
+      document.querySelector(".fullscreen").addEventListener("click", () => {
         if (screenfull.enabled) {
           screenfull.request();
-          $("header, footer, #captionbar").addClass("invisible");
+          $("header, footer, .captionbar").addClass("invisible");
           $("article").addClass("fullsize");
         } else {
         }
       });
 
-      document.getElementById("cross").addEventListener("click", () => {
+      document.querySelector(".cross").addEventListener("click", () => {
         if (screenfull.enabled) {
           screenfull.exit();
-          $("header, footer, #captionbar").removeClass("invisible");
+          $("header, footer, .captionbar").removeClass("invisible");
           $("article").removeClass("fullsize");
         } else {
         }
