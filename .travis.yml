@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - "10"
-before_deploy: "gulp generate-service-worker;handlebars ./public/js/templates/image.handlebars -f ./public/js/templates/templates.js;"
+before_deploy: "handlebars ./public/js/templates/image.handlebars -f ./public/js/templates/templates.js;gulp generate-service-worker;"
 deploy:
   provider: firebase
   token:
