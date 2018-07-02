@@ -1,0 +1,18 @@
+ {{#each images}}
+<div class="captionbar">
+    <span onclick="return false" class="currentweek">
+        {{week}}</span>
+    <span onclick="return false" class="currentyear">
+        {{year}}</span>{{caption}}
+    <span class="fullscreen"></span>
+    <a href="https://01p-w.com/2018" alt="{{label}}">
+        <span class="galeriebutton"></span>
+    </a>
+</div>
+<a href="https://01p-w.com/2018/{{label}}" alt="Link to photo">
+    <article class="image inactive" data-piio-bck="{{downloadUrl}}">
+        <p class="number">{{label}}</p>
+        <div class="cross"></div>
+    </article>
+</a>
+{{/each}}

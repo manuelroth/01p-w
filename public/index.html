@@ -22,7 +22,8 @@
   <link href="./css/style.css" rel="stylesheet">
   <link href="./favicon.png" rel="shortcut icon">
   <script defer src="./js/3.3.1-jquery.min.js"></script>
-  <script defer src="./js/4.0.11-handlebars.min.js"></script>
+  <script src="./js/4.0.11-handlebars.runtime.min.js"></script>
+  <script src="./js/templates/templates.js"></script>
   <script defer src="./js/fullscreen.js"></script>
 
   <!-- update the version number as needed -->
@@ -78,28 +79,7 @@
     </ul>
 
   </footer>
-  <div id="gallery">
-    <script id="entry-template" type="text/x-handlebars-template">
-      {{#each images}}
-        <div class="captionbar">
-          <span onclick="return false" class="currentweek">
-            {{week}}</span>
-          <span onclick="return false" class="currentyear">
-            {{year}}</span>{{caption}}
-          <span class="fullscreen"></span>
-          <a href="https://01p-w.com/2018" alt="{{label}}">
-            <span class="galeriebutton"></span>
-          </a>
-        </div>
-        <a href="https://01p-w.com/2018/{{label}}" alt="Link to photo">
-          <article class="image inactive" data-piio-bck="{{downloadUrl}}">
-            <p class="number">{{label}}</p>
-            <div class="cross"></div>
-          </article>
-        </a>
-      {{/each}}
-    </script>
-  </div>
+  <div id="gallery"></div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -146,10 +126,8 @@
           images.push(doc.data());
         });
         images.sort(((a, b) => parseInt(a.label) - parseInt(b.label)));
-        const source = document.getElementById("entry-template").innerHTML;
-        const template = Handlebars.compile(source);
         const context = { images: images };
-        document.querySelector("#gallery").innerHTML = template(context);
+        document.querySelector("#gallery").innerHTML = Handlebars.templates.image(context);
         addAnimation();
       });
     }
