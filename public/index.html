@@ -92,7 +92,7 @@
           </a>
         </div>
         <a href="https://01p-w.com/2018/{{label}}" alt="Link to photo">
-          <article class="image inactive" style="background-image:url({{downloadUrl}})">
+          <article class="image inactive" data-piio-bck="{{downloadUrl}}">
             <p class="number">{{label}}</p>
             <div class="cross"></div>
           </article>
@@ -208,6 +208,8 @@
       navigator.serviceWorker.register('/sw.js');
     }
   </script>
+  <script type="application/javascript"> var piioData = { appKey: '6qyavl', encodeSrc: false, domain: 'https://p-w-7e66e.firebaseapp.com' } </script>
+  <script src="//js.piio.co/6qyavl/piio.min.js"></script>
 </body>
 
 </html>
