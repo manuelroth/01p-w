@@ -19,6 +19,6 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "handlebars": "^4.0.11",
-    "sw-precache": "^5.2.1"
+    "workbox-build": "^3.3.1"
   }
 }
