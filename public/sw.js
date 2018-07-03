@@ -33,39 +33,11 @@ workbox.precaching.precacheAndRoute([
   },
   {
     "url": "index.html",
-    "revision": "54748c2fa19d7161e2c1e107036cab0c"
-  },
-  {
-    "url": "js/3.3.1-jquery.min.js",
-    "revision": "a09e13ee94d51c524b7e2a728c7d4039"
-  },
-  {
-    "url": "js/4.0.11-handlebars.runtime.min.js",
-    "revision": "db45bdd7ab59d5d2a9b24af35ceeca6f"
-  },
-  {
-    "url": "js/5.2.0-firebase-app.js",
-    "revision": "2cc68d8fd341a21583216b6ee216da1c"
-  },
-  {
-    "url": "js/5.2.0-firebase-auth.js",
-    "revision": "3ad1638ae9a0865ead1ed099634f0f78"
-  },
-  {
-    "url": "js/5.2.0-firebase-firestore.js",
-    "revision": "bc498548618eaacefcf53e1ed19156e8"
-  },
-  {
-    "url": "js/5.2.0-firebase-storage.js",
-    "revision": "aa7fc821a1771d3798d5e399f12e9eea"
+    "revision": "4afc849c27fcd9fe2a0b48b470fd9136"
   },
   {
     "url": "js/fullscreen.js",
     "revision": "e2ed68c03a762f9ab84938c483df7600"
-  },
-  {
-    "url": "js/init.js",
-    "revision": "e32f37245e146f79a1a98a03d2bd467f"
   },
   {
     "url": "js/templates/templates.js",
@@ -80,3 +52,43 @@ workbox.precaching.precacheAndRoute([
     "revision": "f8e325c53f0671de2c2a9f5841e26e2f"
   }
 ]);
+
+workbox.routing.registerRoute(
+  "https://js.piio.co/sgnclp/piio.min.js",
+  workbox.strategies.staleWhileRevalidate()
+);
+
+workbox.routing.registerRoute(
+  "/__/firebase/5.2.0/firebase-app.js",
+  workbox.strategies.staleWhileRevalidate()
+);
+
+workbox.routing.registerRoute(
+  "/__/firebase/5.2.0/firebase-auth.js",
+  workbox.strategies.staleWhileRevalidate()
+);
+
+workbox.routing.registerRoute(
+  "/__/firebase/5.2.0/firebase-storage.js",
+  workbox.strategies.staleWhileRevalidate()
+);
+
+workbox.routing.registerRoute(
+  "/__/firebase/5.2.0/firebase-firestore.js",
+  workbox.strategies.staleWhileRevalidate()
+);
+
+workbox.routing.registerRoute(
+  "/__/firebase/init.js",
+  workbox.strategies.staleWhileRevalidate()
+);
+
+workbox.routing.registerRoute(
+  "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.runtime.min.js",
+  workbox.strategies.staleWhileRevalidate()
+);
+
+workbox.routing.registerRoute(
+  "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js",
+  workbox.strategies.staleWhileRevalidate()
+);
