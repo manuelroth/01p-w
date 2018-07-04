@@ -59,6 +59,7 @@ h2 {
   float: right;
 }
 #login,
+#logout,
 #waitinglist {
   color: #000;
   float: right;
@@ -117,6 +118,7 @@ h2 {
   width: 400px;
   height: auto;
   position: fixed;
+  top: 40px;
   left: 0;
 }
 #lfield,
