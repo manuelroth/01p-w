@@ -41,30 +41,32 @@
     <h1 id="logo">
       <a href="/" alt="Home">01p-w</a>
     </h1>
-    <h1 id="user"></h1>
-    <h1 id="login" class="hidden">
-      <a href="" onclick="return false">Login</a>
+    <h1 id="user" class="hidden"></h1>
+    <h1 id="logout" class="hidden">
+      <a href="" onclick="signOut()">Logout</a>
     </h1>
   </header>
-  <div id="loginfield" class="up hidden">
+  <div id="loginfield" class="up">
     <div id="lfield">
       <div id="closecross">
         <a href="" onclick="return false">
           <img src="img/greycross.png" />
         </a>
       </div>
-      <form method="post" name="Login" id="loginform">
+      <form name="login" id="loginform" onsubmit="signIn(event)">
         <table>
           <tr>
             <td>Email
               <br>
-              <input type="email" name="Email" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
+              <input id="login_email" type="email" name="email" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                required="true">
             </td>
           </tr>
           <tr>
             <td>Password
               <br>
-              <input type="password" name="Password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
+              <input id="login_password" type="password" name="password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                required="true">
             </td>
           </tr>
           <tr>
@@ -84,7 +86,7 @@
       </form>
     </div>
     <div id="rfield">
-      <form method="post" name="Registration" id="registrationform">
+      <form name="registration" id="registrationform" onsubmit="signUp(event)">
 
         <table>
           <tr>
@@ -95,37 +97,38 @@
           <tr>
             <td>First name
               <br>
-              <input type="text" name="First name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
+              <input type="text" name="firstname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
             </td>
           </tr>
           <tr>
             <td>Last name
               <br>
-              <input type="text" name="Last name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
+              <input type="text" name="lastname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
             </td>
           </tr>
           <tr>
             <td>Email
               <br>
-              <input type="email" name="Email" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
+              <input type="email" name="email" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
             </td>
           </tr>
           <tr>
             <td>Confirm email
               <br>
-              <input type="email" name="Email" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
+              <input type="email" name="confirmemail" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
             </td>
           </tr>
           <tr>
             <td>Password
               <br>
-              <input type="password" name="Password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
+              <input type="password" name="password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
             </td>
           </tr>
           <tr>
             <td>Confirm password
               <br>
-              <input type="password" name="Password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
+              <input type="password" name="confirmpassword" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                required="true">
             </td>
           </tr>
           <tr>
@@ -182,7 +185,7 @@
     </ul>
 
   </footer>
-  <div id="gallery">
+  <div id="gallery" class="hidden">
     <!--template defined in ./js/templates/image.handlebars will be inserted here-->
   </div>
 
@@ -193,13 +196,14 @@
         const firestore = firebase.firestore();
         const settings = { timestampsInSnapshots: true };
         firestore.settings(settings);
-        const email = "oliver.kerrison@neusicht.ch";
-        const password = "onepasswordperweek";
-        const displayName = "Oliver Kerrison";
-        signIn(email, password);
+        // const email = "oliver.kerrison@neusicht.ch";
+        // const password = "onepasswordperweek";
+        // const displayName = "Oliver Kerrison";
+        // signIn(email, password);
 
         firebase.auth().onAuthStateChanged(function (user) {
           if (user) {
+            toggleUI();
             if (user.displayName) {
               document.querySelector("#user").textContent = user.displayName;
             } else {
@@ -218,10 +222,40 @@
       }
     });
 
-    function signIn(email, password) {
+    function signIn(event) {
+      event.preventDefault();
+      const email = document.querySelector("#login_email").value;
+      const password = document.querySelector("#login_password").value;
       firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-        console.error(`(signin): (${error.code}) ${error.message}`)
+        console.error(`(signIn): (${error.code}) ${error.message}`)
       });
+    }
+
+    function signOut() {
+      firebase.auth().signOut().then(function () {
+        toggleUI();
+      });
+    }
+
+    function signUp(event) {
+      event.preventDefault();
+      if (validateSignUpForm(form)) {
+        firebase.auth().createUserWithEmailAndPassword(form.email.value, form.password.value).catch(function (error) {
+          console.error(`(signUp): (${error.code}) ${error.message}`)
+        });
+      }
+    }
+
+    function validateSignUpForm(form) {
+      // Todo implement validation and errors
+      return true;
+    }
+
+    function toggleUI() {
+      document.querySelector("#user").classList.toggle("hidden");
+      document.querySelector("#logout").classList.toggle("hidden");
+      document.querySelector("#loginfield").classList.toggle("hidden");
+      document.querySelector("#gallery").classList.toggle("hidden");
     }
 
     function getImagesByUserId(userId) {
