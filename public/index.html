@@ -122,7 +122,7 @@
     }
 
     function getImagesByUserId(userId) {
-      firebase.firestore().collection("images").where("uid", "==", userId).get().then(function (querySnapshot) {
+      firebase.firestore().collection("images").where("uid", "==", userId).onSnapshot(function (querySnapshot) {
         let images = [];
         querySnapshot.forEach((doc) => {
           images.push(doc.data());
