@@ -288,12 +288,12 @@
       });
     }
     // Check that service workers are registered
-    if ('serviceWorker' in navigator) {
-      // Use the window load event to keep the page load performant
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js');
-      });
-    }
+    // if ('serviceWorker' in navigator) {
+    //   // Use the window load event to keep the page load performant
+    //   window.addEventListener('load', () => {
+    //     navigator.serviceWorker.register('/sw.js');
+    //   });
+    // }
   </script>
   <script type="application/javascript"> var piioData = { appKey: 'sgnclp', encodeSrc: false, domain: 'https://beta.01p-w.com' } </script>
   <script src="https://js.piio.co/sgnclp/piio.min.js"></script>
