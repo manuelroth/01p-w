@@ -351,7 +351,19 @@ a {
   display: none !important;
   cursor: pointer;
 }
-
+#popup{
+position:fixed;
+	width:400px;
+	background:#d4d4d4;
+	height:auto;
+	left:50%;
+	top:50%;
+	 -webkit-transform: translate(-50%, -50%);
+	 -moz-transform: translate(-50%, -50%);
+	  transform: translate(-50%, -50%);
+	padding:5px;
+	z-index:100;
+}
 .number {
   position: absolute;
   top: 0;
