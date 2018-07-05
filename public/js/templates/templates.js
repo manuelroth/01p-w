@@ -17,7 +17,7 @@ templates['image'] = template({"1":function(container,depth0,helpers,partials,da
     + alias4(((helper = (helper = helpers.downloadUrl || (depth0 != null ? depth0.downloadUrl : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"downloadUrl","hash":{},"data":data}) : helper)))
     + "\">\n        <p class=\"number\">"
     + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
-    + "</p>\n        <div class=\"cross\"></div>\n    </article>\n</a>\n";
+    + "</p>\n        <button class=\"deletesingle\">&#x1F5D1;</button>\n         <button class=\"addsingle\">+</button>\n        <div class=\"cross\"></div>\n    </article>\n</a>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
