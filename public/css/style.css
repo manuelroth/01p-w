@@ -288,6 +288,12 @@ input:focus {
   width: 24px;
   border-left: 1px solid #fff;
 }
+.addsingle{
+	right:48px;
+	height: 24px;
+  width: 24px;
+	border-left: 1px solid #fff;
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -355,13 +361,13 @@ a {
 position:fixed;
 	width:400px;
 	background:#d4d4d4;
-	height:auto;
+	height:400px;
 	left:50%;
 	top:50%;
 	 -webkit-transform: translate(-50%, -50%);
 	 -moz-transform: translate(-50%, -50%);
 	  transform: translate(-50%, -50%);
-	padding:5px;
+	padding:15px;
 	z-index:100;
 }
 .number {
