@@ -84,10 +84,12 @@
           </tr>
         </table>
       </form>
+      <div>
+        <p id="login_error"></p>
+      </div>
     </div>
     <div id="rfield">
       <form name="registration" id="registrationform" onsubmit="signUp(event)">
-
         <table>
           <tr>
             <td>
@@ -97,44 +99,49 @@
           <tr>
             <td>First name
               <br>
-              <input type="text" name="firstname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
+              <input id="signup_firstname" type="text" name="firstname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                required="true">
             </td>
           </tr>
           <tr>
             <td>Last name
               <br>
-              <input type="text" name="lastname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
+              <input id="signup_lastname" type="text" name="lastname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                required="true">
             </td>
           </tr>
           <tr>
             <td>Email
               <br>
-              <input type="email" name="email" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
+              <input id="signup_email" type="email" name="email" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                required="true">
             </td>
           </tr>
           <tr>
             <td>Confirm email
               <br>
-              <input type="email" name="confirmemail" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
+              <input id="signup_confirmemail" type="email" name="confirmemail" autocomplete="off" autocorrect="off" autocapitalize="off"
+                spellcheck="false" required="true">
             </td>
           </tr>
           <tr>
             <td>Password
               <br>
-              <input type="password" name="password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="true">
+              <input id="signup_password" type="password" name="password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                required="true">
             </td>
           </tr>
           <tr>
             <td>Confirm password
               <br>
-              <input type="password" name="confirmpassword" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-                required="true">
+              <input id="signup_confirmpassword" type="password" name="confirmpassword" autocomplete="off" autocorrect="off" autocapitalize="off"
+                spellcheck="false" required="true">
             </td>
           </tr>
           <tr>
             <td>
               <div id="policy" class="checkbox">
-                <input type="checkbox" id="policy" name="policy" />
+                <input id="signup_policy" type="checkbox" id="policy" name="policy" />
                 <label for="policy">
                   I accept and have read the privacy
                   <br>policy and the membership policy.</label>
@@ -145,8 +152,10 @@
             </td>
           </tr>
         </table>
-
       </form>
+      <div>
+        <p id="signup_error"></p>
+      </div>
     </div>
   </div>
   <footer>
@@ -204,19 +213,19 @@
         firebase.auth().onAuthStateChanged(function (user) {
           if (user) {
             toggleUI();
-            if (user.displayName) {
-              document.querySelector("#user").textContent = user.displayName;
-            } else {
+            if (!user.displayName) {
               user.updateProfile({
-                displayName: displayName
+                displayName: `${document.user.firstname} ${document.user.lastname}`
               }).then(function () {
                 document.querySelector("#user").textContent = user.displayName;
               });
+            } else {
+              document.querySelector("#user").textContent = user.displayName;
             }
+
             getImagesByUserId(user.uid);
           }
         });
-
       } catch (e) {
         console.error(e);
       }
@@ -227,7 +236,8 @@
       const email = document.querySelector("#login_email").value;
       const password = document.querySelector("#login_password").value;
       firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-        console.error(`(signIn): (${error.code}) ${error.message}`)
+        console.error(`(signIn): (${error.code}) ${error.message}`);
+        document.querySelector("#login_error").innerHTML = "Benutzername oder Passwort ist ungültig.";
       });
     }
 
@@ -239,16 +249,47 @@
 
     function signUp(event) {
       event.preventDefault();
-      if (validateSignUpForm(form)) {
-        firebase.auth().createUserWithEmailAndPassword(form.email.value, form.password.value).catch(function (error) {
-          console.error(`(signUp): (${error.code}) ${error.message}`)
+      const user = {
+        firstname: document.querySelector("#signup_firstname").value,
+        lastname: document.querySelector("#signup_lastname").value,
+        email: document.querySelector("#signup_email").value,
+        confirmemail: document.querySelector("#signup_confirmemail").value,
+        password: document.querySelector("#signup_password").value,
+        confirmpassword: document.querySelector("#signup_confirmpassword").value,
+        policy: document.querySelector("#signup_policy").checked
+      };
+
+      if (validateSignUpForm(user)) {
+        firebase.auth().createUserWithEmailAndPassword(user.email, user.password).catch(function (error) {
+          console.error(`(signUp): (${error.code}) ${error.message}`);
+          signup_error("Es ist ein Fehler bei der Registrierung aufgetreten.");
         });
+        document.user = user;
       }
     }
 
-    function validateSignUpForm(form) {
-      // Todo implement validation and errors
+    function validateSignUpForm(user) {
+      if (!user.firstname || !user.lastname || !user.email || !user.confirmemail || !user.password || !user.confirmpassword) {
+        signup_error("Bitte alle Felder ausfüllen");
+        return false;
+      }
+      if (user.email !== user.confirmemail) {
+        signup_error("Email Adressen stimmen nicht überein");
+        return false;
+      }
+      if (user.password !== user.confirmpassword) {
+        signup_error("Passwörter stimmen nicht überein");
+        return false;
+      }
+      if (user.policy !== true) {
+        signup_error("Privacy und membership policy muss akzeptiert werden.");
+        return false;
+      }
       return true;
+    }
+
+    function signup_error(message) {
+      document.querySelector("#signup_error").innerHTML = message;
     }
 
     function toggleUI() {
@@ -266,7 +307,11 @@
         });
         images.sort(((a, b) => parseInt(a.label) - parseInt(b.label)));
         const context = { images: images };
-        document.querySelector("#gallery").innerHTML = Handlebars.templates.image(context);
+        if (images > 0) {
+          document.querySelector("#gallery").innerHTML = Handlebars.templates.image(context);
+        } else {
+          document.querySelector("#gallery").innerHTML = "Kein Bilder vorhanden. Füge den erstes Bild hinzu!"
+        }
         addAnimation();
       });
     }
