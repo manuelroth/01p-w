@@ -9,7 +9,7 @@ templates['image'] = template({"1":function(container,depth0,helpers,partials,da
     + alias4(((helper = (helper = helpers.year || (depth0 != null ? depth0.year : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"year","hash":{},"data":data}) : helper)))
     + "</span>"
     + alias4(((helper = (helper = helpers.caption || (depth0 != null ? depth0.caption : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"caption","hash":{},"data":data}) : helper)))
-    + "\n    <span class=\"fullscreen\"></span>\n    <a href=\"https://01p-w.com/2018\" alt=\""
+    + "\n    <button class=\"addsingle\">+</button>\n    <span class=\"fullscreen\"></span>\n    <a href=\"https://01p-w.com/2018\" alt=\""
     + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
     + "\">\n        <span class=\"galeriebutton\"></span>\n    </a>\n</div>\n<a href=\"https://01p-w.com/2018/"
     + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
@@ -17,7 +17,7 @@ templates['image'] = template({"1":function(container,depth0,helpers,partials,da
     + alias4(((helper = (helper = helpers.downloadUrl || (depth0 != null ? depth0.downloadUrl : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"downloadUrl","hash":{},"data":data}) : helper)))
     + "\">\n        <p class=\"number\">"
     + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
-    + "</p>\n        <button class=\"deletesingle\">&#x1F5D1;</button>\n         <button class=\"addsingle\">+</button>\n        <div class=\"cross\"></div>\n    </article>\n</a>\n";
+    + "</p>\n        <button class=\"deletesingle\">&#x1F5D1;</button>\n      \n        <div class=\"cross\"></div>\n    </article>\n</a>\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
