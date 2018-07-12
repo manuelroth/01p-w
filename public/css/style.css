@@ -288,11 +288,11 @@ input:focus {
   width: 24px;
   border-left: 1px solid #fff;
 }
-.addsingle{
-	right:48px;
-	height: 24px;
+.addsingle {
+  right: 48px;
+  height: 24px;
   width: 24px;
-	border-left: 1px solid #fff;
+  border-left: 1px solid #fff;
 }
 a {
   color: inherit;
@@ -357,18 +357,18 @@ a {
   display: none !important;
   cursor: pointer;
 }
-#popup{
-position:fixed;
-	width:400px;
-	background:#d4d4d4;
-	height:400px;
-	left:50%;
-	top:50%;
-	 -webkit-transform: translate(-50%, -50%);
-	 -moz-transform: translate(-50%, -50%);
-	  transform: translate(-50%, -50%);
-	padding:15px;
-	z-index:100;
+#popup {
+  position: fixed;
+  width: 400px;
+  background: #d4d4d4;
+  height: 400px;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  padding: 15px;
+  z-index: 100;
 }
 .number {
   position: absolute;
@@ -386,7 +386,8 @@ position:fixed;
   background-color: #000;
   color: #fff;
 }
-#gallery .number, #gallery .deletesingle {
+#gallery .number,
+#gallery .deletesingle {
   display: block;
 }
 .cross {
@@ -400,8 +401,8 @@ position:fixed;
   display: none;
   cursor: pointer;
 }
-.deletesingle{
-  position: absolute;
+.deletesingle {
+  position: relative;
   top: 0;
   right: 0;
   height: auto;
