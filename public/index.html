@@ -245,15 +245,26 @@
     function getImagesByUserId(userId) {
       firebase.firestore().collection("images").where("uid", "==", userId).onSnapshot(function (querySnapshot) {
         let images = [];
-        document.imageCount = querySnapshot.size;
+        let index = 0;
         querySnapshot.forEach((doc) => {
-          images.push(Object.assign({}, doc.data(), { id: doc.id }));
+          index++;
+          images.push(Object.assign({}, doc.data(), { id: doc.id, label: getLabel(index) }));
         });
         images.sort(((a, b) => parseInt(a.label) - parseInt(b.label)));
         const context = { images: images };
         document.querySelector("#gallery").innerHTML = Handlebars.templates.image(context);
         addAnimation();
       });
+    }
+
+    function getLabel(index) {
+      let label = "";
+      if (index < 9) {
+        label = "0" + index;
+      } else {
+        label = label + index;
+      }
+      return label;
     }
 
     function addImage(event) {
@@ -301,18 +312,10 @@
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
             const yearAndWeek = getWeek(new Date());
-            let label = "";
-            if (document.imageCount < 9) {
-              const labelNumber = document.imageCount + 1;
-              label = "0" + labelNumber;
-            } else {
-              label = document.imageCount + 1 + "";
-            }
             firebase.firestore().collection("images").add({
               caption: document.querySelector("#caption").value,
               imagePath: uploadTask.snapshot.ref.fullPath,
               downloadUrl: downloadURL,
-              label: label,
               uid: firebase.auth().currentUser.uid,
               week: yearAndWeek[1].toString(),
               year: yearAndWeek[0].toString()
