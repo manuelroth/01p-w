@@ -197,7 +197,7 @@
   <div id="gallery" class="hidden">
     <!--template defined in ./js/templates/image.handlebars will be inserted here-->
   </div>
-  <div id="popup">
+  <div id="popup" class="hidden">
     <!--
 		<p>Do you want to delete this image?</p>
 		<br>
@@ -223,10 +223,6 @@
         const firestore = firebase.firestore();
         const settings = { timestampsInSnapshots: true };
         firestore.settings(settings);
-        // const email = "oliver.kerrison@neusicht.ch";
-        // const password = "onepasswordperweek";
-        // const displayName = "Oliver Kerrison";
-        // signIn(email, password);
 
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
@@ -254,7 +250,7 @@
       event.preventDefault();
       const email = document.querySelector("#login_email").value;
       const password = document.querySelector("#login_password").value;
-      firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+      firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
         console.error(`(signIn): (${error.code}) ${error.message}`);
         document.querySelector("#login_error").innerHTML = "Benutzername oder Passwort ist ungültig.";
       });
@@ -279,7 +275,7 @@
       };
 
       if (validateSignUpForm(user)) {
-        firebase.auth().createUserWithEmailAndPassword(user.email, user.password).catch(function (error) {
+        firebase.auth().createUserWithEmailAndPassword(user.email, user.password).catch((error) => {
           console.error(`(signUp): (${error.code}) ${error.message}`);
           signup_error("Es ist ein Fehler bei der Registrierung aufgetreten.");
         });
@@ -316,6 +312,7 @@
       document.querySelector("#logout").classList.toggle("hidden");
       document.querySelector("#loginfield").classList.toggle("hidden");
       document.querySelector("#gallery").classList.toggle("hidden");
+      document.querySelector("#popup").classList.toggle("hidden");
     }
 
     function getImagesByUserId(userId) {
@@ -328,7 +325,7 @@
         });
         images.sort(((a, b) => parseInt(a.label) - parseInt(b.label)));
         const context = { images: images };
-        if (images > 0) {
+        if (images.length > 0) {
           document.querySelector("#gallery").innerHTML = Handlebars.templates.image(context);
         } else {
           document.querySelector("#gallery").innerHTML = "Kein Bilder vorhanden. Füge den erstes Bild hinzu!"
