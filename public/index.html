@@ -272,7 +272,7 @@
       document.querySelector("#addimagebutton").disabled = true;
       var file = document.querySelector("#image").files[0];
       var storageRef = firebase.storage().ref();
-      const yearAndWeek = getWeek(new Date());
+      const yearAndWeek = getYearAndWeek(new Date());
       var fileName = firebase.auth().currentUser.uid + "/" + yearAndWeek[0] + "/" + yearAndWeek[1] + "-" + getUUID();
       var uploadTask = storageRef.child(fileName).put(file);
 
@@ -311,7 +311,7 @@
         }, function () {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-            const yearAndWeek = getWeek(new Date());
+            const yearAndWeek = getYearAndWeek(new Date());
             firebase.firestore().collection("images").add({
               caption: document.querySelector("#caption").value,
               imagePath: uploadTask.snapshot.ref.fullPath,
@@ -328,21 +328,16 @@
         });
     }
 
-    function getWeek(d) {
+    function getYearAndWeek(d) {
       d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-      // Set to nearest Thursday: current date + 4 - current day number
-      // Make Sunday's day number 7
       d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
-      // Get first day of year
       var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1)); event.preventDefault();
-      // Calculate full weeks to nearest Thursday
       var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-      // Return array of year and week number
       return [d.getUTCFullYear(), weekNo];
     }
 
     function setImageLabel() {
-      const yearAndWeek = getWeek(new Date());
+      const yearAndWeek = getYearAndWeek(new Date());
       document.querySelector("#imagelabel").innerHTML = "Lade dein Bild für die Woche " + yearAndWeek[1] + "/" + yearAndWeek[0] + " hoch:";
     }
 
