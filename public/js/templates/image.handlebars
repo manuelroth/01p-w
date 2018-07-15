@@ -13,8 +13,8 @@
 <a href="https://01p-w.com/2018/{{label}}" alt="Link to photo">
     <article class="image inactive" data-piio-bck="{{downloadUrl}}">
         <p class="number">{{label}}</p>
+        <button class="deletesingle" data-id="{{id}}" onclick="deleteImage(event)">&#x1F5D1;</button>
         <div class="cross"></div>
     </article>
 </a>
-<button class="deletesingle" data-id="{{id}}" onclick="deleteImage(event)">&#x1F5D1;</button>
 {{/each}}

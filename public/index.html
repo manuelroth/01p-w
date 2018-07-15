@@ -234,7 +234,7 @@
         });
 
       } catch (error) {
-        console.error(`(error): ${error}`);
+        console.error(`(error): ${JSON.stringify(error)}`);
       }
     });
 
@@ -358,7 +358,7 @@
         document.querySelector("#image").value = "";
         document.querySelector("#addimagebutton").disabled = false;
       } catch (error) {
-        console.error(`(error): ${error}`);
+        console.error(`(error): ${JSON.stringify(error)}`);
       }
     }
 
@@ -376,6 +376,7 @@
     }
 
     async function deleteImage(event) {
+      event.preventDefault();
       try {
         const doc = await firebase.firestore().collection("images").doc(event.target.dataset.id).get();
         if (doc.exists) {
@@ -384,7 +385,7 @@
           await firebase.firestore().collection("images").doc(event.target.dataset.id).delete();
         }
       } catch (error) {
-        console.error(`(error): ${error}`);
+        console.error(`(error): ${JSON.stringify(error)}`);
       }
     }
 

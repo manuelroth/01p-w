@@ -405,6 +405,7 @@ a {
 }
 .deletesingle {
   position: relative;
+  float: right;
   top: 0;
   right: 0;
   height: auto;
@@ -413,6 +414,7 @@ a {
   background-color: #e5e5e5;
   color: #000;
   display: none;
+  cursor: pointer;
 }
 #gallery {
   padding: 59px 0 0;
