@@ -315,7 +315,6 @@
           index++;
           images.push(Object.assign({}, doc.data(), { id: doc.id, label: getLabel(index) }));
         });
-        images.sort(((a, b) => parseInt(a.label) - parseInt(b.label)));
         const context = { images: images };
         if (images.length > 0) {
           document.querySelector("#gallery").innerHTML = Handlebars.templates.image(context);
