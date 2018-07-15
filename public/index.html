@@ -300,15 +300,14 @@
     }
 
     function toggleUI() {
-      document.querySelector("#user").classList.toggle("hidden");
-      document.querySelector("#logout").classList.toggle("hidden");
-      document.querySelector("#loginfield").classList.toggle("hidden");
-      document.querySelector("#gallery").classList.toggle("hidden");
-      document.querySelector("#popup").classList.toggle("hidden");
+      const elements = ["#user", "#logout", "#loginfield", "#gallery", "#popup"];
+      for (const element of elements) {
+        document.querySelector(element).classList.toggle("hidden");
+      }
     }
 
     function getImagesByUserId(userId) {
-      firebase.firestore().collection("images").where("uid", "==", userId).orderBy("uid").orderBy("year").orderBy("week").onSnapshot((querySnapshot) => {
+      firebase.firestore().collection("images").where("uid", "==", userId).orderBy("year").orderBy("week").onSnapshot((querySnapshot) => {
         let images = [];
         let index = 0;
         querySnapshot.forEach((doc) => {
