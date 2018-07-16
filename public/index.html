@@ -211,7 +211,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       try {
 	if(window.loggedIn) {
-	  toggleUI();
+	  showLoginPage(true);
 	}
         setImageLabel();
         let app = firebase.app();
@@ -247,7 +247,7 @@
         const email = document.querySelector("#login_email").value;
         const password = document.querySelector("#login_password").value;
         await firebase.auth().signInWithEmailAndPassword(email, password);
-        toggleUI();
+        showLoginPage(true);
       } catch (error) {
 	document.querySelector("#login_error").innerHTML = "Benutzername oder Passwort ist ungültig.";
         console.error(`(error): ${JSON.stringify(error)}`);
@@ -256,7 +256,7 @@
 
     async function signOut() {
       await firebase.auth().signOut();
-      toggleUI();
+      showLoginPage(false);
     }
 
     function signUp(event) {
@@ -303,11 +303,24 @@
     function signup_error(message) {
       document.querySelector("#signup_error").innerHTML = message;
     }
-
-    function toggleUI() {
-      const elements = ["#user", "#logout", "#loginfield", "#gallery", "#popup"];
-      for (const element of elements) {
-        document.querySelector(element).classList.toggle("hidden");
+    
+    function showLoginPage(showLoginPage) {
+      const loginElements = ["#loginfield"];
+      const userElements = ["#user", "#logout", "#loginfield", "#gallery", "#popup"];
+      if(showLoginPage) {
+	for (const loginElement of loginElements) {
+	  document.querySelector(loginElement).classList.remove("hidden");
+	}
+	for (const userElement of userElements) {
+	  document.querySelector(userElement).classList.add("hidden");
+	}
+      } else {
+        for (const loginElement of loginElements) {
+	  document.querySelector(loginElement).classList.add("hidden");
+	}
+	for (const userElement of userElements) {
+	  document.querySelector(userElement).classList.remove("hidden");
+	}
       }
     }
 
