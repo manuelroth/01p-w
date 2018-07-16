@@ -210,6 +210,9 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       try {
+	if(window.user !== undefined) {
+	  toggleUI();
+	}
         setImageLabel();
         let app = firebase.app();
         const firestore = firebase.firestore();
@@ -218,10 +221,10 @@
 
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
-            toggleUI();
+            window.user = user;
             if (!user.displayName) {
               user.updateProfile({
-                displayName: `${document.user.firstname} ${document.user.lastname}`
+                displayName: `${window.userProfile.firstname} ${window.userProfile.lastname}`
               }).then(function () {
                 document.querySelector("#user").textContent = user.displayName;
               });
@@ -238,20 +241,22 @@
       }
     });
 
-    function signIn(event) {
-      event.preventDefault();
-      const email = document.querySelector("#login_email").value;
-      const password = document.querySelector("#login_password").value;
-      firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
-        console.error(`(signIn): (${error.code}) ${error.message}`);
-        document.querySelector("#login_error").innerHTML = "Benutzername oder Passwort ist ungültig.";
-      });
+    async function signIn(event) {
+      try {      
+	event.preventDefault();
+        const email = document.querySelector("#login_email").value;
+        const password = document.querySelector("#login_password").value;
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+        toggleUI();
+      } catch (error) {
+	document.querySelector("#login_error").innerHTML = "Benutzername oder Passwort ist ungültig.";
+        console.error(`(error): ${JSON.stringify(error)}`);
+      }
     }
 
-    function signOut() {
-      firebase.auth().signOut().then(function () {
-        toggleUI();
-      });
+    async function signOut() {
+      await firebase.auth().signOut();
+      toggleUI();
     }
 
     function signUp(event) {
@@ -271,7 +276,7 @@
           console.error(`(signUp): (${error.code}) ${error.message}`);
           signup_error("Es ist ein Fehler bei der Registrierung aufgetreten.");
         });
-        document.user = user;
+        window.userProfile = user;
       }
     }
 
