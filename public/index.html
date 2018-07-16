@@ -210,7 +210,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       try {
-	if(window.user !== undefined) {
+	if(window.loggedIn) {
 	  toggleUI();
 	}
         setImageLabel();
@@ -221,7 +221,7 @@
 
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
-            window.user = user;
+            window.loggedIn = true;
             if (!user.displayName) {
               user.updateProfile({
                 displayName: `${window.userProfile.firstname} ${window.userProfile.lastname}`
