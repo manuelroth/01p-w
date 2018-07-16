@@ -210,9 +210,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       try {
-	if(window.loggedIn) {
-	  showLoginPage(false);
-	}
         setImageLabel();
         let app = firebase.app();
         const firestore = firebase.firestore();
@@ -221,10 +218,10 @@
 
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
-            window.loggedIn = true;
+            toggleUI();
             if (!user.displayName) {
               user.updateProfile({
-                displayName: `${window.userProfile.firstname} ${window.userProfile.lastname}`
+                displayName: `${document.user.firstname} ${document.user.lastname}`
               }).then(function () {
                 document.querySelector("#user").textContent = user.displayName;
               });
@@ -241,22 +238,20 @@
       }
     });
 
-    async function signIn(event) {
-      try {      
-	event.preventDefault();
-        const email = document.querySelector("#login_email").value;
-        const password = document.querySelector("#login_password").value;
-        await firebase.auth().signInWithEmailAndPassword(email, password);
-        showLoginPage(false);
-      } catch (error) {
-	document.querySelector("#login_error").innerHTML = "Benutzername oder Passwort ist ungültig.";
-        console.error(`(error): ${JSON.stringify(error)}`);
-      }
+    function signIn(event) {
+      event.preventDefault();
+      const email = document.querySelector("#login_email").value;
+      const password = document.querySelector("#login_password").value;
+      firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
+        console.error(`(signIn): (${error.code}) ${error.message}`);
+        document.querySelector("#login_error").innerHTML = "Benutzername oder Passwort ist ungültig.";
+      });
     }
 
-    async function signOut() {
-      await firebase.auth().signOut();
-      showLoginPage(true);
+    function signOut() {
+      firebase.auth().signOut().then(function () {
+        toggleUI();
+      });
     }
 
     function signUp(event) {
@@ -276,7 +271,7 @@
           console.error(`(signUp): (${error.code}) ${error.message}`);
           signup_error("Es ist ein Fehler bei der Registrierung aufgetreten.");
         });
-        window.userProfile = user;
+        document.user = user;
       }
     }
 
@@ -303,24 +298,11 @@
     function signup_error(message) {
       document.querySelector("#signup_error").innerHTML = message;
     }
-    
-    function showLoginPage(showLoginPage) {
-      const loginElements = ["#loginfield"];
-      const userElements = ["#user", "#logout", "#loginfield", "#gallery", "#popup"];
-      if(showLoginPage) {
-	for (const loginElement of loginElements) {
-	  document.querySelector(loginElement).classList.remove("hidden");
-	}
-	for (const userElement of userElements) {
-	  document.querySelector(userElement).classList.add("hidden");
-	}
-      } else {
-        for (const loginElement of loginElements) {
-	  document.querySelector(loginElement).classList.add("hidden");
-	}
-	for (const userElement of userElements) {
-	  document.querySelector(userElement).classList.remove("hidden");
-	}
+
+    function toggleUI() {
+      const elements = ["#user", "#logout", "#loginfield", "#gallery", "#popup"];
+      for (const element of elements) {
+        document.querySelector(element).classList.toggle("hidden");
       }
     }
 
