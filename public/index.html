@@ -211,7 +211,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       try {
 	if(window.loggedIn) {
-	  showLoginPage(true);
+	  showLoginPage(false);
 	}
         setImageLabel();
         let app = firebase.app();
@@ -247,7 +247,7 @@
         const email = document.querySelector("#login_email").value;
         const password = document.querySelector("#login_password").value;
         await firebase.auth().signInWithEmailAndPassword(email, password);
-        showLoginPage(true);
+        showLoginPage(false);
       } catch (error) {
 	document.querySelector("#login_error").innerHTML = "Benutzername oder Passwort ist ungültig.";
         console.error(`(error): ${JSON.stringify(error)}`);
@@ -256,7 +256,7 @@
 
     async function signOut() {
       await firebase.auth().signOut();
-      showLoginPage(false);
+      showLoginPage(true);
     }
 
     function signUp(event) {
