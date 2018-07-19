@@ -157,7 +157,8 @@ h2 {
 }
 
 #loginfield input[type="checkbox"]:checked {
-  background-color: #9e9e9e;
+ 
+	content:"×";
 }
 .checkbox {
   width: auto;
