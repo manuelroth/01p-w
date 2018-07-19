@@ -405,7 +405,7 @@ a {
   display: none;
   cursor: pointer;
 }
-.deletesingle {
+.deletesingle, .downloadsingle {
   position: relative;
   float: right;
   top: 0;
