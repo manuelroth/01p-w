@@ -4,6 +4,7 @@ node_js:
 before_deploy: "handlebars ./public/js/templates/image.handlebars -f ./public/js/templates/templates.js;"
 deploy:
   provider: firebase
+  skip_cleanup: true
   token:
     secure: nlZ2MpYRp7M2SVxQH85H8uoEgJUG1VBGMg6gOwIb+JRHCB2YR3i5/eLW406hzj5m/ppfvUZlmTbRr2S8yAIbIP/x/ztqjQMRTDpYAxxmE7uSDEYXxVwLittGMZLjb1UIDLAtM8mvcY7ZSMfiCwNzoxlq73LqIP8IUt28MQFlvAqQtvFV872or3r0XOfFBMnt9YNZZyVyYJ6Nv72geMIhXUxTlMBlQtc7M6qJvlpKh3n05v0i/n9pn/K/Exz+YCpQGlnL2oIfkePv2QUtKYw3VCXOnyEANsYgbPEe7xdChWEhb/DMlKtScxur/OncqO6b30o5thnu9RnYoZ2tJws1a1jGMfOo6Xh9WcTOkZEZC/mLZjzWoVtMcpJ43Da2ctGASH/gPcArbMeuR7/BcZ4Z8vD9F63AU3WPXm8AdMjxIKPlLDqYXOALDHttRU652mO9MyJ59eelz1pGfkIq7lW71AzBxfScm39ax6EuKPcRDgnqwDk5mLoCWWVJYd9sQM0PyaeLiiQ9b5wuLWvj+1Pu2rWmzTKdTANaxOJ+elIIIFYQ1hgD4uLPJMBdTIDB1ywxp3WnX7jRRtao/J/DoKJqcGuHPwoxkH70iMf2f+VFSYTpQp1mzHkr6VvrTpZOGb6zVf7f4e+UfdHWiBX065EqPOE+usKA7uRVekUJU+wSCHc=
   message: "Automatically deployed through travis ci"
