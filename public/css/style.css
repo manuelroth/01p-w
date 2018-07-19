@@ -376,14 +376,14 @@ a {
 }
 .imageoption{
 position:absolute;
-right:0;
+right:-24px;
 top:0;
-height:25px;
-width:25px;
+height:24px;
+width:48px;
 	
 }
 .imageoption:hover{
-width:75px;
+right:24px;
 }
 .number {
   position: absolute;
@@ -422,8 +422,8 @@ width:75px;
   float: right;
   top: 0;
   right: 0;
-  height: 25px;
-  width: 25px;
+  height: 24px;
+  width: 24px;
   padding: 5px 7px;
   background-color: #e5e5e5;
   color: #000;
