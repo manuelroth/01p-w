@@ -6,14 +6,17 @@
         {{year}}</span>{{caption}}
     <button class="addsingle">+</button>
     <span class="fullscreen"></span>
-    <a href="https://01p-w.com/2018" alt="{{label}}">
+    <a href="https://beta.01p-w.com/2018" alt="{{label}}">
         <span class="galeriebutton"></span>
     </a>
 </div>
-<a href="https://01p-w.com/2018/{{label}}" alt="Link to photo">
+<a href="https://beta.01p-w.com/2018/{{label}}" alt="Link to photo">
     <article class="image inactive" data-piio-bck="{{downloadUrl}}">
+        <div class="imageoption">
         <p class="number">{{label}}</p>
-        <button class="deletesingle" data-id="{{id}}" onclick="deleteImage(event)">&#x1F5D1;</button>
+        <button class="deletesingle" data-id="{{id}}" onclick="deleteImage(event)"></button>
+        <button class="downloadsingle" data-id="{{id}}" onclick="downloadImage(event)"></button>
+        </div>
         <div class="cross"></div>
     </article>
 </a>
