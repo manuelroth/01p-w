@@ -155,7 +155,8 @@ h2 {
   padding: 0px;
   margin: 0 3px 0 0;
 }
-
+#forgotpw{
+float:right;}
 #loginfield input[type="checkbox"]:checked {
  
 	content:"×";
