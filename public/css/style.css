@@ -416,13 +416,14 @@ width:75px;
   display: none;
   cursor: pointer;
 }
+
 .deletesingle, .downloadsingle {
   position: relative;
   float: right;
   top: 0;
   right: 0;
-  height: auto;
-  width: auto;
+  height: 25px;
+  width: 25px;
   padding: 5px 7px;
   background-color: #e5e5e5;
   color: #000;
