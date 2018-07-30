@@ -376,14 +376,20 @@ a {
 }
 .imageoption{
 position:absolute;
-right:-24px;
+right:0;
 top:0;
 height:24px;
-width:48px;
+width:72px;
 	
 }
-.imageoption:hover{
+.imageoption .buttons{
+right:-24px;
+-webkit-transition: right 0.5s;
+    transition: right 0.5s;}
+.imageoption:hover .buttons{
 right:24px;
+-webkit-transition: right 0.5s;
+    transition: right 0.5s;
 }
 .number {
   position: absolute;
@@ -417,7 +423,7 @@ right:24px;
   cursor: pointer;
 }
 
-.deletesingle, .downloadsingle {
+.buttons button {
   position: relative;
   float: right;
   top: 0;
@@ -429,7 +435,18 @@ right:24px;
   color: #000;
   display: none;
   cursor: pointer;
+border:none;
 }
+.buttons button:hover{
+	background-color: #000;
+}
+.deletesingle{
+	background-image: url(../img/delete.png);
+}
+.downloadsingle{
+	background-image: url(../img/download.png);
+}
+
 #gallery {
   padding: 59px 0 0;
   top: 0;
