@@ -423,7 +423,7 @@ right:24px;
   cursor: pointer;
 }
 
-.deletesingle, .downloadsingle {
+.buttons button {
   position: relative;
   float: right;
   top: 0;
@@ -436,6 +436,9 @@ right:24px;
   display: none;
   cursor: pointer;
 border:none;
+}
+.buttons button:hover{
+	background-color: #000;
 }
 .deletesingle{
 	background-image: url(../img/delete.png);
