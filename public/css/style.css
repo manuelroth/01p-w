@@ -382,8 +382,14 @@ height:24px;
 width:72px;
 	
 }
-.imageoption:hover{
-
+.imageoption .buttons{
+right:-24px;
+-webkit-transition: right 0.5s;
+    transition: right 0.5s;}
+.imageoption:hover .buttons{
+right:24px;
+-webkit-transition: right 0.5s;
+    transition: right 0.5s;
 }
 .number {
   position: absolute;
@@ -429,6 +435,13 @@ width:72px;
   color: #000;
   display: none;
   cursor: pointer;
+border:none;
+}
+.deletesingle{
+	background-image: url(../img/cross.png);
+}
+.downloadsingle{
+	background-image: url(../img/cross.png);
 }
 
 #gallery {
