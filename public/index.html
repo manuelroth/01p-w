@@ -216,12 +216,12 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       try {
+        debugger;
         setImageLabel();
         let app = firebase.app();
         const firestore = firebase.firestore();
         const settings = { timestampsInSnapshots: true };
         firestore.settings(settings);
-
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
             toggleUI();
@@ -378,7 +378,9 @@
 
     function setImageLabel() {
       const yearAndWeek = getYearAndWeek(new Date());
-      document.querySelector("#imagelabel").innerHTML = `Lade dein Bild für die Woche ${yearAndWeek[1]}/${yearAndWeek[0]} hoch:`;
+      if (document.querySelector("#imagelabel")) {
+        document.querySelector("#imagelabel").innerHTML = `Lade dein Bild für die Woche ${yearAndWeek[1]}/${yearAndWeek[0]} hoch:`;
+      }
     }
 
     async function deleteImage(event) {
