@@ -216,7 +216,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       try {
-        debugger;
         setImageLabel();
         let app = firebase.app();
         const firestore = firebase.firestore();
@@ -308,7 +307,9 @@
     function toggleUI() {
       const elements = ["#user", "#logout", "#loginfield", "#gallery", "#popup"];
       for (const element of elements) {
-        document.querySelector(element).classList.toggle("hidden");
+        if (document.querySelector(element)) {
+          document.querySelector(element).classList.toggle("hidden");
+        }
       }
     }
 
