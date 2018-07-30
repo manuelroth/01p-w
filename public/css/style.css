@@ -376,14 +376,14 @@ a {
 }
 .imageoption{
 position:absolute;
-right:-24px;
+right:0;
 top:0;
 height:24px;
-width:48px;
+width:72px;
 	
 }
 .imageoption:hover{
-right:24px;
+
 }
 .number {
   position: absolute;
@@ -430,6 +430,7 @@ right:24px;
   display: none;
   cursor: pointer;
 }
+
 #gallery {
   padding: 59px 0 0;
   top: 0;
