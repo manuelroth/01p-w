@@ -170,6 +170,9 @@
     </ul>-->
   </footer>
   <div id="gallery" class="hidden">
+<form name="addimage" id="addimageform" onsubmit="addImage(event)">
+      <input type="file" id="image" name="image" accept="image/*" required>
+    </form>
     <!--template defined in ./js/templates/image.handlebars will be inserted here-->
   </div>
   <!--<div id="popup" class="hidden">
