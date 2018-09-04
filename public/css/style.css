@@ -258,6 +258,9 @@ input:focus {
   overflow: scroll;
   max-height: calc(100% - 58px);
 }
+.emptycw{
+  color:#BBBBBB;
+}
 .visible {
   display: inline-block;
 }
