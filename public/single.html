@@ -252,7 +252,8 @@ a link to reset your password.</span>
             <span onclick="return false" class="currentweek">
                 {{week}}</span>
             <span onclick="return false" class="currentyear">
-                {{year}}</span>{{caption}}
+                {{year}}</span><input class="captioninput" onFocus="if(this.value == this.defaultValue) this.value = '';" onblur = "if(!this.value) this.value = this.defaultValue;" value="[Insert Caption here]" id="captioninput" type="text" name="Caption"/>
+{{caption}}
             <span class="fullscreen"></span>
             <a href="https://beta.01p-w.com/2018" alt="{{label}}">
                 <span class="galeriebutton"></span>
