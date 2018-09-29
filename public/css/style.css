@@ -155,11 +155,11 @@ h2 {
   padding: 0px;
   margin: 0 3px 0 0;
 }
-#forgotpw{
-float:right;}
+#forgotpw {
+  float: right;
+}
 #loginfield input[type="checkbox"]:checked {
- 
-	content:"×";
+  content: "×";
 }
 .checkbox {
   width: auto;
@@ -258,8 +258,8 @@ input:focus {
   overflow: scroll;
   max-height: calc(100% - 58px);
 }
-.emptycw{
-  color:#BBBBBB;
+.emptycw {
+  color: #bbbbbb;
 }
 .visible {
   display: inline-block;
@@ -377,22 +377,22 @@ a {
   padding: 15px;
   z-index: 100;
 }
-.imageoption{
-position:absolute;
-right:0;
-top:0;
-height:24px;
-width:72px;
-	
+.imageoption {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 24px;
+  width: 72px;
 }
-.imageoption .buttons{
-right:-24px;
--webkit-transition: right 0.5s;
-    transition: right 0.5s;}
-.imageoption:hover .buttons{
-right:24px;
--webkit-transition: right 0.5s;
-    transition: right 0.5s;
+.imageoption .buttons {
+  right: -24px;
+  -webkit-transition: right 0.5s;
+  transition: right 0.5s;
+}
+.imageoption:hover .buttons {
+  right: 24px;
+  -webkit-transition: right 0.5s;
+  transition: right 0.5s;
 }
 .number {
   position: absolute;
@@ -411,7 +411,8 @@ right:24px;
   color: #fff;
 }
 #gallery .number,
-#gallery .deletesingle, #gallery .downloadsingle {
+#gallery .deletesingle,
+#gallery .downloadsingle {
   display: block;
 }
 .cross {
@@ -438,16 +439,16 @@ right:24px;
   color: #000;
   display: none;
   cursor: pointer;
-border:none;
+  border: none;
 }
-.buttons button:hover{
-	background-color: #000;
+.buttons button:hover {
+  background-color: #000;
 }
-.deletesingle{
-	background-image: url(../img/delete.png);
+.deletesingle {
+  background-image: url(../img/delete.png);
 }
-.downloadsingle{
-	background-image: url(../img/download.png);
+.downloadsingle {
+  background-image: url(../img/download.png);
 }
 
 #gallery {
