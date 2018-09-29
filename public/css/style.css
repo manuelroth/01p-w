@@ -68,6 +68,9 @@ h2 {
 #waitinglist:hover {
   color: #999999;
 }
+#login {
+  cursor: pointer;
+}
 #description {
   background-color: #e5e5e5;
   height: 100vh;
