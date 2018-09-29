@@ -388,15 +388,16 @@ a {
   width: 72px;
 }
 .imageoption .buttons {
-  right: -24px;
+  position: relative;
+  right: 40px;
   -webkit-transition: right 0.5s;
   transition: right 0.5s;
 }
-.imageoption:hover .buttons {
+/* .imageoption:hover .buttons {
   right: 24px;
   -webkit-transition: right 0.5s;
   transition: right 0.5s;
-}
+} */
 .number {
   position: absolute;
   top: 0;
@@ -443,6 +444,7 @@ a {
   display: none;
   cursor: pointer;
   border: none;
+  cursor: pointer;
 }
 .buttons button:hover {
   background-color: #000;
