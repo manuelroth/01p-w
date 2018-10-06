@@ -278,27 +278,33 @@ a link to reset your password.</span>
         <p id="signup_error"></p>
       </div>
     </div>
-
+  </div>
+  <div id="templateContainer"></div>
+  <script id="entry-template" type="text/x-handlebars-template">
+  <div id="captionbar" class="captionbar hidden">
+    <span onclick="$('#week').toggleClass('visible');" id="currentweek">All</span>
+    <span onclick="$('#year').toggleClass('visible');" id="currentyear" style="left: 35px;">2018</span>
+    <ul class="dropdown" id="week">
+      {{#each weeks}}
+      <a onclick="showSingle('{{id}}')" alt="{{label}}">
+        <li>{{label}}</li>
+      </a>
+      {{/each}}
+    </ul>
+    <ul class="dropdown" id="year">
+      {{#each years}}
+      <a onclick="" alt="{{year}}">
+        <li>{{year}}</li>
+      </a>
+      {{/each}}
+    </ul>
+    <span class="fullscreen"></span>
+    <span class="galeriebutton"></span>
   </div>
   <div id="gallery" class="hidden">
-    <script id="entry-template" type="text/x-handlebars-template">
-      <div class="captionbar">
-          <select class="currentweek">
-            {{#each weeks}}
-            <option value="volvo">{{week}}</option>
-            {{/each}}
-          </select>
-        <select class="currentyear">
-          {{#each years}}
-          <option value="volvo">{{year}}</option>
-          {{/each}}
-        </select>
-        <span class="fullscreen"></span>
-        <span class="galeriebutton"></span>
-      </div>
       {{#each images}}
         {{#if downloadUrl}}
-          <article class="image inactive" data-piio-bck="{{downloadUrl}}">
+          <article onclick="showSingle('{{id}}')" class="image inactive" data-piio-bck="{{downloadUrl}}">
             <div class="imageoption">
               <p class="number">{{label}}</p>
               <div class="buttons">
@@ -322,55 +328,23 @@ a link to reset your password.</span>
         </article>
         {{/if}}
       {{/each}}
-  </script>
   </div>
-  <div id="single hidden">
-
-
-    <script id="entry-template-single" type="text/x-handlebars-template">
- 	 {{#each images}}
- <footer>
-    <div id="captionbar">
-      <span onclick="return false" class="currentweek">
-                {{week}}</span>
-            <span onclick="return false" class="currentyear">
-                {{year}}</span><input class="captioninput" onFocus="if(this.value == this.defaultValue) this.value = '';" onblur = "if(!this.value) this.value = this.defaultValue;" value="[Insert Caption here]" id="captioninput" type="text" name="Caption"/>
-{{caption}}
+  <div id="single" class="hidden">
+    {{#each images}}
+    <div id="single-{{id}}" class="hidden">
+      <article class="image" data-piio-bck="{{downloadUrl}}"></article>
+      <ul>
+        <li class="prev">
+          <a onclick="showSingle('{{prevId}}')"></a>
+        </li>
+        <li class="next">
+          <a onclick="showSingle('{{nextId}}')"></a>
+        </li>
+      </ul>
     </div>
-
-        <article class="image inactive" style="background-image:url(media/46p-w_2018.jpg)"></article>
-	  <ul class="dropdown" id="week">
-				<li><a href="2018/01">01</a></li>
-				<li class="emptycw">02</li>
-				<li><a href="2018/03">03</a></li>
-				<li><a href="2018/04">04</a></li>
-				<li><a href="2018/05">05</a></li>
-			</ul>
-
-    <ul class="dropdown" id="year">
-      <a href="https://01p-w.com/2018" alt="2018">
-        <li>2018</li>
-      </a>
-    </ul>
-  </footer>
-
-<ul>
-<li class="prev">
-                        <a href="https://01p-w.com/2018/01/">
-                        </a>
-                    </li>
-    <li class="top">
-        <a href="https://01p-w.com/2018/">
-            Übersicht (2018)
-        </a>
-    </li> 
-    
-                <li class="next">
-                    <a href="https://01p-w.com/2018/02/">
-                    </a>
-                </li></ul>
- 	 {{/each}}
- 	  </script>
+    {{/each}}
+  </div>
+  </script>
   </div>
   <!--  <article class="empty">
 <inp
@@ -433,6 +407,20 @@ a link to reset your password.</span>
       }
     }
 
+    function showSingle(id) {
+      $("#single > div").each(function () {
+        $(this).addClass("hidden");
+      });
+      if (id) {
+        $("#gallery").addClass("hidden");
+        $(`#single`).removeClass("hidden");
+        $(`#single-${id}`).removeClass("hidden");
+      } else {
+        $("#gallery").removeClass("hidden");
+        $(`#single`).addClass("hidden");
+      }
+    }
+
     function signOut() {
       firebase.auth().signOut().then(function () {
         toggleUI();
@@ -485,7 +473,7 @@ a link to reset your password.</span>
     }
 
     function toggleUI() {
-      const elements = ["#user", "#login", "#logout", "#loginfield", "#gallery", "#popup", "#description"];
+      const elements = ["#user", "#login", "#logout", "#loginfield", "#popup", "#description"];
       for (const element of elements) {
         if (document.querySelector(element)) {
           document.querySelector(element).classList.toggle("hidden");
@@ -504,8 +492,10 @@ a link to reset your password.</span>
         }
         ref.onSnapshot(async (querySnapshot) => {
           const images = [];
-          const weeksSet = new Set();
-          weeksSet.add("All");
+          const weeks = [];
+          weeks.push({
+            label: "All"
+          });
           const yearsSet = new Set();
           let index = 0;
 
@@ -514,13 +504,27 @@ a link to reset your password.</span>
             const label = getLabel(index);
             const data = doc.data();
             images.push(Object.assign({}, data, { id: doc.id, label: label }));
-            weeksSet.add(label);
+            weeks.push({
+              id: doc.id,
+              label: label
+            });
             yearsSet.add(data.year);
           });
           const yearAndWeek = getYearAndWeek(new Date());
 
-          const weeks = [];
-          for (let week of weeksSet) weeks.push({ week: week });
+          for (let i = 0; i < images.length; i++) {
+            if (i === 0) {
+              images[i].prevId = images[images.length - 1].id;
+              images[i].nextId = images[i + 1].id;
+            } else if (i === images.length - 1) {
+              images[i].prevId = images[i - 1].id;
+              images[i].nextId = images[0].id;
+            } else {
+              images[i].prevId = images[i - 1].id;
+              images[i].nextId = images[i + 1].id;
+            }
+          }
+
           const years = [];
           for (let year of yearsSet) years.push({ year: year });
 
@@ -533,8 +537,10 @@ a link to reset your password.</span>
             window.handlebarsTemplate = document.querySelector("#entry-template").innerHTML;
           }
           const template = Handlebars.compile(window.handlebarsTemplate);
-          document.querySelector("#gallery").innerHTML = template(context);
-          // addAnimation();
+          document.querySelector("#templateContainer").innerHTML = template(context);
+          toggleUIElement("#gallery");
+          toggleUIElement("#captionbar");
+          addEventListeners();
         });
       });
 
@@ -617,53 +623,12 @@ a link to reset your password.</span>
       return uuid;
     }
 
-    function addAnimation() {
-      $(".currentweek").click(function () {
-        $("#week").toggleClass("visible");
-      });
-      $("#gallery .image").click(function () {
-        $(this).toggleClass("active");
-        $(this).toggleClass("inactive");
-      });
-      $("#waitinglist a").click(function () {
-        $("#loginfield")
-          .addClass("down")
-          .removeClass("up");
-      });
-      $("#loginfield #closecross").click(function () {
-        $("#loginfield")
-          .addClass("up")
-          .removeClass("down");
-      });
-      $(".currentyear, #yearfull").click(function () {
-        $("#year").toggleClass("visible");
-      });
-      $("#download").click(function () {
-        $("#downloadtype").toggleClass("visible");
-      });
-      $("#view").click(function () {
-        $(".inactive").hide();
-      });
-      $("#all").click(function () {
-        $(".inactive").show();
-        $("#gallery .image").addClass("inactive");
-        $("#gallery .image").removeClass("active");
-      });
+    function addEventListeners() {
       document.querySelector(".fullscreen").addEventListener("click", () => {
         if (screenfull.enabled) {
           screenfull.request();
-          $("header, footer, .captionbar").addClass("invisible");
-          $("article").addClass("fullsize");
-        } else {
-        }
-      });
-
-      document.querySelector(".cross").addEventListener("click", () => {
-        if (screenfull.enabled) {
-          screenfull.exit();
-          $("header, footer, .captionbar").removeClass("invisible");
-          $("article").removeClass("fullsize");
-        } else {
+          // $("header, footer, .captionbar").addClass("invisible");
+          // $("article").addClass("fullsize");
         }
       });
     }
