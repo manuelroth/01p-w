@@ -505,15 +505,16 @@ a link to reset your password.</span>
         ref.onSnapshot(async (querySnapshot) => {
           const images = [];
           const weeksSet = new Set();
+          weeksSet.add("All");
           const yearsSet = new Set();
-
           let index = 0;
 
           querySnapshot.forEach((doc) => {
             index++;
+            const label = getLabel(index);
             const data = doc.data();
-            images.push(Object.assign({}, data, { id: doc.id, label: getLabel(index) }));
-            weeksSet.add(data.week);
+            images.push(Object.assign({}, data, { id: doc.id, label: label }));
+            weeksSet.add(label);
             yearsSet.add(data.year);
           });
           const yearAndWeek = getYearAndWeek(new Date());
@@ -528,7 +529,6 @@ a link to reset your password.</span>
             weeks: weeks,
             years: years
           };
-          debugger;
           if (!window.handlebarsTemplate) {
             window.handlebarsTemplate = document.querySelector("#entry-template").innerHTML;
           }
