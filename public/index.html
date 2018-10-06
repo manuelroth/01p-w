@@ -281,17 +281,21 @@ a link to reset your password.</span>
 
   </div>
   <div id="gallery" class="hidden">
-
-    <div class="captionbar hidden">
-      <span onclick="return false" class="currentweek">
-        All</span>
-      <span onclick="return false" class="currentyear">
-        2018</span>
-      <span class="fullscreen"></span>
-      <span class="galeriebutton"></span>
-    </div>
-
     <script id="entry-template" type="text/x-handlebars-template">
+      <div class="captionbar">
+          <select class="currentweek">
+            {{#each weeks}}
+            <option value="volvo">{{week}}</option>
+            {{/each}}
+          </select>
+        <select class="currentyear">
+          {{#each years}}
+          <option value="volvo">{{year}}</option>
+          {{/each}}
+        </select>
+        <span class="fullscreen"></span>
+        <span class="galeriebutton"></span>
+      </div>
       {{#each images}}
         {{#if downloadUrl}}
           <article class="image inactive" data-piio-bck="{{downloadUrl}}">
@@ -499,16 +503,32 @@ a link to reset your password.</span>
           }
         }
         ref.onSnapshot(async (querySnapshot) => {
-          let images = [];
+          const images = [];
+          const weeksSet = new Set();
+          const yearsSet = new Set();
+
           let index = 0;
 
           querySnapshot.forEach((doc) => {
             index++;
-            images.push(Object.assign({}, doc.data(), { id: doc.id, label: getLabel(index) }));
+            const data = doc.data();
+            images.push(Object.assign({}, data, { id: doc.id, label: getLabel(index) }));
+            weeksSet.add(data.week);
+            yearsSet.add(data.year);
           });
           const yearAndWeek = getYearAndWeek(new Date());
 
-          const context = { images: images };
+          const weeks = [];
+          for (let week of weeksSet) weeks.push({ week: week });
+          const years = [];
+          for (let year of yearsSet) years.push({ year: year });
+
+          const context = {
+            images: images,
+            weeks: weeks,
+            years: years
+          };
+          debugger;
           if (!window.handlebarsTemplate) {
             window.handlebarsTemplate = document.querySelector("#entry-template").innerHTML;
           }
