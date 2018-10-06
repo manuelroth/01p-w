@@ -387,7 +387,6 @@ a link to reset your password.</span>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       try {
-        setImageLabel();
         let app = firebase.app();
         const firestore = firebase.firestore();
         const settings = { timestampsInSnapshots: true };
@@ -554,13 +553,6 @@ a link to reset your password.</span>
       let yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
       let weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
       return [d.getUTCFullYear(), weekNo];
-    }
-
-    function setImageLabel() {
-      const yearAndWeek = getYearAndWeek(new Date());
-      if (document.querySelector("#imagelabel")) {
-        document.querySelector("#imagelabel").innerHTML = `Lade dein Bild für die Woche ${yearAndWeek[1]}/${yearAndWeek[0]} hoch:`;
-      }
     }
 
     async function deleteImage(event) {
