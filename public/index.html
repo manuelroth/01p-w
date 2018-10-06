@@ -307,12 +307,12 @@ a link to reset your password.</span>
             </div>
           </article>
         {{else}}
-        <article class="image inactive" style="background-color: #9e9e9e;" onclick="document.querySelector('#addimageinput').click();">
+        <article class="image inactive" style="background-color: #9e9e9e;" onclick="document.querySelector('#addimageinput-{{id}}').click();">
           <div class="imageoption">
             <p class="number">{{label}}</p>
           </div>
           <div id="addimageelement">
-            <input type="file" id="addimageinput" class="hidden" name="image" accept="image/*" onchange="addImage(event)">
+            <input type="file" id="addimageinput-{{id}}" class="hidden" name="image" accept="image/*" data-id="{{id}}" onchange="addImage(event)">
             <span>+</span>
           </div>
         </article>
@@ -490,28 +490,34 @@ a link to reset your password.</span>
     }
 
     function getImagesByUserId(userId) {
-      firebase.firestore().collection("images").where("uid", "==", userId).orderBy("year").orderBy("week").onSnapshot(async (querySnapshot) => {
-        let images = [];
-        let index = 0;
-        querySnapshot.forEach((doc) => {
-          index++;
-          images.push(Object.assign({}, doc.data(), { id: doc.id, label: getLabel(index) }));
-        });
-        const yearAndWeek = getYearAndWeek(new Date());
+      const ref = firebase.firestore().collection("images").where("uid", "==", userId).orderBy("year").orderBy("week");
+      ref.get().then(async (querySnapshot) => {
+        if (querySnapshot.size === 0) {
+          for (let i = 1; i <= 7; i++) {
+            const yearAndWeek = getYearAndWeek(new Date());
+            await createImage(i, yearAndWeek[0].toString());
+          }
+        }
+        ref.onSnapshot(async (querySnapshot) => {
+          let images = [];
+          let index = 0;
 
-        const context = { images: images };
-        if (images.length === 0) {
-          images.push({
-            label: getLabel(1)
+          querySnapshot.forEach((doc) => {
+            index++;
+            images.push(Object.assign({}, doc.data(), { id: doc.id, label: getLabel(index) }));
           });
-        }
-        if (!window.handlebarsTemplate) {
-          window.handlebarsTemplate = document.querySelector("#entry-template").innerHTML;
-        }
-        const template = Handlebars.compile(window.handlebarsTemplate);
-        document.querySelector("#gallery").innerHTML = template(context);
-        // addAnimation();
+          const yearAndWeek = getYearAndWeek(new Date());
+
+          const context = { images: images };
+          if (!window.handlebarsTemplate) {
+            window.handlebarsTemplate = document.querySelector("#entry-template").innerHTML;
+          }
+          const template = Handlebars.compile(window.handlebarsTemplate);
+          document.querySelector("#gallery").innerHTML = template(context);
+          // addAnimation();
+        });
       });
+
     }
 
     function getLabel(index) {
@@ -524,10 +530,22 @@ a link to reset your password.</span>
       return label;
     }
 
+    async function createImage(week, year) {
+      try {
+        await firebase.firestore().collection("images").add({
+          uid: firebase.auth().currentUser.uid,
+          week: week,
+          year: year
+        });
+      } catch (error) {
+        console.error(`(error): ${JSON.stringify(error)}`);
+      }
+    }
+
     async function addImage(event) {
       try {
         event.preventDefault();
-        const file = document.querySelector("#addimageinput").files[0];
+        const file = document.querySelector(`#addimageinput-${event.target.dataset.id}`).files[0];
         const storageRef = firebase.storage().ref();
         const yearAndWeek = getYearAndWeek(new Date());
         const fileName = `${firebase.auth().currentUser.uid}/${yearAndWeek[0]}/${yearAndWeek[1]}-${getUUID()}`;
@@ -535,12 +553,9 @@ a link to reset your password.</span>
           contentDisposition: `attachment; filename="${file.name}"`
         });
         const downloadUrl = await snapshot.ref.getDownloadURL();
-        await firebase.firestore().collection("images").add({
+        await firebase.firestore().collection("images").doc(event.target.dataset.id).update({
           imagePath: snapshot.ref.fullPath,
-          downloadUrl: downloadUrl,
-          uid: firebase.auth().currentUser.uid,
-          week: yearAndWeek[1].toString(),
-          year: yearAndWeek[0].toString()
+          downloadUrl: downloadUrl
         });
       } catch (error) {
         console.error(`(error): ${JSON.stringify(error)}`);
@@ -562,7 +577,10 @@ a link to reset your password.</span>
         if (doc.exists) {
           var data = doc.data();
           await firebase.storage().ref().child(data.imagePath).delete();
-          await firebase.firestore().collection("images").doc(event.target.dataset.id).delete();
+          await firebase.firestore().collection("images").doc(event.target.dataset.id).update({
+            imagePath: null,
+            downloadUrl: null
+          });
         }
       } catch (error) {
         console.error(`(error): ${JSON.stringify(error)}`);
