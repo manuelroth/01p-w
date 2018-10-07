@@ -286,14 +286,14 @@ a link to reset your password.</span>
     <span onclick="$('#year').toggleClass('visible');" id="currentyear" style="left: 35px;">2018</span>
     <ul class="dropdown" id="week">
       {{#each weeks}}
-      <a onclick="showSingle(event, '{{id}}')" alt="{{label}}">
+      <a class="dropdownWeekItem dropdownWeekItem-{{year}} {{hidden}}" onclick="showSingle(event, '{{id}}')" alt="{{label}}">
         <li>{{label}}</li>
       </a>
       {{/each}}
     </ul>
     <ul class="dropdown" id="year">
       {{#each years}}
-      <a onclick="" alt="{{year}}">
+      <a onclick="changeYear(event, '{{year}}')" alt="{{year}}">
         <li>{{year}}</li>
       </a>
       {{/each}}
@@ -396,6 +396,7 @@ a link to reset your password.</span>
 
     function showSingle(event, id) {
       event.stopPropagation();
+      $('#week').toggleClass('visible');
       $("#single > div").each(function () {
         $(this).addClass("hidden");
       });
@@ -407,6 +408,14 @@ a link to reset your password.</span>
         $("#gallery").removeClass("hidden");
         $(`#single`).addClass("hidden");
       }
+    }
+
+    function changeYear(event, year) {
+      event.stopPropagation();
+      $('#week').toggleClass('visible');
+      $('#year').toggleClass('visible');
+      $(`.dropdownWeekItem`).addClass('hidden');
+      $(`.dropdownWeekItem-${year}`).removeClass('hidden');
     }
 
     function signOut() {
@@ -486,19 +495,23 @@ a link to reset your password.</span>
           });
           const yearsSet = new Set();
           let index = 0;
+          const yearAndWeek = getYearAndWeek(new Date());
 
           querySnapshot.forEach((doc) => {
             index++;
             const label = getLabel(index);
             const data = doc.data();
             images.push(Object.assign({}, data, { id: doc.id, label: label }));
+            const currentYear = yearAndWeek[0].toString();
+            const hidden = currentYear === data.year ? "" : "hidden";
             weeks.push({
               id: doc.id,
-              label: label
+              label: label,
+              year: data.year,
+              hidden: hidden
             });
             yearsSet.add(data.year);
           });
-          const yearAndWeek = getYearAndWeek(new Date());
 
           for (let i = 0; i < images.length; i++) {
             if (i === 0) {
