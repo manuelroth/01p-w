@@ -333,7 +333,7 @@ a link to reset your password.</span>
       {{/each}}
   </div>
   <div id="single" class="hidden">
-    {{#each images}}
+    {{#each singleImages}}
     <div id="single-{{id}}" class="hidden">
       <article class="image" data-piio-bck="{{downloadUrl}}"></article>
       <ul>
@@ -505,6 +505,7 @@ a link to reset your password.</span>
         }
         ref.onSnapshot(async (querySnapshot) => {
           const images = [];
+          const singleImages = [];
           const weeks = [];
 
           weeks.push({
@@ -516,27 +517,35 @@ a link to reset your password.</span>
           querySnapshot.forEach((doc) => {
             const data = doc.data();
             const label = getLabel(data.week);
+            if (data.downloadUrl !== undefined && data.downloadUrl !== "") {
+              singleImages.push(Object.assign({}, data, { id: doc.id, label: label }));
+              const hidden = currentYear.toString() === data.year ? "" : "hidden";
+              weeks.push({
+                id: doc.id,
+                label: label,
+                year: data.year,
+                hidden: hidden
+              });
+            }
             images.push(Object.assign({}, data, { id: doc.id, label: label }));
-            const hidden = currentYear.toString() === data.year ? "" : "hidden";
-            weeks.push({
-              id: doc.id,
-              label: label,
-              year: data.year,
-              hidden: hidden
-            });
             yearsSet.add(data.year);
           });
 
-          for (let i = 0; i < images.length; i++) {
-            if (i === 0) {
-              images[i].prevId = images[images.length - 1].id;
-              images[i].nextId = images[i + 1].id;
-            } else if (i === images.length - 1) {
-              images[i].prevId = images[i - 1].id;
-              images[i].nextId = images[0].id;
+          for (let i = 0; i < singleImages.length; i++) {
+            if (singleImages.length === 1) {
+              singleImages[0].prevId = singleImages[0].id;
+              singleImages[0].nextId = singleImages[0].id;
             } else {
-              images[i].prevId = images[i - 1].id;
-              images[i].nextId = images[i + 1].id;
+              if (i === 0) {
+                singleImages[i].prevId = singleImages[singleImages.length - 1].id;
+                singleImages[i].nextId = singleImages[i + 1].id;
+              } else if (i === singleImages.length - 1) {
+                singleImages[i].prevId = singleImages[i - 1].id;
+                singleImages[i].nextId = singleImages[0].id;
+              } else {
+                singleImages[i].prevId = singleImages[i - 1].id;
+                singleImages[i].nextId = singleImages[i + 1].id;
+              }
             }
           }
 
@@ -545,6 +554,7 @@ a link to reset your password.</span>
 
           const context = {
             images: images,
+            singleImages: singleImages,
             weeks: weeks,
             years: years
           };
