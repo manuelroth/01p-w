@@ -304,20 +304,23 @@ a link to reset your password.</span>
   <div id="gallery" class="hidden">
       {{#each images}}
         {{#if downloadUrl}}
-          <article onclick="showSingle(event, '{{id}}')" class="image inactive" data-piio-bck="{{downloadUrl}}">
+          <article id="imageDialog-{{id}}" onclick="showSingle(event, '{{id}}')" class="image" data-piio-bck="{{downloadUrl}}">
             <div class="imageoption">
               <p class="number">{{label}}</p>
               <div class="buttons">
-                <button class="deletesingle" data-id="{{id}}" onclick="deleteImage(event)">de</button>
-                <button class="downloadsingle" data-id="{{id}}" onclick="event.stopPropagation()"><a href="{{downloadUrl}}" download>dw</a></button>
+                <button class="deletesingle" onclick="showDeleteImage(event, '{{id}}')">de</button>
+                <button class="downloadsingle" onclick="event.stopPropagation()"><a href="{{downloadUrl}}" download>dw</a></button>
               </div>
-            <div class="deletemessage hidden">Are you sure you want to delete this image?<br>
-              <input type="submit" class="submitbutton" value="Yes">
-              <input type="cancel" class="submitbutton" value="No">
+            </div>
+          </article>
+          <article id="deleteImageDialog-{{id}}" class="image hidden" style="background-color: #9e9e9e;">
+            <div class="deletemessage">Are you sure you want to delete this image?<br>
+              <button class="submitbutton" data-id="{{id}}" onclick="deleteImage(event)">Yes</button>
+              <button class="submitbutton" onclick="hideDeleteImage(event, '{{id}}')">No</button>
             </div>
           </article>
         {{else}}
-        <article class="image inactive" style="background-color: #9e9e9e;" onclick="document.querySelector('#addimageinput-{{id}}').click();">
+        <article id="addImageDialog-{{id}}" class="image" style="background-color: #9e9e9e;" onclick="document.querySelector('#addimageinput-{{id}}').click();">
           <div class="imageoption">
             <p class="number">{{label}}</p>
           </div>
@@ -598,6 +601,20 @@ a link to reset your password.</span>
       } catch (error) {
         console.error(`(error): ${JSON.stringify(error)}`);
       }
+    }
+
+    function showDeleteImage(event, id) {
+      event.preventDefault();
+      event.stopPropagation();
+      document.querySelector(`#imageDialog-${id}`).classList.add("hidden");
+      document.querySelector(`#deleteImageDialog-${id}`).classList.remove("hidden");
+    }
+
+    function hideDeleteImage(event, id) {
+      event.preventDefault();
+      event.stopPropagation();
+      document.querySelector(`#imageDialog-${id}`).classList.remove("hidden");
+      document.querySelector(`#deleteImageDialog-${id}`).classList.add("hidden");
     }
 
     function getUUID() {
