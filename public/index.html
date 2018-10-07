@@ -396,7 +396,7 @@ a link to reset your password.</span>
 
     function showSingle(event, id) {
       event.stopPropagation();
-      $('#week').toggleClass('visible');
+      $('#week').removeClass('visible');
       $("#single > div").each(function () {
         $(this).addClass("hidden");
       });
@@ -415,6 +415,7 @@ a link to reset your password.</span>
       $('#week').toggleClass('visible');
       $('#year').toggleClass('visible');
       $(`.dropdownWeekItem`).addClass('hidden');
+      $(`.dropdownWeekItem-`).removeClass('hidden');
       $(`.dropdownWeekItem-${year}`).removeClass('hidden');
     }
 
@@ -488,21 +489,23 @@ a link to reset your password.</span>
           }
         }
         ref.onSnapshot(async (querySnapshot) => {
+          const yearAndWeek = getYearAndWeek(new Date());
+          const currentYear = yearAndWeek[0].toString();
           const images = [];
           const weeks = [];
+
           weeks.push({
-            label: "All"
+            label: "All",
+            hidden: ""
           });
           const yearsSet = new Set();
           let index = 0;
-          const yearAndWeek = getYearAndWeek(new Date());
 
           querySnapshot.forEach((doc) => {
             index++;
             const label = getLabel(index);
             const data = doc.data();
             images.push(Object.assign({}, data, { id: doc.id, label: label }));
-            const currentYear = yearAndWeek[0].toString();
             const hidden = currentYear === data.year ? "" : "hidden";
             weeks.push({
               id: doc.id,
