@@ -480,17 +480,30 @@ a link to reset your password.</span>
     }
 
     function getImagesByUserId(userId) {
-      const ref = firebase.firestore().collection("images").where("uid", "==", userId).orderBy("year").orderBy("week");
+      const yearAndWeek = getYearAndWeek(new Date());
+      const currentWeek = yearAndWeek[1];
+      const currentYear = yearAndWeek[0];
+      const ref = firebase.firestore().collection("images").where("uid", "==", userId).orderBy("year", "desc").orderBy("week", "desc");
       ref.get().then(async (querySnapshot) => {
         if (querySnapshot.size === 0) {
-          for (let i = 1; i <= 7; i++) {
-            const yearAndWeek = getYearAndWeek(new Date());
-            await createImage(i, yearAndWeek[0].toString());
+          for (let i = 0; i < 7; i++) {
+            await createImage(currentWeek - i, currentYear.toString());
+          }
+        } else {
+          const firstDoc = querySnapshot.docs[0].data();
+          // if most actual document is not the current week
+          if (firstDoc.year === currentYear && firstDoc.week !== currentWeek) {
+            const numberOfWeeks = currentWeek - firstDoc.week;
+            for (let i = 0; i < numberOfWeeks; i++) {
+              await createImage(currentWeek - i, currentYear.toString());
+            }
+          } else if (firstDoc.year !== currentYear && firstDoc.week !== currentWeek) {
+            for (let i = 0; i < currentWeek; i++) {
+              await createImage(currentWeek - i, currentYear.toString());
+            }
           }
         }
         ref.onSnapshot(async (querySnapshot) => {
-          const yearAndWeek = getYearAndWeek(new Date());
-          const currentYear = yearAndWeek[0].toString();
           const images = [];
           const weeks = [];
 
@@ -499,14 +512,12 @@ a link to reset your password.</span>
             hidden: ""
           });
           const yearsSet = new Set();
-          let index = 0;
 
           querySnapshot.forEach((doc) => {
-            index++;
-            const label = getLabel(index);
             const data = doc.data();
+            const label = getLabel(data.week);
             images.push(Object.assign({}, data, { id: doc.id, label: label }));
-            const hidden = currentYear === data.year ? "" : "hidden";
+            const hidden = currentYear.toString() === data.year ? "" : "hidden";
             weeks.push({
               id: doc.id,
               label: label,
