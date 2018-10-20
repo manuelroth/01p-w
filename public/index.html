@@ -72,7 +72,6 @@
       properties,
       described as an emanation of reality.</p>
   </div>
-
   <div id="termsofuse" class="fullpagetext hidden">
     <p>01p-w users: As of May 29, 2018, Fantastic Fox, Inc. has acquired Flickr. Your continued use of the Flickr
       services will be subject to these Terms of Use. These Terms of Use also apply to your use of the Services,
@@ -286,7 +285,7 @@ a link to reset your password.</span>
     <span onclick="$('#year').toggleClass('visible');" id="currentyear" style="left: 35px;">2018</span>
     <ul class="dropdown" id="week">
       {{#each weeks}}
-      <a class="dropdownWeekItem dropdownWeekItem-{{year}} {{hidden}}" onclick="showSingle(event, '{{id}}')" alt="{{label}}">
+      <a class="dropdownWeekItem dropdownWeekItem-{{year}} {{hidden}}" onclick="showSingle(event, '{{id}}', '{{caption}}')" alt="{{label}}">
         <li>{{label}}</li>
       </a>
       {{/each}}
@@ -298,13 +297,20 @@ a link to reset your password.</span>
       </a>
       {{/each}}
     </ul>
+    <div id="caption" class="hidden">
+      <div id="captionInput">
+        <input type="text"  id="captionInputElement" onkeyup="captionInputTextInserted()" placeholder="Insert caption here"/>
+        <input type="button" id="captionSaveButton" value="Save" onclick="saveCaption(event)" disabled/> 
+      </div>
+      <div id="captionText"></div>
+    </div>
     <span class="fullscreen"></span>
     <span class="galeriebutton"></span>
   </div>
   <div id="gallery" class="hidden">
       {{#each images}}
         {{#if downloadUrl}}
-          <article id="imageDialog-{{id}}" onclick="showSingle(event, '{{id}}')" class="image" data-piio-bck="{{downloadUrl}}">
+          <article id="imageDialog-{{id}}" onclick="showSingle(event, '{{id}}', '{{caption}}')" class="image" data-piio-bck="{{downloadUrl}}">
             <div class="imageoption">
               <p class="number">{{label}}</p>
               <div class="buttons">
@@ -338,10 +344,10 @@ a link to reset your password.</span>
       <article class="image" data-piio-bck="{{downloadUrl}}"></article>
       <ul>
         <li class="prev">
-          <a onclick="showSingle(event, '{{prevId}}')"></a>
+          <a onclick="showSingle(event, '{{prevId}}', '{{prevCaption}}')"></a>
         </li>
         <li class="next">
-          <a onclick="showSingle(event, '{{nextId}}')"></a>
+          <a onclick="showSingle(event, '{{nextId}}', '{{nextCaption}}')"></a>
         </li>
       </ul>
     </div>
@@ -394,8 +400,12 @@ a link to reset your password.</span>
       }
     }
 
-    function showSingle(event, id) {
-      event.stopPropagation();
+    function showSingle(event, id, caption) {
+      if (event) {
+        event.stopPropagation();
+      }
+      window.singleElementPage = id;
+      $("#caption").removeClass("hidden");
       $('#week').removeClass('visible');
       $("#single > div").each(function () {
         $(this).addClass("hidden");
@@ -404,9 +414,39 @@ a link to reset your password.</span>
         $("#gallery").addClass("hidden");
         $(`#single`).removeClass("hidden");
         $(`#single-${id}`).removeClass("hidden");
+        if (caption !== "") {
+          $("#captionInput").addClass("hidden");
+          $("#captionText").removeClass("hidden");
+          $("#captionText").text(caption);
+        } else {
+          $("#captionInput").removeClass("hidden");
+          $("#captionText").addClass("hidden");
+          $("#captionInputElement").data("id", id);
+        }
       } else {
+        // when all is clicked
+        window.singleElementPage = undefined;
+        $("#caption").addClass("hidden");
         $("#gallery").removeClass("hidden");
         $(`#single`).addClass("hidden");
+      }
+    }
+
+    async function saveCaption(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const id = $("#captionInputElement").data("id");
+      const caption = $("#captionInputElement").val();
+      await firebase.firestore().collection("images").doc(id).update({
+        caption: caption
+      });
+    }
+
+    function captionInputTextInserted() {
+      if ($("#captionInputElement").val().length !== 0) {
+        $("#captionSaveButton").attr('disabled', false);
+      } else {
+        $("#captionSaveButton").attr('disabled', true);
       }
     }
 
@@ -524,6 +564,7 @@ a link to reset your password.</span>
                 id: doc.id,
                 label: label,
                 year: data.year,
+                caption: data.caption,
                 hidden: hidden
               });
             }
@@ -535,16 +576,24 @@ a link to reset your password.</span>
             if (singleImages.length === 1) {
               singleImages[0].prevId = singleImages[0].id;
               singleImages[0].nextId = singleImages[0].id;
+              singleImages[0].prevCaption = singleImages[0].caption;
+              singleImages[0].nextCaption = singleImages[0].caption;
             } else {
               if (i === 0) {
                 singleImages[i].prevId = singleImages[singleImages.length - 1].id;
                 singleImages[i].nextId = singleImages[i + 1].id;
+                singleImages[i].prevCaption = singleImages[singleImages.length - 1].caption;
+                singleImages[i].nextCaption = singleImages[i + 1].caption;
               } else if (i === singleImages.length - 1) {
                 singleImages[i].prevId = singleImages[i - 1].id;
                 singleImages[i].nextId = singleImages[0].id;
+                singleImages[i].prevCaption = singleImages[i - 1].caption;
+                singleImages[i].nextCaption = singleImages[0].caption;
               } else {
                 singleImages[i].prevId = singleImages[i - 1].id;
                 singleImages[i].nextId = singleImages[i + 1].id;
+                singleImages[i].prevCaption = singleImages[i - 1].caption;
+                singleImages[i].nextCaption = singleImages[i + 1].caption;
               }
             }
           }
@@ -566,6 +615,10 @@ a link to reset your password.</span>
           toggleUIElement("#gallery");
           toggleUIElement("#captionbar");
           addEventListeners();
+          if (window.singleElementPage !== undefined) {
+            const image = context.images.find((image) => image.id === window.singleElementPage);
+            showSingle(null, window.singleElementPage, image.caption);
+          }
         });
       });
 

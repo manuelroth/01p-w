@@ -40,6 +40,12 @@ header {
   padding: 3px 0 0;
   background-color: #e5e5e5;
 }
+
+#caption {
+  display: flex;
+  justify-content: center;
+}
+
 h1 {
   font-size: 20px;
   font-weight: 100;
@@ -517,5 +523,5 @@ article img {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
