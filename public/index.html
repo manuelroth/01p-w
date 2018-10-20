@@ -299,8 +299,8 @@ a link to reset your password.</span>
     </ul>
     <div id="caption" class="hidden">
       <div id="captionInput">
-        <input type="text"  id="captionInputElement" onkeyup="captionInputTextInserted()" placeholder="Insert caption here"/>
-        <input type="button" id="captionSaveButton" value="Save" onclick="saveCaption(event)" disabled/> 
+        <input type="text"  id="captionInputElement" onkeyup="captionInputTextInserted()" onfocus="$('#captionSaveButton').removeClass('hidden')" onfocusout="$('#captionSaveButton').addClass('hidden')" placeholder="Insert caption here"/>
+        <input type="button" id="captionSaveButton" class="hidden" value="Save" onclick="saveCaption(event)" disabled/> 
       </div>
       <div id="captionText"></div>
     </div>
