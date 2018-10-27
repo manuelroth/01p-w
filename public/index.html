@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -43,23 +43,20 @@
       <a href="/" alt="Home">01p-w</a>
     </h1>
     <h1 id="user" class="hidden"></h1>
-    <h1 id="logout" class="hidden">
-      <a href="" onclick="signOut()">Logout</a>
-    </h1>
-    <h1 id="login">
+    <h1 id="login" class="pointer">
       <a onclick="toggleUIElement('#loginfield')">Sign In</a>
     </h1>
   </header>
-  <div class="optionbar">
-    <ul class="optionleft hidden">
-      <li><a href="mailto:support@01p-w.com">Support</a></li>
-      <li><a id="termsofuselink" href="" onclick="return false">Terms of use</a></li>
-      <li><a id="privacypolicylink" href="" onclick="return false">Privacy Policy</a></li>
-    </ul>
-    <ul class="optionright hidden">
-      <li><a href="" onclick="profileSettings()">Settings</a></li>
-      <li><a href="" onclick="signOut()">Log out</a></li>
-    </ul>
+  <div id="optionbar" class="optionbar hidden">
+    <div class="optionbar optionbar--left">
+      <div class="pointer"><a id="support" href="mailto:support@01p-w.com">Support</a></div>
+      <div class="pointer"><a id="termsofuselink" onclick="toggleUIElement('#termsofuse')">Terms of use</a></div>
+      <div class="pointer"><a id="privacypolicylink" onclick="return false">Privacy Policy</a></div>
+    </div>
+    <div class="optionbar optionbar--right">
+      <div><a onclick="return false">Settings</a></div>
+      <div><a onclick="signOut()">Log out</a></div>
+    </div>
   </div>
   <div id="description">
     <p>01p-w is the outcome of an in-depth research about the essence of photography, its influence on the construction
@@ -281,31 +278,35 @@ a link to reset your password.</span>
   <div id="templateContainer"></div>
   <script id="entry-template" type="text/x-handlebars-template">
   <div id="captionbar" class="captionbar hidden">
-    <span onclick="$('#week').toggleClass('visible');" id="currentweek">All</span>
-    <span onclick="$('#year').toggleClass('visible');" id="currentyear" style="left: 35px;">2018</span>
-    <ul class="dropdown" id="week">
-      {{#each weeks}}
-      <a class="dropdownWeekItem dropdownWeekItem-{{year}} {{hidden}}" onclick="showSingle(event, '{{id}}', '{{caption}}')" alt="{{label}}">
-        <li>{{label}}</li>
-      </a>
-      {{/each}}
-    </ul>
-    <ul class="dropdown" id="year">
-      {{#each years}}
-      <a onclick="changeYear(event, '{{year}}')" alt="{{year}}">
-        <li>{{year}}</li>
-      </a>
-      {{/each}}
-    </ul>
-    <div id="caption" class="hidden">
+    <div class="captionbar--left">
+      <div onclick="$('#week').toggleClass('visible');" id="currentweek" class="captionbar-button">All</div>
+      <div onclick="$('#year').toggleClass('visible');" id="currentyear" class="captionbar-button">2018</div>
+      <ul class="dropdown" id="week">
+        {{#each weeks}}
+        <a class="dropdownWeekItem dropdownWeekItem-{{year}} {{hidden}}" onclick="showSingle(event, '{{id}}', '{{caption}}')" alt="{{label}}">
+          <li>{{label}}</li>
+        </a>
+        {{/each}}
+      </ul>
+      <ul class="dropdown" id="year">
+        {{#each years}}
+        <a onclick="changeYear(event, '{{year}}')" alt="{{year}}">
+          <li>{{year}}</li>
+        </a>
+        {{/each}}
+      </ul>
+    </div>
+    <div id="caption" class="captionbar-center hidden">
       <div id="captionInput">
         <input type="text"  id="captionInputElement" onkeyup="captionInputTextInserted()" onfocus="$('#captionSaveButton').removeClass('hidden')" onfocusout="$('#captionSaveButton').addClass('hidden')" placeholder="Insert caption here"/>
         <input type="button" id="captionSaveButton" class="hidden" value="Save" onclick="saveCaption(event)" disabled/> 
       </div>
       <div id="captionText"></div>
     </div>
-    <span class="fullscreen"></span>
-    <span class="galeriebutton"></span>
+    <div class="captionbar--right">
+      <div class="captionbar-button fullscreen"></div>
+      <div class="captionbar-button galeriebutton"></div>
+    </div>
   </div>
   <div id="gallery" class="hidden">
       {{#each images}}
@@ -511,7 +512,7 @@ a link to reset your password.</span>
     }
 
     function toggleUI() {
-      const elements = ["#user", "#login", "#logout", "#loginfield", "#popup", "#description"];
+      const elements = ["#user", "#login", "#logout", "#loginfield", "#popup", "#description", "#captionbar"];
       for (const element of elements) {
         if (document.querySelector(element)) {
           document.querySelector(element).classList.toggle("hidden");
@@ -718,6 +719,24 @@ a link to reset your password.</span>
     }
 
     function addEventListeners() {
+      $("header").mouseover(function () {
+        $("#optionbar").removeClass("hidden");
+        $("#captionbar").addClass("hidden");
+      });
+      $("#optionbar").mouseover(function () {
+        $("#optionbar").removeClass("hidden");
+        $("#captionbar").addClass("hidden");
+      });
+
+      $("header").mouseout(function () {
+        $("#optionbar").addClass("hidden");
+        $("#captionbar").removeClass("hidden");
+      });
+      $("#optionbar").mouseout(function () {
+        $("#optionbar").addClass("hidden");
+        $("#captionbar").removeClass("hidden");
+      });
+
       document.querySelector(".fullscreen").addEventListener("click", () => {
         if (screenfull.enabled) {
           screenfull.request();

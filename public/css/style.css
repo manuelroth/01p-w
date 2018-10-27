@@ -16,12 +16,22 @@ body {
 header {
   background-color: #fff;
   position: fixed;
-  top: 0;
   height: 34px;
+  top: 0;
   width: 100%;
   z-index: 2;
   padding: 5px;
 }
+
+.optionbar--left,
+.optionbar--right {
+  flex-grow: 1;
+}
+
+.optionbar--right {
+  justify-content: flex-end;
+}
+
 /*footer{
 	top: 24px;
 	font-size: 16px;
@@ -30,20 +40,58 @@ header {
 	background-color:#e5e5e5;
 	height: 20px;
 }*/
-.captionbar {
-  color: #000;
-  width: 100%;
+
+#gallery,
+#single {
+  position: relative;
+  top: 54px;
+}
+
+.captionbar,
+.optionbar {
   position: fixed;
+  z-index: 2;
+  width: 100%;
   top: 34px;
-  z-index: 5;
+  display: flex;
+  flex-direction: row;
+  color: #000;
   height: 24px;
-  padding: 3px 0 0;
+}
+
+.captionbar {
   background-color: #e5e5e5;
+}
+
+.captionbar--left,
+.captionbar--right {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.captionbar--right {
+  justify-content: flex-end;
+}
+
+.captionbar--center {
+  flex-grow: 2;
+}
+
+.captionbar-button {
+  cursor: pointer;
+  padding: 2px 7px;
+  border-right: 1px solid #fff;
+}
+.captionbar-button:hover {
+  background-color: #000;
+  color: #fff;
 }
 
 #caption {
   display: flex;
   justify-content: center;
+  align-self: center;
 }
 
 h1 {
@@ -64,7 +112,6 @@ h2 {
   float: right;
 }
 #login,
-#logout,
 #waitinglist {
   color: #000;
   float: right;
@@ -73,7 +120,7 @@ h2 {
 #waitinglist:hover {
   color: #999999;
 }
-#login {
+.pointer {
   cursor: pointer;
 }
 #description {
@@ -81,17 +128,6 @@ h2 {
   height: 100vh;
   font-size: 20px;
   padding: 39px 5px 0;
-}
-.captionbar span {
-  position: fixed;
-  cursor: pointer;
-  top: 34px;
-  padding: 2px 7px;
-  border-right: 1px solid #fff;
-}
-.captionbar span:hover {
-  background-color: #000;
-  color: #fff;
 }
 #all {
   left: 0px;
@@ -247,7 +283,6 @@ input:focus {
   border-right: none;
 }
 .galeriebutton {
-  right: 0;
   background-image: url(../img/galerie.png);
   background-size: cover;
   height: 24px;
@@ -257,23 +292,13 @@ input:focus {
 
 .dropdown {
   z-index: 2;
-  top: 59px;
   padding: 5px 0;
-  position: fixed;
+  position: absolute;
   background-color: #e5e5e5;
   color: #999999;
   display: none;
   overflow: scroll;
-  max-height: calc(100% - 58px);
-}
-.emptycw {
-  color: #bbbbbb;
-}
-.visible {
-  display: inline-block;
-}
-.invisible {
-  display: none;
+  top: 24px;
 }
 .dropdown li {
   list-style-type: none;
@@ -284,19 +309,22 @@ input:focus {
   color: #000;
 }
 #year {
-  left: 35px;
-  width: 46px;
+  left: 34px;
+}
+.emptycw {
+  color: #bbbbbb;
+}
+.visible {
+  display: inline-block;
+}
+.invisible {
+  display: none;
 }
 #downloadtype {
   left: 133px;
   width: 88px;
 }
-#week {
-  left: 0;
-  width: 34px;
-}
 .fullscreen {
-  right: 24px;
   background-image: url(../img/fullscreen.png);
   background-size: cover;
   height: 24px;
@@ -317,8 +345,6 @@ a {
   width: 100%;
   height: calc(100% - 58px);
   position: fixed;
-  bottom: 0;
-  left: 0;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
@@ -461,13 +487,6 @@ a {
   background-image: url(../img/download.png);
 }
 
-#gallery {
-  padding: 59px 0 0;
-  top: 0;
-  z-index: 1;
-  position: absolute;
-}
-
 .fullsize {
   height: 100%;
 }
@@ -486,7 +505,7 @@ article img {
     border-right: none;
   }
 
-  .captionbar span {
+  .captionbar div {
     padding: 2px 7px 1px;
   }
   .fullscreen {
