@@ -43,18 +43,18 @@
       <a href="/" alt="Home">01p-w</a>
     </h1>
     <h1 id="user" class="hidden"></h1>
-    <h1 id="login" class="pointer">
+    <h1 id="login">
       <a onclick="toggleUIElement('#loginfield')">Sign In</a>
     </h1>
   </header>
   <div id="optionbar" class="optionbar hidden">
     <div class="optionbar optionbar--left">
-      <div class="pointer"><a id="support" href="mailto:support@01p-w.com">Support</a></div>
-      <div class="pointer"><a id="termsofuselink" onclick="toggleUIElement('#termsofuse')">Terms of use</a></div>
-      <div class="pointer"><a id="privacypolicylink" onclick="return false">Privacy Policy</a></div>
+      <div><a id="support" href="mailto:support@01p-w.com">Support</a></div>
+      <div><a id="termsofuselink" onclick="">Terms of use</a></div>
+      <div><a id="privacypolicylink" onclick="">Privacy Policy</a></div>
     </div>
     <div class="optionbar optionbar--right">
-      <div><a onclick="return false">Settings</a></div>
+      <div><a onclick="toggleUIElement('#profilefield')">Settings</a></div>
       <div><a onclick="signOut()">Log out</a></div>
     </div>
   </div>
@@ -69,14 +69,14 @@
       properties,
       described as an emanation of reality.</p>
   </div>
-  <div id="termsofuse" class="fullpagetext hidden">
+  <div id="termsofuse" class="dialog fullpagetext hidden">
     <p>01p-w users: As of May 29, 2018, Fantastic Fox, Inc. has acquired Flickr. Your continued use of the Flickr
       services will be subject to these Terms of Use. These Terms of Use also apply to your use of the Services,
       where applicable, to purchase photographic prints, videos or other related merchandise, products and
       services (“Products”) through Flickr’s approved third party vendors and retailers (“Flickr Vendors”). For infor-
       mation about how Flickr collects, uses and discloses your information, please see the Flickr Pr</p>
   </div>
-  <div id="privacypolicy" class="fullpagetext hidden">
+  <div id="privacypolicy" class="dialog fullpagetext hidden">
     <p>01p-w users: As of May 29, 2018, Fantastic Fox, Inc. has acquired Flickr. Your continued use of the Flickr
       services will be subject to these Terms of Use. These Terms of Use also apply to your use of the Services,
       where applicable, to purchase photographic prints, videos or other related merchandise, products and
@@ -212,7 +212,7 @@ a link to reset your password.</span>
       </div>
     </div>
   </div>
-  <div id="profilefield" class="up hidden">
+  <div id="profilefield" class="dialog up hidden">
     <div id="pfield">
       <form name="profilesettings" id="settingform" onsubmit="signUp(event)">
         <table>
@@ -719,20 +719,11 @@ a link to reset your password.</span>
     }
 
     function addEventListeners() {
-      $("header").mouseover(function () {
+      $("header, #optionbar, #profilefield").mouseover(function () {
         $("#optionbar").removeClass("hidden");
         $("#captionbar").addClass("hidden");
       });
-      $("#optionbar").mouseover(function () {
-        $("#optionbar").removeClass("hidden");
-        $("#captionbar").addClass("hidden");
-      });
-
-      $("header").mouseout(function () {
-        $("#optionbar").addClass("hidden");
-        $("#captionbar").removeClass("hidden");
-      });
-      $("#optionbar").mouseout(function () {
+      $("header, #optionbar, #profilefield").mouseout(function () {
         $("#optionbar").addClass("hidden");
         $("#captionbar").removeClass("hidden");
       });

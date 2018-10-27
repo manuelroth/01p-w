@@ -32,6 +32,10 @@ header {
   justify-content: flex-end;
 }
 
+.optionbar > div {
+  cursor: pointer;
+}
+
 /*footer{
 	top: 24px;
 	font-size: 16px;
@@ -94,6 +98,11 @@ header {
   align-self: center;
 }
 
+.dialog {
+  position: absolute;
+  top: 80px;
+}
+
 h1 {
   font-size: 20px;
   font-weight: 100;
@@ -120,7 +129,7 @@ h2 {
 #waitinglist:hover {
   color: #999999;
 }
-.pointer {
+#login {
   cursor: pointer;
 }
 #description {
@@ -164,6 +173,15 @@ h2 {
   position: fixed;
   top: 34px;
   left: 0;
+}
+#profilefield {
+  width: 400px;
+  height: auto;
+  position: fixed;
+  top: 54px;
+  right: 0;
+  z-index: 5;
+  background-color: #e5e5e5;
 }
 #lfield,
 #rfield {
