@@ -148,69 +148,79 @@
       </div>
       <div>
         <p id="login_error"></p>
+        <span id="resendEmail" class="hidden">
+          <a class="pointer" onclick="resendVerificationEmail()">Resend verification email</a>
+        </span>
       </div>
     </div>
     <div id="rfield">
-      <form name="registration" id="registrationform" onsubmit="signUp(event)">
-        <table>
-          <tr>
-            <td>
-              <h2>Create an account</h2>
-            </td>
-          </tr>
-          <tr>
-            <td>First name
-              <br>
-              <input id="signup_firstname" type="text" name="firstname" required>
-            </td>
-          </tr>
-          <tr>
-            <td>Last name
-              <br>
-              <input id="signup_lastname" type="text" name="lastname" required>
-            </td>
-          </tr>
-          <tr>
-            <td>Email
-              <br>
-              <input id="signup_email" type="email" name="email" required>
-            </td>
-          </tr>
-          <tr>
-            <td>Confirm email
-              <br>
-              <input id="signup_confirmemail" type="email" name="confirmemail" required>
-            </td>
-          </tr>
-          <tr>
-            <td>Password
-              <br>
-              <input id="signup_password" type="password" name="password" required>
-            </td>
-          </tr>
-          <tr>
-            <td>Confirm password
-              <br>
-              <input id="signup_confirmpassword" type="password" name="confirmpassword" required>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div id="policy" class="checkbox">
-                <input id="signup_policy" type="checkbox" name="policy" />
-                <label for="policy">
-                  I accept and have read the privacy
-                  <br>policy and the membership policy.</label>
-              </div>
-              <div class="submit">
-                <input type="submit" class="submitbutton" value="Sign up">
-              </div>
-            </td>
-          </tr>
-        </table>
-      </form>
-      <div>
-        <p id="signup_error"></p>
+      <div id="registrationFormContainer">
+        <form name="registration" id="registrationform" onsubmit="signUp(event)">
+          <table>
+            <tr>
+              <td>
+                <h2>Create an account</h2>
+              </td>
+            </tr>
+            <tr>
+              <td>First name
+                <br>
+                <input id="signup_firstname" type="text" name="firstname" required>
+              </td>
+            </tr>
+            <tr>
+              <td>Last name
+                <br>
+                <input id="signup_lastname" type="text" name="lastname" required>
+              </td>
+            </tr>
+            <tr>
+              <td>Email
+                <br>
+                <input id="signup_email" type="email" name="email" required>
+              </td>
+            </tr>
+            <tr>
+              <td>Confirm email
+                <br>
+                <input id="signup_confirmemail" type="email" name="confirmemail" required>
+              </td>
+            </tr>
+            <tr>
+              <td>Password
+                <br>
+                <input id="signup_password" type="password" name="password" required>
+              </td>
+            </tr>
+            <tr>
+              <td>Confirm password
+                <br>
+                <input id="signup_confirmpassword" type="password" name="confirmpassword" required>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="policy" class="checkbox">
+                  <input id="signup_policy" type="checkbox" name="policy" />
+                  <label for="policy">
+                    I accept and have read the privacy
+                    <br>policy and the membership policy.</label>
+                </div>
+                <div class="submit">
+                  <input type="submit" class="submitbutton" value="Sign up">
+                </div>
+              </td>
+            </tr>
+          </table>
+        </form>
+        <div>
+          <p id="signup_error"></p>
+        </div>
+      </div>
+      <div id="emailVerification" class="hidden">
+        <p>Your account has been successfully created. Please check your inbox to confirm your address.</p>
+        <p>Didn't receive the email?<a class="pointer" onclick="resendVerificationEmail()">Resend
+            now</a></p>
       </div>
     </div>
   </div>
@@ -381,22 +391,12 @@
         const settings = { timestampsInSnapshots: true };
         firestore.settings(settings);
         firebase.auth().onAuthStateChanged((user) => {
-          if (user) {
+          if (user && user.emailVerified) {
             toggleUI();
-            if (!user.displayName) {
-              user.updateProfile({
-                displayName: `${document.user.firstname} ${document.user.lastname}`
-              }).then(function () {
-                document.querySelector("#user").textContent = user.displayName;
-              });
-            } else {
-              document.querySelector("#user").textContent = user.displayName;
-            }
-
+            document.querySelector("#user").textContent = user.displayName;
             getImagesByUserId(user.uid);
           }
         });
-
       } catch (error) {
         console.error(`(error): ${JSON.stringify(error)}`);
       }
@@ -407,13 +407,24 @@
       const email = document.querySelector("#login_email").value;
       const password = document.querySelector("#login_password").value;
       firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
+        var currentUser = firebase.auth().currentUser;
         document.querySelector("#login_email").value = "";
         document.querySelector("#login_password").value = "";
-        toggleUIElement("#loginfield");
+        if (currentUser.emailVerified) {
+          toggleUIElement("#loginfield");
+        } else {
+          document.querySelector("#login_error").innerHTML = "Email address is not verified yet. Please check your inbox to confirm your address.";
+          toggleUIElement("#resendEmail");
+        }
       }).catch((error) => {
         console.error(`(signIn): (${error.code}) ${error.message}`);
         document.querySelector("#login_error").innerHTML = "Sorry we couldn't find you.</p> Please try again.";
       });
+    }
+
+    function resendVerificationEmail() {
+      var currentUser = firebase.auth().currentUser;
+      currentUser.sendEmailVerification();
     }
 
     function closeSignIn() {
@@ -424,6 +435,11 @@
       document.querySelector("#afterreset").innerHTML = "";
       document.querySelector("#forgotpw_email").value = "";
       document.querySelector("#forgotpw_error").innerHTML = "";
+      document.querySelector("#registrationFormContainer").classList.remove("hidden");
+      document.querySelector("#emailVerification").classList.add("hidden");
+      document.querySelector("#signup_error").innerHTML = "";
+      document.querySelector("#login_error").innerHTML = "";
+      document.querySelector("#resendEmail").classList.add("hidden");
     }
 
     function showForgotPwForm() {
@@ -537,14 +553,24 @@
 
       if (validateSignUpForm(user)) {
         firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(function () {
-          document.user = user;
+          var currentUser = firebase.auth().currentUser;
+          currentUser.updateProfile({
+            displayName: `${user.firstname} ${user.lastname}`
+          });
           document.querySelector("#signup_firstname").value = "";
           document.querySelector("#signup_lastname").value = "";
           document.querySelector("#signup_email").value = "";
           document.querySelector("#signup_confirmemail").value = "";
           document.querySelector("#signup_password").value = "";
           document.querySelector("#signup_confirmpassword").value = "";
-          toggleUIElement("#loginfield");
+          currentUser.sendEmailVerification().then(function () {
+            toggleUIElement("#registrationFormContainer");
+            toggleUIElement("#emailVerification");
+          }).catch(function (error) {
+            console.error(`(send verification email): (${error.code}) ${error.message}`);
+            signup_error("An error happend while sending the verification email. Please try to register again.");
+          });
+
         }).catch((error) => {
           console.error(`(signUp): (${error.code}) ${error.message}`);
           signup_error("The user already exists. Please log in</br>or sign up with a new account.");
