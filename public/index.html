@@ -83,7 +83,7 @@
       services (“Products”) through Flickr’s approved third party vendors and retailers (“Flickr Vendors”). For infor-
       mation about how Flickr collects, uses and discloses your information, please see the Flickr Pr</p>
   </div>
-  <div id="loginfield" class="up">
+  <div id="loginfield" class="up hidden">
     <div id="lfield">
       <div id="closecross">
         <a onclick="toggleUIElement('#loginfield')">
@@ -404,12 +404,14 @@ a link to reset your password.</span>
       event.preventDefault();
       const email = document.querySelector("#login_email").value;
       const password = document.querySelector("#login_password").value;
-      firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
+      firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
+        document.querySelector("#login_email").value = "";
+        document.querySelector("#login_password").value = "";
+        toggleUIElement("#loginfield");
+      }).catch((error) => {
         console.error(`(signIn): (${error.code}) ${error.message}`);
         document.querySelector("#login_error").innerHTML = "Sorry we couldn't find you.</p> Please try again.";
       });
-      document.querySelector("#login_email").value = "";
-      document.querySelector("#login_password").value = "";
     }
 
     function toggleUIElement(element) {
@@ -498,11 +500,20 @@ a link to reset your password.</span>
       };
 
       if (validateSignUpForm(user)) {
-        firebase.auth().createUserWithEmailAndPassword(user.email, user.password).catch((error) => {
+        firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(function () {
+          document.user = user;
+          document.querySelector("#signup_firstname").value = "";
+          document.querySelector("#signup_lastname").value = "";
+          document.querySelector("#signup_email").value = "";
+          document.querySelector("#signup_confirmemail").value = "";
+          document.querySelector("#signup_password").value = "";
+          document.querySelector("#signup_confirmpassword").value = "";
+          toggleUIElement("#loginfield");
+        }).catch((error) => {
           console.error(`(signUp): (${error.code}) ${error.message}`);
           signup_error("The user already exists. Please log in</br>or sign up with a new account.");
         });
-        document.user = user;
+
       }
     }
 
@@ -654,7 +665,7 @@ a link to reset your password.</span>
     }
 
     function toggleUI() {
-      const elements = ["#user", "#login", "#logout", "#loginfield", "#popup", "#description", "#gallery", "#optionbar"];
+      const elements = ["#user", "#login", "#logout", "#popup", "#description", "#gallery", "#optionbar"];
       for (const element of elements) {
         if (document.querySelector(element)) {
           document.querySelector(element).classList.toggle("hidden");
