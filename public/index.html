@@ -49,13 +49,13 @@
   </header>
   <div id="optionbar" class="optionbar hidden">
     <div class="optionbar optionbar--left">
-      <div><a id="support" href="mailto:support@01p-w.com">Support</a></div>
-      <div><a id="termsofuselink" onclick="">Terms of use</a></div>
-      <div><a id="privacypolicylink" onclick="">Privacy Policy</a></div>
+      <div><a id="support" class="pointer" href="mailto:support@01p-w.com">Support</a></div>
+      <div><a id="termsofuselink" class="pointer" onclick="toggleUIElement('#termsofuse')">Terms of use</a></div>
+      <div><a id="privacypolicylink" class="pointer" onclick="">Privacy Policy</a></div>
     </div>
     <div class="optionbar optionbar--right">
-      <div><a onclick="showSettings()">Settings</a></div>
-      <div><a onclick="signOut()">Log out</a></div>
+      <div><a class="pointer" onclick="showSettings()">Settings</a></div>
+      <div><a class="pointer" onclick="signOut()">Log out</a></div>
     </div>
   </div>
   <div id="description">
@@ -961,8 +961,6 @@
       $(".fullscreen").on("click", function () {
         if (screenfull.enabled) {
           screenfull.request();
-          // $("header, footer, .captionbar").addClass("invisible");
-          // $("article").addClass("fullsize");
         }
       });
     }
