@@ -86,7 +86,7 @@
   <div id="loginfield" class="up hidden">
     <div id="lfield">
       <div id="closecross">
-        <a onclick="toggleUIElement('#loginfield')">
+        <a onclick="closeSignIn()">
           <img src="img/greycross.png" />
         </a>
       </div>
@@ -101,9 +101,9 @@
           <tr>
             <td>Password
               <span id="forgotpw">
-                <a href="">Forgot it?</span>
-              </a>
-              <br>
+                <a class="pointer" onclick="showForgotPwForm()">Forgot it?</a>
+              </span>
+              </br>
               <input id="login_password" type="password" name="password" required>
             </td>
           </tr>
@@ -121,29 +121,31 @@
             </td>
           </tr>
         </table>
-        <!-- <span>Please enter the email address you use
-to log in, and we’ll send you a link to reset
-your password.</span>
-<table>
-          <tr>
-            <td>Email
-              <br>
-              <input id="login_email" type="email" name="email" required>
-            </td>
-          </tr>  
-       <tr>
-            <td>
-              <div class="submit">
-                <input type="submit" class="submitbutton" value="Reset Password">
-              </div>
-            </td>
-          </tr>
-</table>
-<span id="afterreset">Thank you! An email has been sent to
-oliver.kerrison@neusicht.ch containing
-a link to reset your password.</span>
--->
       </form>
+      <div id="forgotpwForm" class="hidden">
+        <div id="forgotpwInput">
+          <span>Please enter the email address you use
+            to log in, and we’ll send you a link to reset
+            your password.</span>
+          <table>
+            <tr>
+              <td>Email
+                <br>
+                <input id="forgotpw_email" type="email" name="email" required>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="submit">
+                  <input type="button" class="submitbutton" onclick="resetPassword()" value="Reset Password">
+                  <p id="forgotpw_error"></p>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <span id="afterreset"></span>
+      </div>
       <div>
         <p id="login_error"></p>
       </div>
@@ -412,6 +414,40 @@ a link to reset your password.</span>
         console.error(`(signIn): (${error.code}) ${error.message}`);
         document.querySelector("#login_error").innerHTML = "Sorry we couldn't find you.</p> Please try again.";
       });
+    }
+
+    function closeSignIn() {
+      toggleUIElement('#loginfield');
+      document.querySelector("#loginform").classList.remove("hidden");
+      document.querySelector("#forgotpwForm").classList.add("hidden");
+      document.querySelector("#forgotpwInput").classList.remove("hidden");
+      document.querySelector("#afterreset").innerHTML = "";
+      document.querySelector("#forgotpw_email").value = "";
+      document.querySelector("#forgotpw_error").innerHTML = "";
+    }
+
+    function showForgotPwForm() {
+      toggleUIElement("#loginform");
+      toggleUIElement("#forgotpwForm");
+    }
+
+    function resetPassword() {
+      var emailAddress = document.querySelector("#forgotpw_email").value;
+      if (emailAddress !== "") {
+        var auth = firebase.auth();
+        auth.sendPasswordResetEmail(emailAddress).then(function () {
+          document.querySelector("#forgotpw_error").innerHTML = "";
+          document.querySelector("#afterreset").innerHTML = `Thank you! An email has been sent to ${emailAddress} containing a link to reset your password.`;
+          document.querySelector("#forgotpw_email").value = "";
+          document.querySelector("#forgotpwInput").classList.add("hidden");
+        }).catch(function (error) {
+          console.error(`(reset password): (${error.code}) ${error.message}`);
+          document.querySelector("#forgotpw_error").innerHTML = "An error occured while resetting your password. Please try again.";
+          document.querySelector("#forgotpw_email").value
+        });
+      } else {
+        document.querySelector("#forgotpw_error").innerHTML = "Please enter a valid email address."
+      }
     }
 
     function toggleUIElement(element) {
