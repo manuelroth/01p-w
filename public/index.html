@@ -572,6 +572,12 @@
           });
 
         }).catch((error) => {
+          document.querySelector("#signup_firstname").value = "";
+          document.querySelector("#signup_lastname").value = "";
+          document.querySelector("#signup_email").value = "";
+          document.querySelector("#signup_confirmemail").value = "";
+          document.querySelector("#signup_password").value = "";
+          document.querySelector("#signup_confirmpassword").value = "";
           console.error(`(signUp): (${error.code}) ${error.message}`);
           signup_error("The user already exists. Please log in</br>or sign up with a new account.");
         });
@@ -965,13 +971,6 @@
       $("header, #optionbar, #profilefield").off("mouseover");
       $("header, #optionbar, #profilefield").off("mouseout");
     }
-    // Check that service workers are registered
-    // if ('serviceWorker' in navigator) {
-    //   // Use the window load event to keep the page load performant
-    //   window.addEventListener('load', () => {
-    //     navigator.serviceWorker.register('/sw.js');
-    //   });
-    // }
   </script>
   <script type="application/javascript"> var piioData = { appKey: 'sgnclp', encodeSrc: false, domain: 'https://beta.01p-w.com' } </script>
   <script src="https://js.piio.co/sgnclp/piio.min.js"></script>
