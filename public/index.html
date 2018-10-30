@@ -54,7 +54,7 @@
       <div><a id="privacypolicylink" onclick="">Privacy Policy</a></div>
     </div>
     <div class="optionbar optionbar--right">
-      <div><a onclick="toggleUIElement('#profilefield')">Settings</a></div>
+      <div><a onclick="showSettings()">Settings</a></div>
       <div><a onclick="signOut()">Log out</a></div>
     </div>
   </div>
@@ -218,8 +218,8 @@ a link to reset your password.</span>
         <img src="img/greycross.png" />
       </a>
     </div>
-    <div id="pfield">
-      <form name="profilesettings" id="settingform" onsubmit="signUp(event)">
+    <div id="profilefieldform">
+      <form name="profilesettings" id="settingform" onsubmit="updateProfile(event)">
         <table>
           <tr>
             <td>
@@ -245,9 +245,9 @@ a link to reset your password.</span>
             </td>
           </tr>
           <tr>
-            <td>Confirm email
+            <td>Old password
               <br>
-              <input id="setting_confirmemail" type="email" name="confirmemail" required>
+              <input id="setting_oldpassword" type="password" name="password" required>
             </td>
           </tr>
           <tr>
@@ -270,14 +270,24 @@ a link to reset your password.</span>
             </td>
           </tr>
           <tr>
-            <td><a href="" onclick="return false">Delete account?</a></td>
-            <td></td>
+            <td>
+              <a class="pointer" onclick="showDeleteAccount()">Delete account?</a>
+              <p id="showDeleteAccount_error"></p>
+            </td>
           </tr>
         </table>
       </form>
       <div>
-        <p id="signup_error"></p>
+        <p id="setting_error"></p>
       </div>
+    </div>
+    <div id="deleteAccount" class="hidden">
+      <p>Are you sure you want to delete your account?</p>
+      <p>Keep in mind that you will not be able to reactivate your account or retrieve any of the data you have added.
+        A link to download your archive will be sent to you by email after your confirmation.</p>
+      <input type="button" onclick="deleteAccount()" value="Delete account">
+      <input type="button" onclick="cancelDeleteAccount()" value="Cancel">
+      <p id="deleteAccount_error"></p>
     </div>
   </div>
   <div id="templateContainer"></div>
@@ -398,6 +408,8 @@ a link to reset your password.</span>
         console.error(`(signIn): (${error.code}) ${error.message}`);
         document.querySelector("#login_error").innerHTML = "Sorry we couldn't find you.</p> Please try again.";
       });
+      document.querySelector("#login_email").value = "";
+      document.querySelector("#login_password").value = "";
     }
 
     function toggleUIElement(element) {
@@ -468,6 +480,7 @@ a link to reset your password.</span>
     function signOut() {
       firebase.auth().signOut().then(function () {
         toggleUI();
+        hideUI();
         removeEventListeners();
       });
     }
@@ -517,11 +530,143 @@ a link to reset your password.</span>
       document.querySelector("#signup_error").innerHTML = message;
     }
 
+    function showSettings() {
+      var user = firebase.auth().currentUser;
+      var username = user.displayName.split(" ");
+      document.querySelector("#setting_firstname").value = username[0];
+      document.querySelector("#setting_lastname").value = username[1];
+      document.querySelector("#setting_email").value = user.email;
+      toggleUIElement('#profilefield');
+      document.querySelector("#profilefieldform").classList.remove("hidden");
+      document.querySelector("#deleteAccount").classList.add("hidden");
+      document.querySelector("#showDeleteAccount_error").innerHTML = "";
+      document.querySelector("#deleteAccount_error").innerHTML = "";
+    }
+
+    function updateProfile(event) {
+      event.preventDefault();
+      const user = {
+        firstname: document.querySelector("#setting_firstname").value,
+        lastname: document.querySelector("#setting_lastname").value,
+        email: document.querySelector("#setting_email").value,
+        oldpassword: document.querySelector("#setting_oldpassword").value,
+        password: document.querySelector("#setting_password").value,
+        confirmpassword: document.querySelector("#setting_confirmpassword").value
+      };
+
+      if (validateSettingForm(user)) {
+        var currentUser = firebase.auth().currentUser;
+        let username = `${user.firstname} ${user.lastname}`
+        var credentials = firebase.auth.EmailAuthProvider.credential(
+          currentUser.email,
+          user.oldpassword
+        );
+        if (currentUser.displayName !== username) {
+          currentUser.updateProfile({
+            displayName: username
+          }).then(function () {
+            document.querySelector("#user").textContent = username;
+          }).catch(function (error) {
+            console.error(`(updateProfile): (${error.code}) ${error.message}`);
+            setting_error("Updating the username failed. Please try again.");
+          });
+        }
+        if (currentUser.email !== user.email) {
+          currentUser.reauthenticateAndRetrieveDataWithCredential(credentials).then(function () {
+            currentUser.updateEmail(user.email).then(function () {
+              signOut();
+            }).catch(function (error) {
+              console.error(`(updateProfile): (${error.code}) ${error.message}`);
+              setting_error("Updating the email address failed. Please try again.");
+            });
+          }).catch(function (error) {
+            console.error(`(updateProfile): (${error.code}) ${error.message}`);
+          });
+        }
+        currentUser.reauthenticateAndRetrieveDataWithCredential(credentials).then(function () {
+          currentUser.updatePassword(user.password).then(function () {
+            // Update successful.
+          }).catch(function (error) {
+            console.error(`(updateProfile): (${error.code}) ${error.message}`);
+            setting_error("Updating the password failed. Please try again.");
+          });
+        }).catch(function (error) {
+          console.error(`(updateProfile): (${error.code}) ${error.message}`);
+        });
+
+        document.querySelector("#setting_oldpassword").value = "";
+        document.querySelector("#setting_password").value = "";
+        document.querySelector("#setting_confirmpassword").value = "";
+        setting_error("");
+      }
+    }
+
+    function validateSettingForm(user) {
+      if (!user.firstname || !user.lastname || !user.email || !user.password || !user.confirmpassword) {
+        setting_error("Please fill out all the fields");
+        return false;
+      }
+      if (user.password !== user.confirmpassword) {
+        setting_error("Passwords don't match");
+        return false;
+      }
+      return true;
+    }
+
+    function setting_error(message) {
+      document.querySelector("#setting_error").innerHTML = message;
+    }
+
+    function showDeleteAccount() {
+      if (document.querySelector("#setting_oldpassword").value !== "") {
+        toggleUIElement("#profilefieldform");
+        toggleUIElement("#deleteAccount");
+      } else {
+        document.querySelector("#showDeleteAccount_error").innerHTML = "Please enter your old password to delete your account.";
+      }
+    }
+
+    function cancelDeleteAccount() {
+      toggleUIElement("#profilefieldform");
+      toggleUIElement("#deleteAccount");
+      document.querySelector("#deleteAccount_error").innerHTML = "";
+      document.querySelector("#showDeleteAccount_error").innerHTML = "";
+    }
+
+    function deleteAccount() {
+      var currentUser = firebase.auth().currentUser;
+      var credentials = firebase.auth.EmailAuthProvider.credential(
+        currentUser.email,
+        document.querySelector("#setting_oldpassword").value
+      );
+      currentUser.reauthenticateAndRetrieveDataWithCredential(credentials).then(function () {
+        currentUser.delete().then(function () {
+          signOut();
+          document.querySelector("#setting_oldpassword").value = "";
+        }).catch(function (error) {
+          console.error(`(deleteAccount): (${error.code}) ${error.message}`);
+          document.querySelector("#deleteAccount_error").innerHTML = "Deleteing your account failed. Please try again.";
+        });
+      }).catch(function (error) {
+        console.error(`(deleteAccount): (${error.code}) ${error.message}`);
+        document.querySelector("#deleteAccount_error").innerHTML = "Deleteing your account failed. Please try again.";
+      });
+    }
+
     function toggleUI() {
       const elements = ["#user", "#login", "#logout", "#loginfield", "#popup", "#description", "#gallery", "#optionbar"];
       for (const element of elements) {
         if (document.querySelector(element)) {
           document.querySelector(element).classList.toggle("hidden");
+        }
+      }
+    }
+
+    function hideUI() {
+      const elements = ["#profilefield"];
+      for (const element of elements) {
+        if (document.querySelector(element)) {
+          document.querySelector(element).classList.add("hidden");
         }
       }
     }

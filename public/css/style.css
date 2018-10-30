@@ -257,7 +257,8 @@ h2 {
 }
 #registrationform .submitbutton,
 #loginform .submitbutton,
-#kontaktformular .submitbutton {
+#kontaktformular .submitbutton,
+#settingform .submitbutton {
   border: none;
   padding: 5px 5px 3px;
   margin: 5px 0 0;
@@ -285,7 +286,7 @@ h2 {
 }
 #registrationform .submitbutton:hover,
 #loginform .submitbutton:hover,
-#kontaktformular .submitbutton:hover {
+#kontaktformular .submitbutton:hover #settingformular .submitbutton {
   background-color: #000;
   color: #fff;
 }
@@ -495,7 +496,6 @@ a {
   display: none;
   cursor: pointer;
   border: none;
-  cursor: pointer;
 }
 .buttons button:hover {
   background-color: #000;
@@ -563,4 +563,8 @@ article img {
 
 .hidden {
   display: none !important;
+}
+
+.pointer {
+  cursor: pointer;
 }
