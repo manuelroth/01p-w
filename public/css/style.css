@@ -270,12 +270,14 @@ h2 {
   cursor: pointer;
   font-weight: 100;
 }
-#loginfield #closecross {
+#loginfield #closecross,
+#profilefield #closecross {
   width: 15px;
   height: 15px;
   right: 5px;
   top: 5px;
   position: absolute;
+  cursor: pointer;
 }
 #closecross img {
   width: 100%;

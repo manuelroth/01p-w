@@ -86,7 +86,7 @@
   <div id="loginfield" class="up">
     <div id="lfield">
       <div id="closecross">
-        <a href="" onclick="return false">
+        <a onclick="toggleUIElement('#loginfield')">
           <img src="img/greycross.png" />
         </a>
       </div>
@@ -213,6 +213,11 @@ a link to reset your password.</span>
     </div>
   </div>
   <div id="profilefield" class="dialog up hidden">
+    <div id="closecross">
+      <a onclick="toggleUIElement('#profilefield')">
+        <img src="img/greycross.png" />
+      </a>
+    </div>
     <div id="pfield">
       <form name="profilesettings" id="settingform" onsubmit="signUp(event)">
         <table>
@@ -463,6 +468,7 @@ a link to reset your password.</span>
     function signOut() {
       firebase.auth().signOut().then(function () {
         toggleUI();
+        removeEventListeners();
       });
     }
 
@@ -512,7 +518,7 @@ a link to reset your password.</span>
     }
 
     function toggleUI() {
-      const elements = ["#user", "#login", "#logout", "#loginfield", "#popup", "#description", "#captionbar"];
+      const elements = ["#user", "#login", "#logout", "#loginfield", "#popup", "#description", "#gallery", "#optionbar"];
       for (const element of elements) {
         if (document.querySelector(element)) {
           document.querySelector(element).classList.toggle("hidden");
@@ -719,22 +725,27 @@ a link to reset your password.</span>
     }
 
     function addEventListeners() {
-      $("header, #optionbar, #profilefield").mouseover(function () {
+      $("header, #optionbar, #profilefield").on("mouseover", function () {
         $("#optionbar").removeClass("hidden");
         $("#captionbar").addClass("hidden");
       });
-      $("header, #optionbar, #profilefield").mouseout(function () {
+      $("header, #optionbar, #profilefield").on("mouseout", function () {
         $("#optionbar").addClass("hidden");
         $("#captionbar").removeClass("hidden");
       });
 
-      document.querySelector(".fullscreen").addEventListener("click", () => {
+      $(".fullscreen").on("click", function () {
         if (screenfull.enabled) {
           screenfull.request();
           // $("header, footer, .captionbar").addClass("invisible");
           // $("article").addClass("fullsize");
         }
       });
+    }
+
+    function removeEventListeners() {
+      $("header, #optionbar, #profilefield").off("mouseover");
+      $("header, #optionbar, #profilefield").off("mouseout");
     }
     // Check that service workers are registered
     // if ('serviceWorker' in navigator) {
