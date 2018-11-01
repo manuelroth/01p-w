@@ -48,12 +48,12 @@
     </h1>
   </header>
   <div id="optionbar" class="optionbar hidden">
-    <div class="optionbar optionbar--left">
+    <div class="optionbar--left">
       <div><a id="support" class="pointer" href="mailto:support@01p-w.com">Support</a></div>
-      <div><a id="termsofuselink" class="pointer" onclick="toggleUIElement('#termsofuse')">Terms of use</a></div>
-      <div><a id="privacypolicylink" class="pointer" onclick="toggleUIElement('#privacypolicy')">Privacy Policy</a></div>
+      <div><a id="termsofuselink" class="pointer" onclick="showTermsOfUse()">Terms of use</a></div>
+      <div><a id="privacypolicylink" class="pointer" onclick="showPrivacyPolicy()">Privacy Policy</a></div>
     </div>
-    <div class="optionbar optionbar--right">
+    <div class="optionbar--right">
       <div><a class="pointer" onclick="showSettings()">Settings</a></div>
       <div><a class="pointer" onclick="signOut()">Log out</a></div>
     </div>
@@ -69,13 +69,14 @@
       properties,
       described as an emanation of reality.</p>
   </div>
-  <div id="termsofuse" class="dialog fullpagetext">
+  <div id="termsofuse" class="dialog fullpagetext hidden">
     <div id="closecross">
       <a onclick="toggleUIElement('#termsofuse')">
         <img src="img/greycross.png" />
       </a>
     </div>
-    <p>01p-w users: As of May 29, 2018, Fantastic Fox, Inc. has acquired Flickr. Your continued use of the Flickr
+    <p>Terms of use: 01p-w users: As of May 29, 2018, Fantastic Fox, Inc. has acquired Flickr. Your continued use of
+      the Flickr
       services will be subject to these Terms of Use. These Terms of Use also apply to your use of the Services,
       where applicable, to purchase photographic prints, videos or other related merchandise, products and
       services (“Products”) through Flickr’s approved third party vendors and retailers (“Flickr Vendors”). For infor-
@@ -87,7 +88,8 @@
         <img src="img/greycross.png" />
       </a>
     </div>
-    <p>01p-w users: As of May 29, 2018, Fantastic Fox, Inc. has acquired Flickr. Your continued use of the Flickr
+    <p>Privacy Policy: 01p-w users: As of May 29, 2018, Fantastic Fox, Inc. has acquired Flickr. Your continued use of
+      the Flickr
       services will be subject to these Terms of Use. These Terms of Use also apply to your use of the Services,
       where applicable, to purchase photographic prints, videos or other related merchandise, products and
       services (“Products”) through Flickr’s approved third party vendors and retailers (“Flickr Vendors”). For infor-
@@ -476,6 +478,16 @@
       }
     }
 
+    function showTermsOfUse() {
+      toggleUIElement('#termsofuse');
+      document.querySelector("#privacypolicy").classList.add("hidden");
+    }
+
+    function showPrivacyPolicy() {
+      toggleUIElement('#privacypolicy');
+      document.querySelector("#termsofuse").classList.add("hidden");
+    }
+
     function toggleUIElement(element) {
       if (document.querySelector(element)) {
         document.querySelector(element).classList.toggle("hidden");
@@ -752,7 +764,7 @@
     }
 
     function hideUI() {
-      const elements = ["#profilefield"];
+      const elements = ["#profilefield", "#privacypolicy", "#termsofuse"];
       for (const element of elements) {
         if (document.querySelector(element)) {
           document.querySelector(element).classList.add("hidden");
