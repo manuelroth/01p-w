@@ -583,6 +583,9 @@ position: relative;
 .deletesingle {
   background-image: url(../img/delete.png);
 }
+.download{
+opacity:0;
+}
 .downloadsingle {
   background-image: url(../img/download.png);
 }
