@@ -501,6 +501,7 @@ a {
   height: 24px;
   width: 24px;
   padding: 5px 7px;
+  background-size:cover;
   background-color: #e5e5e5;
   color: #000;
   display: none;
