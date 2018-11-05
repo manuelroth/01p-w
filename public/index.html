@@ -361,14 +361,14 @@
               </div>
             </div>
           </article>
-          <article id="deleteImageDialog-{{id}}" class="image hidden" style="background-color: #9e9e9e;">
+          <article id="deleteImageDialog-{{id}}" class="image hidden" style="background-color: #e5e5e5;">
             <div class="deletemessage">Are you sure you want to delete this image?<br>
               <button class="submitbutton" data-id="{{id}}" onclick="deleteImage(event)">Yes</button>
               <button class="submitbutton" onclick="hideDeleteImage(event, '{{id}}')">No</button>
             </div>
           </article>
         {{else}}
-        <article id="addImageDialog-{{id}}" class="image" style="background-color: #9e9e9e;" onclick="document.querySelector('#addimageinput-{{id}}').click();">
+        <article id="addImageDialog-{{id}}" class="image" style="background-color: #e5e5e5;" onclick="document.querySelector('#addimageinput-{{id}}').click();">
           <div class="imageoption">
             <p class="number">{{label}}</p>
           </div>
