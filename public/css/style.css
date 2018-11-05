@@ -288,7 +288,7 @@ h2 {
 height:100%;
 width:100%;
 display:block;
-background-image: url(../img/plus.png);
+background: url(../img/plus.png) 20% 20% no-repeat;
 }
 #closecross img {
   width: 100%;
