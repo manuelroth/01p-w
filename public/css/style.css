@@ -584,7 +584,9 @@ position: relative;
   background-image: url(../img/delete.png);
 }
 .download{
-opacity:0;
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 .downloadsingle {
   background-image: url(../img/download.png);
