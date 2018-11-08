@@ -13,15 +13,15 @@
 	emanation of reality."
     name="description">
   <meta content="01p-w" name="author">
-  <meta content="http://01p-w.com/img/fb.png" property="og:image">
+  <meta content="https://01p-w.com/img/fb.png" property="og:image">
   <meta content="01p-w" property="og:title">
-  <meta content="http://01p-w.com" property="og:url">
+  <meta content="https://01p-w.com" property="og:url">
   <meta content="01p-w is the outcome of an in-depth research about the essence of photography, its influence on the construction of identity and the instruments for archiving imagery
 	in the past and the present. 01p-w is neither a further social network nor another app to publicly exhibit your private photos – 01p-w does just the opposite. It stands
 	for radical limitation in a world of unlimited noise, for a conscious engagement with photography; a medium once a word of almost magical properties described as an
   emanation of reality."
     property="og:description">
-  <link href="./css/style.css" rel="stylesheet">
+<link href="./css/style.css" rel="stylesheet">
   <link href="./favicon.png" rel="shortcut icon">
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
@@ -295,7 +295,7 @@
           </tr>
           <tr>
             <td>
-              <a class="pointer" onclick="showDeleteAccount()">Delete account?</a>
+              <a id="deleteaccount" class="pointer" onclick="showDeleteAccount()">Delete account?</a>
               <p id="showDeleteAccount_error"></p>
             </td>
           </tr>
@@ -337,14 +337,14 @@
     </div>
     <div id="caption" class="captionbar-center hidden">
       <div id="captionInput">
-        <input type="text"  id="captionInputElement" onkeyup="captionInputTextInserted()" onfocus="$('#captionSaveButton').removeClass('hidden')" placeholder="Insert caption here"/>
+        <input type="text"  id="captionInputElement" onkeyup="captionInputTextInserted()" onfocus="$('#captionSaveButton').removeClass('hidden')" placeholder="[Insert caption here]"/>
         <input type="button" id="captionSaveButton" class="hidden" value="Save" onclick="saveCaption(event)" disabled/> 
       </div>
       <div id="captionText"></div>
     </div>
     <div class="captionbar--right">
       <div class="captionbar-button fullscreen"></div>
-      <div class="captionbar-button galeriebutton"></div>
+    <!--  <div class="captionbar-button galeriebutton"></div>-->
     </div>
   </div>
   <div id="gallery" class="hidden">
@@ -354,19 +354,19 @@
             <div class="imageoption">
               <p class="number">{{label}}</p>
               <div class="buttons">
-                <button class="deletesingle" onclick="showDeleteImage(event, '{{id}}')">de</button>
-                <button class="downloadsingle" onclick="event.stopPropagation()"><a href="{{downloadUrl}}" download>dw</a></button>
+                <button class="deletesingle" onclick="showDeleteImage(event, '{{id}}')"></button>
+                <button class="downloadsingle" onclick="event.stopPropagation()"><a href="{{downloadUrl}}" target="_blank" class="download"></a></button>
               </div>
             </div>
           </article>
-          <article id="deleteImageDialog-{{id}}" class="image hidden" style="background-color: #9e9e9e;">
+          <article id="deleteImageDialog-{{id}}" class="image hidden" style="background-color: #e5e5e5;">
             <div class="deletemessage">Are you sure you want to delete this image?<br>
               <button class="submitbutton" data-id="{{id}}" onclick="deleteImage(event)">Yes</button>
               <button class="submitbutton" onclick="hideDeleteImage(event, '{{id}}')">No</button>
             </div>
           </article>
         {{else}}
-        <article id="addImageDialog-{{id}}" class="image" style="background-color: #9e9e9e;" onclick="document.querySelector('#addimageinput-{{id}}').click();">
+        <article id="addImageDialog-{{id}}" class="image" style="background-color: #e5e5e5;" onclick="document.querySelector('#addimageinput-{{id}}').click();">
           <div class="imageoption">
             <p class="number">{{label}}</p>
           </div>
