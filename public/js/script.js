@@ -179,6 +179,7 @@ function signOut() {
     .auth()
     .signOut()
     .then(function() {
+      window.unsubscribe();
       toggleUI();
       hideUI();
       removeEventListeners();
@@ -493,7 +494,7 @@ function getImagesByUserId(userId) {
         }
       }
     }
-    ref.onSnapshot(async querySnapshot => {
+    window.unsubscribe = ref.onSnapshot(async querySnapshot => {
       const images = [];
       const singleImages = [];
       const weeks = [];
