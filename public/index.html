@@ -21,7 +21,7 @@
 	for radical limitation in a world of unlimited noise, for a conscious engagement with photography; a medium once a word of almost magical properties described as an
   emanation of reality."
     property="og:description">
-<link href="./css/style.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
   <link href="./favicon.png" rel="shortcut icon">
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
@@ -102,12 +102,12 @@
           <img src="img/greycross.png" />
         </a>
       </div>
-      <form name="login" id="loginform" onsubmit="signIn(event)">
+      <form name="login" id="loginform" onsubmit="signIn(event)" autocomplete="on">
         <table>
           <tr>
             <td>Email
               <br>
-              <input id="login_email" type="email" name="email" required>
+              <input id="login_email" type="email" name="email" required autocomplete="username">
             </td>
           </tr>
           <tr>
@@ -116,7 +116,7 @@
                 <a class="pointer" onclick="showForgotPwForm()">Forgot it?</a>
               </span>
               </br>
-              <input id="login_password" type="password" name="password" required>
+              <input id="login_password" type="password" name="password" required autocomplete="current-password">
             </td>
           </tr>
           <tr>
@@ -143,7 +143,7 @@
             <tr>
               <td>Email
                 <br>
-                <input id="forgotpw_email" type="email" name="email" required>
+                <input id="forgotpw_email" type="email" name="email" required autocomplete="username">
               </td>
             </tr>
             <tr>
@@ -167,7 +167,7 @@
     </div>
     <div id="rfield">
       <div id="registrationFormContainer">
-        <form name="registration" id="registrationform" onsubmit="signUp(event)">
+        <form name="registration" id="registrationform" onsubmit="signUp(event)" autocomplete="on">
           <table>
             <tr>
               <td>
@@ -189,25 +189,25 @@
             <tr>
               <td>Email
                 <br>
-                <input id="signup_email" type="email" name="email" required>
+                <input id="signup_email" type="email" name="email" required autocomplete="username">
               </td>
             </tr>
             <tr>
               <td>Confirm email
                 <br>
-                <input id="signup_confirmemail" type="email" name="confirmemail" required>
+                <input id="signup_confirmemail" type="email" name="confirmemail" required autocomplete="username">
               </td>
             </tr>
             <tr>
               <td>Password
                 <br>
-                <input id="signup_password" type="password" name="password" required>
+                <input id="signup_password" type="password" name="password" required autocomplete="current-password">
               </td>
             </tr>
             <tr>
               <td>Confirm password
                 <br>
-                <input id="signup_confirmpassword" type="password" name="confirmpassword" required>
+                <input id="signup_confirmpassword" type="password" name="confirmpassword" required autocomplete="current-password">
               </td>
             </tr>
             <tr>
@@ -243,7 +243,7 @@
       </a>
     </div>
     <div id="profilefieldform">
-      <form name="profilesettings" id="settingform" onsubmit="updateProfile(event)">
+      <form name="profilesettings" id="settingform" onsubmit="updateProfile(event)" autocomplete="on">
         <table>
           <tr>
             <td>
@@ -265,25 +265,25 @@
           <tr>
             <td>Email
               <br>
-              <input id="setting_email" type="email" name="email" required>
+              <input id="setting_email" type="email" name="email" required autocomplete="username">
             </td>
           </tr>
           <tr>
             <td>Old password
               <br>
-              <input id="setting_oldpassword" type="password" name="password" required>
+              <input id="setting_oldpassword" type="password" name="password" required autocomplete="current-password">
             </td>
           </tr>
           <tr>
-            <td>Password
+            <td>New Password
               <br>
-              <input id="setting_password" type="password" name="password" required>
+              <input id="setting_password" type="password" name="password" required autocomplete="new-password">
             </td>
           </tr>
           <tr>
             <td>Confirm password
               <br>
-              <input id="setting_confirmpassword" type="password" name="confirmpassword" required>
+              <input id="setting_confirmpassword" type="password" name="confirmpassword" required autocomplete="new-password">
             </td>
           </tr>
           <tr>

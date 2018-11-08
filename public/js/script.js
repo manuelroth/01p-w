@@ -448,7 +448,12 @@ function toggleUI() {
 }
 
 function hideUI() {
-  const elements = ["#profilefield", "#privacypolicy", "#termsofuse"];
+  const elements = [
+    "#profilefield",
+    "#privacypolicy",
+    "#termsofuse",
+    "#single"
+  ];
   for (const element of elements) {
     if (document.querySelector(element)) {
       document.querySelector(element).classList.add("hidden");
@@ -502,7 +507,11 @@ function getImagesByUserId(userId) {
       querySnapshot.forEach(doc => {
         const data = doc.data();
         const label = getLabel(data.week);
-        if (data.downloadUrl !== undefined && data.downloadUrl !== "") {
+        if (
+          data.downloadUrl !== undefined &&
+          data.downloadUrl !== "" &&
+          data.downloadUrl !== null
+        ) {
           singleImages.push(
             Object.assign({}, data, { id: doc.id, label: label })
           );
