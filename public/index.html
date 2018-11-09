@@ -23,6 +23,10 @@
     property="og:description">
   <link href="./css/style.css" rel="stylesheet">
   <link href="./favicon.png" rel="shortcut icon">
+  <!-- preload resources so they are already cached when needed -->
+  <link rel="preload" href="./css/style.css" as="style">
+  <link rel="preload" href="./js/script.js" as="script">
+  <link rel="preload" href="./css/fonts/Unica77LL-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
   <script defer src="./js/fullscreen.js"></script>
