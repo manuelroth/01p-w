@@ -642,10 +642,26 @@ article img {
 @media (min-width: 240px) and (max-width: 1024px) {
   #gallery .image {
     width: calc(100vw - 2px);
-    height: 50vh;
+    height: 66vw;
     border-right: none;
   }
+.dialog {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+}
 
+#profilefield {
+    width: 100%;
+}
+#optionbar {
+    background-color:#FFF;
+    height:48px;
+}
+
+.optionbar--right div:last-of-type{
+    white-space: nowrap;
+}
   .captionbar div {
     padding: 2px 7px 1px;
   }
@@ -657,7 +673,7 @@ article img {
     border-right: none;
   }
   #gallery {
-    padding: 58px 0 0;
+    /* padding: 0 0 0; */
     border: 1px solid #fff;
   }
 }
