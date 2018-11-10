@@ -202,7 +202,7 @@ h2 {
 }
 #loginfield {
   width: 25%;
-  height: auto;
+  height: 100%;
   position: fixed;
   top: 34px;
   left: 0;
@@ -218,13 +218,14 @@ h2 {
 }
 #lfield,
 #rfield {
-  padding: 5px 5px 30px;
+  padding: 5px 5px 50px;
 }
 #lfield {
   background-color: #f0f0f0;
 }
 #rfield {
   background-color: #d4d4d4;
+  height: 100vh;
 }
 #message {
   padding: 0 30px 0 0;
@@ -242,12 +243,15 @@ h2 {
   transition: top 0.5s ease-in-out;
 }
 #loginfield input[type="checkbox"] {
-  width: 10px;
-  height: 10px;
-  -webkit-appearance: checkbox;
+  width: 11px;
+  height: 11px;
+  /* -webkit-appearance: checkbox; */
   -moz-appearance: checkbox;
   padding: 0px;
-  margin: 0 3px 0 0;
+  margin: 0px 3px 0 0;
+  /* vertical-align: top; */
+  float: left;
+  display: inline-block;
 }
 #forgotpw {
   float: right;
@@ -256,11 +260,16 @@ h2 {
   content: "×";
 }
 .checkbox {
-  width: auto;
+  width: calc(100% - 64px);
   float: left;
+  margin: 5px 0 0;
 }
 .checkbox label {
   font-size: 12px;
+  width: calc(100% - 17px);
+  display: inline-block;
+  line-height: 1.1;
+  float: right;
 }
 #registrationform table,
 #loginform table,
