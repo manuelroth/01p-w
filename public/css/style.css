@@ -673,7 +673,7 @@ article img {
     border-right: none;
   }
   #gallery {
-    /* padding: 0 0 0; */
+    top:58px;
     border: 1px solid #fff;
   }
 }
