@@ -22,7 +22,7 @@ header {
   z-index: 2;
   padding: 5px;
 }
-#privacypolicy, #termsofuse, #description, .deletemessage{
+#privacypolicy, #termsofuse, #description, .deletemessage, #deleteImageDialog, #imageDialog{
 	line-height:1.1;
 }
 #optionbar{
