@@ -707,8 +707,8 @@ function getUUID() {
 
 function addEventListeners() {
   $("header #user").on("click", function() {
-    $("#optionbar").toggleClass("hidden");
-    $("#captionbar").toggleClass("hidden");
+    $("#optionbar").removeClass("hidden");
+    $("#captionbar").addClass("hidden");
   });
  /* $("header, #optionbar, #profilefield").on("mouseout", function() {
     $("#optionbar").addClass("hidden");
