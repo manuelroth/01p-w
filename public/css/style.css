@@ -324,7 +324,7 @@ color:#00;
 #registrationform .submitbutton,
 #loginform .submitbutton,
 #kontaktformular .submitbutton,
-#settingform .submitbutton, #captionSaveButton, .deletemessage .submitbutton, #forgotpwForm .submitbutton {
+#settingform .submitbutton, #captionSaveButton, .deletemessage .submitbutton, #forgotpwForm .submitbutton, #deleteAccount input {
   border: none;
   font-family: "Unica77 LL";
   padding: 5px 5px 3px;
@@ -381,7 +381,7 @@ p#signup_error {
 }
 #registrationform .submitbutton:hover,
 #loginform .submitbutton:hover,
-#kontaktformular .submitbutton:hover, #settingform .submitbutton:hover, #captionSaveButton:hover, .deletemessage .submitbutton:hover,  #forgotpwForm .submitbutton:hover  {
+#kontaktformular .submitbutton:hover, #settingform .submitbutton:hover, #captionSaveButton:hover, .deletemessage .submitbutton:hover,  #forgotpwForm .submitbutton:hover,  #deleteAccount input:hover  {
   background-color: #000;
   color: #fff;
 }
