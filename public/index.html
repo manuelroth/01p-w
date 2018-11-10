@@ -372,7 +372,7 @@
         {{else}}
         <article id="addImageDialog-{{id}}" class="image" style="background-color: #e5e5e5;" onclick="document.querySelector('#addimageinput-{{id}}').click();">
           <div class="imageoption">
-            <a href="" onclick="return false" class="number">{{label}}</a>
+            <a href="" onclick="return false" class="number whitenumber">{{label}}</a>
           </div>
           <div id="addimageelement">
             <input type="file" id="addimageinput-{{id}}" class="hidden" name="image" accept="image/*" data-id="{{id}}" onchange="addImage(event)">
