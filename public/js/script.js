@@ -438,8 +438,8 @@ function toggleUI() {
     "#logout",
     "#popup",
     "#description",
-    "#gallery",
-    "#optionbar"
+   /* "#gallery",
+    "#optionbar"*/
   ];
   for (const element of elements) {
     if (document.querySelector(element)) {
