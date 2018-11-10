@@ -721,7 +721,6 @@ function addEventListeners() {
     }
   });
 }
-
 /*function removeEventListeners() {
   $("header, #optionbar, #profilefield").off("mouseover");
   $("header, #optionbar, #profilefield").off("mouseout");
