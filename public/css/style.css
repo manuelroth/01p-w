@@ -653,7 +653,9 @@ article img {
     height: auto;
     min-height: 100vh;
 }
-
+#captionInput {
+    width:auto;
+}
 #profilefield {
     width: 100%;
 }
