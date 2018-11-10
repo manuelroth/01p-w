@@ -217,6 +217,7 @@ h2 {
     top: 59px;
     right: 0;
     z-index: 22;
+	padding:7px;
     background-color: #e5e5e5;
 }
 #lfield,
