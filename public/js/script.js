@@ -182,7 +182,7 @@ function signOut() {
       window.unsubscribe();
       toggleUI();
       hideUI();
-      removeEventListeners();
+    /*  removeEventListeners();*/
     });
 }
 
@@ -706,14 +706,14 @@ function getUUID() {
 }
 
 function addEventListeners() {
-  $("header, #optionbar, #profilefield").on("mouseover", function() {
-    $("#optionbar").removeClass("hidden");
-    $("#captionbar").addClass("hidden");
+  $("header #user").on("click", function() {
+    $("#optionbar").toggleClass("hidden");
+    $("#captionbar").toggleClass("hidden");
   });
-  $("header, #optionbar, #profilefield").on("mouseout", function() {
+ /* $("header, #optionbar, #profilefield").on("mouseout", function() {
     $("#optionbar").addClass("hidden");
     $("#captionbar").removeClass("hidden");
-  });
+  });*/
 
   $(".fullscreen").on("click", function() {
     if (screenfull.enabled) {
@@ -722,7 +722,7 @@ function addEventListeners() {
   });
 }
 
-function removeEventListeners() {
+/*function removeEventListeners() {
   $("header, #optionbar, #profilefield").off("mouseover");
   $("header, #optionbar, #profilefield").off("mouseout");
-}
+}*/
