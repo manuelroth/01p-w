@@ -192,7 +192,7 @@ function signUp(event) {
     firstname: document.querySelector("#signup_firstname").value,
     lastname: document.querySelector("#signup_lastname").value,
     email: document.querySelector("#signup_email").value,
-    confirmemail: document.querySelector("#signup_confirmemail").value,
+   /* confirmemail: document.querySelector("#signup_confirmemail").value,*/
     password: document.querySelector("#signup_password").value,
     confirmpassword: document.querySelector("#signup_confirmpassword").value,
     policy: document.querySelector("#signup_policy").checked
@@ -232,7 +232,7 @@ function signUp(event) {
         document.querySelector("#signup_firstname").value = "";
         document.querySelector("#signup_lastname").value = "";
         document.querySelector("#signup_email").value = "";
-        document.querySelector("#signup_confirmemail").value = "";
+        /*document.querySelector("#signup_confirmemail").value = "";*/
         document.querySelector("#signup_password").value = "";
         document.querySelector("#signup_confirmpassword").value = "";
         console.error(`(signUp): (${error.code}) ${error.message}`);
@@ -248,23 +248,23 @@ function validateSignUpForm(user) {
     !user.firstname ||
     !user.lastname ||
     !user.email ||
-    !user.confirmemail ||
+   /* !user.confirmemail ||*/
     !user.password ||
     !user.confirmpassword
   ) {
     signup_error("Please fill out all the fields");
     return false;
   }
-  if (user.email !== user.confirmemail) {
-    signup_error("Email adresses don't match");
+  /*if (user.email !== user.confirmemail) {
+    signup_error("Email adresses don't match.");
     return false;
-  }
+  }*/
   if (user.password !== user.confirmpassword) {
-    signup_error("Passwords don't match");
+    signup_error("Passwords don't match.");
     return false;
   }
   if (user.policy !== true) {
-    signup_error("Privacy and membership policy must be accepted");
+    signup_error("Privacy and membership policy must be accepted.");
     return false;
   }
   return true;
@@ -372,11 +372,11 @@ function validateSettingForm(user) {
     !user.password ||
     !user.confirmpassword
   ) {
-    setting_error("Please fill out all the fields");
+    setting_error("Please fill out all the fields.");
     return false;
   }
   if (user.password !== user.confirmpassword) {
-    setting_error("Passwords don't match");
+    setting_error("Passwords don't match.");
     return false;
   }
   return true;
@@ -392,7 +392,7 @@ function showDeleteAccount() {
     toggleUIElement("#deleteAccount");
   } else {
     document.querySelector("#showDeleteAccount_error").innerHTML =
-      "Please enter your old password to delete your account.";
+      "Please enter your current password to delete your account.";
   }
 }
 
