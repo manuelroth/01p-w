@@ -12,7 +12,6 @@ body {
   font-family: "Unica77 LL";
   font-weight: 100;
   font-size: 16px;
-  line-height: 1.1;
 }
 header {
   background-color: #fff;
@@ -170,6 +169,7 @@ h2 {
   background-color: #e5e5e5;
   height: 100vh;
   font-size: 20px;
+	line-height: 1.1;
   padding: 39px 5px 0;
 }
 #all {
