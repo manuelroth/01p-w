@@ -22,6 +22,9 @@ header {
   z-index: 2;
   padding: 5px;
 }
+#privacypolicy, #termsofuse, #description, .deletemessage{
+	line-height:1.1;
+}
 #optionbar{
 border-top: 1px solid #e5e5e5;  
     background-color: #FFF;
@@ -169,7 +172,6 @@ h2 {
   background-color: #e5e5e5;
   height: 100vh;
   font-size: 20px;
-	line-height: 1.1;
   padding: 39px 5px 0;
 }
 #all {
