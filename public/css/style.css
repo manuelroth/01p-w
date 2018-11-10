@@ -167,8 +167,7 @@ h2 {
   color: #000;
   float: right;
 }
-#login:hover,
-#waitinglist:hover {
+#login:hover, #waitinglist:hover, #user:hover {
   color: #999999;
 }
 #login {
