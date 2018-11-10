@@ -312,7 +312,7 @@ h2 {
 #deleteaccount:hover{
 color:#000;
 }
-#resendbutton:hover{
+#resendbutton:hover, #resendEmail:hover{
  color: #9e9e9e;
 }
 #forgotpwForm{
