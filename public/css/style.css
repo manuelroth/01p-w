@@ -662,9 +662,6 @@ article img {
 .optionbar--right div:last-of-type{
     white-space: nowrap;
 }
-  .captionbar div {
-    padding: 2px 7px 1px;
-  }
   .fullscreen {
     display: none;
   }
