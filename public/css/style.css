@@ -256,9 +256,7 @@ h2 {
 #forgotpw {
   float: right;
 }
-#loginfield input[type="checkbox"]:checked {
-  content: "×";
-}
+#loginfield input[type="checkbox"]:checked:after {content: "\2715";left: 7px;position: fixed;font-size: 15px;margin: -4px 0 0;}
 .checkbox {
   width: calc(100% - 64px);
   float: left;
