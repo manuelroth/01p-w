@@ -97,6 +97,9 @@ input#captionInputElement{
 input#captionInputElement::placeholder {
     color: #000;
 }
+div#captionInput {
+    width: 215px;
+}
 .captionbar {
   background-color: #e5e5e5;
 }
