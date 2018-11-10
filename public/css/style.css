@@ -310,7 +310,10 @@ h2 {
     color: #9e9e9e;
 }
 #deleteaccount:hover{
-color:#00;
+color:#000;
+}
+#resendbutton:hover{
+ color: #9e9e9e;
 }
 #forgotpwForm{
     padding:5px 20px 5px 5px;
@@ -349,6 +352,7 @@ p#signup_error {
     width: 80%;
     margin: 15px 0 0;
 }
+
 .dialog #closecross,
 #loginfield #closecross,
 #profilefield #closecross {
