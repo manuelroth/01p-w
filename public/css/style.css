@@ -94,6 +94,9 @@ input#captionInputElement{
     font-size: 16px;
     padding: 2px 0 0;
 }
+input#captionInputElement:focus {
+    padding: 3px 0 0;
+}
 input#captionInputElement::placeholder {
     color: #000;
 }
