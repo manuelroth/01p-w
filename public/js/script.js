@@ -706,13 +706,13 @@ function getUUID() {
 }
 
 function addEventListeners() {
-  $("header #user.upbar").on("click", function() {
+  $("header .upbar").on("click", function() {
     $("#user").removeClass("upbar").addClass("downbar");
     $("#optionbar").removeClass("hidden");
     $("#captionbar").addClass("hidden");
   });
-  $("header #user.downbar").on("click", function() {
-   $("header #user").addClass("upbar").removeClass("downbar");
+  $("header .downbar").on("click", function() {
+   $("#user").addClass("upbar").removeClass("downbar");
     $("#optionbar").addClass("hidden");
     $("#captionbar").removeClass("hidden");
   });
