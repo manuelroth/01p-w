@@ -706,7 +706,7 @@ function getUUID() {
 }
 
 function addEventListeners() {
-  $("header .upbar").on("click", function() {
+ /* $("header .upbar").on("click", function() {
     $("#user").removeClass("upbar").addClass("downbar");
     $("#optionbar").removeClass("hidden");
     $("#captionbar").addClass("hidden");
@@ -715,7 +715,12 @@ function addEventListeners() {
    $("#user").addClass("upbar").removeClass("downbar");
     $("#optionbar").addClass("hidden");
     $("#captionbar").removeClass("hidden");
+  });*/
+  $("header #user").on("click", function() {
+    $("#optionbar").toggleClass("hidden");
+    $("#captionbar").toggleClass("hidden");
   });
+  
  /* $("header, #optionbar, #profilefield").on("mouseout", function() {
     $("#optionbar").addClass("hidden");
     $("#captionbar").removeClass("hidden");
