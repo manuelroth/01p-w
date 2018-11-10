@@ -438,8 +438,8 @@ function toggleUI() {
     "#logout",
     "#popup",
     "#description",
-   /* "#gallery",
-    "#optionbar"*/
+    "#gallery"/* ,
+   "#optionbar"*/
   ];
   for (const element of elements) {
     if (document.querySelector(element)) {
@@ -704,6 +704,7 @@ function getUUID() {
   });
   return uuid;
 }
+$("#optionbar").addClass("hidden");
 
 function addEventListeners() {
  /* $("header .upbar").on("click", function() {
