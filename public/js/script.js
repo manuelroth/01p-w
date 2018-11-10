@@ -122,8 +122,8 @@ function showSingle(event, id, caption) {
     $(this).addClass("hidden");
   });
   if (id) {
-    $("#gallery, .captionbar-button.fullscreen").addClass("hidden");
-    $(`#single`).removeClass("hidden");
+    $("#gallery").addClass("hidden");
+    $(`#single, .captionbar-button.fullscreen`).removeClass("hidden");
     $(`#single-${id}`).removeClass("hidden");
     if (caption !== "") {
       $("#captionInput").addClass("hidden");
@@ -138,8 +138,8 @@ function showSingle(event, id, caption) {
     // when all is clicked
     window.singleElementPage = undefined;
     $("#caption").addClass("hidden");
-    $("#gallery, .captionbar-button.fullscreen").removeClass("hidden");
-    $(`#single`).addClass("hidden");
+    $("#gallery").removeClass("hidden");
+    $(`#single, .captionbar-button.fullscreen`).addClass("hidden");
   }
 }
 
