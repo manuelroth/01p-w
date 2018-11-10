@@ -571,6 +571,9 @@ a {
   z-index: 1;
   display: none;
 }
+.whitenumber{
+background-color:#FFF;
+}
 .image:hover .number,
 .active .number {
   background-color: #000;
