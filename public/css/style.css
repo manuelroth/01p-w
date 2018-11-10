@@ -161,6 +161,7 @@ h2 {
 }
 #user {
   float: right;
+ cursor: pointer;
 }
 #login,
 #waitinglist {
@@ -169,6 +170,7 @@ h2 {
 }
 #login:hover, #waitinglist:hover, #user:hover {
   color: #999999;
+	
 }
 #login {
   cursor: pointer;
