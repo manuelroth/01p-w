@@ -368,9 +368,8 @@
           <div class="imageoption">
             <a href="" onclick="return false" class="number whitenumber">{{label}}</a>
           </div>
-          <div id="addimageelement">
+          <div id="addimageelement-{{id}}" class="addimageelement">
             <input type="file" id="addimageinput-{{id}}" class="hidden" name="image" accept="image/*" data-id="{{id}}" onchange="addImage(event)">
-            <span>+</span>
           </div>
         </article>
         {{/if}}

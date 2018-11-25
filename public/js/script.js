@@ -606,6 +606,10 @@ async function addImage(event) {
   try {
     event.preventDefault();
     event.stopPropagation();
+    const addImageElement = document.querySelector(
+      `#addimageelement-${event.target.dataset.id}`
+    );
+    addImageElement.style.backgroundImage = "url(../img/loading.gif)";
     const file = document.querySelector(
       `#addimageinput-${event.target.dataset.id}`
     ).files[0];
@@ -626,8 +630,10 @@ async function addImage(event) {
         imagePath: snapshot.ref.fullPath,
         downloadUrl: downloadUrl
       });
+    addImageElement.style.backgroundImage = "url(../img/plus.png)";
   } catch (error) {
     console.error(`(error): ${JSON.stringify(error)}`);
+    addImageElement.style.backgroundImage = "url(../img/plus.png)";
   }
 }
 
