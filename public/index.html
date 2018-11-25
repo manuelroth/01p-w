@@ -350,7 +350,7 @@
         {{#if downloadUrl}}
           <article id="imageDialog-{{id}}" onclick="showSingle(event, '{{id}}', '{{caption}}')" class="image" data-piio-bck="{{downloadUrl}}">
             <div class="imageoption">
-              <a href=""  onclick="return false" class="number">{{label}}</a>
+              <div class="number" onclick="event.stopPropagation()">{{label}}</div>
               <div class="buttons">
                 <button class="deletesingle" onclick="showDeleteImage(event, '{{id}}')"></button>
                 <button class="downloadsingle" onclick="event.stopPropagation()"><a href="{{downloadUrl}}" target="_blank" class="download"></a></button>
