@@ -182,6 +182,7 @@ function signOut() {
       window.unsubscribe();
       toggleUI();
       hideUI();
+      document.querySelector("#templateContainer").innerHTML = "";
     });
 }
 
@@ -444,7 +445,8 @@ function hideUI() {
     "#privacypolicy",
     "#termsofuse",
     "#single",
-    "#optionbar"
+    "#optionbar",
+    "#captionbar"
   ];
   for (const element of elements) {
     if (document.querySelector(element)) {
@@ -704,10 +706,13 @@ function getUUID() {
 
 function addEventListeners() {
   $("#optionbar").addClass("hidden");
-  $("header #user").on("click", function() {
-    $("#optionbar").toggleClass("hidden");
-    $("#captionbar").toggleClass("hidden");
-  });
+  if (!window.userProfileClickAdded) {
+    $("header #user").on("click", function() {
+      window.userProfileClickAdded = true;
+      $("#optionbar").toggleClass("hidden");
+      $("#captionbar").toggleClass("hidden");
+    });
+  }
 
   $(".fullscreen").on("click", function() {
     if (screenfull.enabled) {
