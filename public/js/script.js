@@ -662,7 +662,8 @@ async function deleteImage(event) {
         .doc(event.target.dataset.id)
         .update({
           imagePath: null,
-          downloadUrl: null
+          downloadUrl: null,
+          caption: null
         });
     }
   } catch (error) {
