@@ -182,7 +182,6 @@ function signOut() {
       window.unsubscribe();
       toggleUI();
       hideUI();
-    /*  removeEventListeners();*/
     });
 }
 
@@ -192,7 +191,6 @@ function signUp(event) {
     firstname: document.querySelector("#signup_firstname").value,
     lastname: document.querySelector("#signup_lastname").value,
     email: document.querySelector("#signup_email").value,
-   /* confirmemail: document.querySelector("#signup_confirmemail").value,*/
     password: document.querySelector("#signup_password").value,
     confirmpassword: document.querySelector("#signup_confirmpassword").value,
     policy: document.querySelector("#signup_policy").checked
@@ -232,7 +230,6 @@ function signUp(event) {
         document.querySelector("#signup_firstname").value = "";
         document.querySelector("#signup_lastname").value = "";
         document.querySelector("#signup_email").value = "";
-        /*document.querySelector("#signup_confirmemail").value = "";*/
         document.querySelector("#signup_password").value = "";
         document.querySelector("#signup_confirmpassword").value = "";
         console.error(`(signUp): (${error.code}) ${error.message}`);
@@ -248,17 +245,12 @@ function validateSignUpForm(user) {
     !user.firstname ||
     !user.lastname ||
     !user.email ||
-   /* !user.confirmemail ||*/
     !user.password ||
     !user.confirmpassword
   ) {
     signup_error("Please fill out all the fields");
     return false;
   }
-  /*if (user.email !== user.confirmemail) {
-    signup_error("Email adresses don't match.");
-    return false;
-  }*/
   if (user.password !== user.confirmpassword) {
     signup_error("Passwords don't match.");
     return false;
@@ -438,8 +430,7 @@ function toggleUI() {
     "#logout",
     "#popup",
     "#description",
-    "#gallery"/* ,
-   "#optionbar"*/
+    "#gallery"
   ];
   for (const element of elements) {
     if (document.querySelector(element)) {
@@ -705,17 +696,12 @@ function getUUID() {
   return uuid;
 }
 
-$("#optionbar").addClass("hidden");
 function addEventListeners() {
+  $("#optionbar").addClass("hidden");
   $("header #user").on("click", function() {
     $("#optionbar").toggleClass("hidden");
     $("#captionbar").toggleClass("hidden");
   });
-  
- /* $("header, #optionbar, #profilefield").on("mouseout", function() {
-    $("#optionbar").addClass("hidden");
-    $("#captionbar").removeClass("hidden");
-  });*/
 
   $(".fullscreen").on("click", function() {
     if (screenfull.enabled) {
@@ -723,7 +709,3 @@ function addEventListeners() {
     }
   });
 }
-/*function removeEventListeners() {
-  $("header, #optionbar, #profilefield").off("mouseover");
-  $("header, #optionbar, #profilefield").off("mouseout");
-}*/
