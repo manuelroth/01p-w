@@ -208,7 +208,6 @@ function signUp(event) {
         document.querySelector("#signup_firstname").value = "";
         document.querySelector("#signup_lastname").value = "";
         document.querySelector("#signup_email").value = "";
-        document.querySelector("#signup_confirmemail").value = "";
         document.querySelector("#signup_password").value = "";
         document.querySelector("#signup_confirmpassword").value = "";
         currentUser
