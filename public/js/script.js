@@ -507,7 +507,7 @@ function getImagesByUserId(userId) {
           singleImages.push(
             Object.assign({}, data, { id: doc.id, label: label })
           );
-          const hidden = currentYear.toString() === data.year ? "" : "hidden";
+          const hidden = currentYear === data.year ? "" : "hidden";
           weeks.push({
             id: doc.id,
             label: label,
@@ -549,7 +549,6 @@ function getImagesByUserId(userId) {
 
       const years = [];
       for (let year of yearsSet) years.push({ year: year });
-
       const context = {
         images: images,
         singleImages: singleImages,
