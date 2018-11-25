@@ -444,7 +444,8 @@ function hideUI() {
     "#profilefield",
     "#privacypolicy",
     "#termsofuse",
-    "#single"
+    "#single",
+    "#optionbar"
   ];
   for (const element of elements) {
     if (document.querySelector(element)) {
