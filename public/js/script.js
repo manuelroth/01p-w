@@ -6,15 +6,26 @@ document.addEventListener("DOMContentLoaded", function() {
     firestore.settings(settings);
     firebase.auth().onAuthStateChanged(user => {
       if (user && user.emailVerified) {
+        window.isLoggedIn = true;
         toggleUI();
         document.querySelector("#user").textContent = user.displayName;
         getImagesByUserId(user.uid);
+      } else {
+        window.isLoggedIn = false;
       }
     });
   } catch (error) {
     console.error(`(error): ${JSON.stringify(error)}`);
   }
 });
+
+function showHome() {
+  if (!window.isLoggedIn) {
+    window.location.href = "/";
+  } else {
+    showSingle(event, "", "");
+  }
+}
 
 function signIn(event) {
   event.preventDefault();

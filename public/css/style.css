@@ -162,6 +162,7 @@ h2 {
   margin: 0 0 8px;
 }
 #logo {
+  cursor: pointer;
   float: left;
 }
 #user {
