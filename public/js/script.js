@@ -478,9 +478,7 @@ function getImagesByUserId(userId) {
     .orderBy("week", "desc");
   ref.get().then(async querySnapshot => {
     if (querySnapshot.size === 0) {
-      for (let i = 0; i < 7; i++) {
-        await createImage(currentWeek - i, currentYear.toString());
-      }
+      await createImage(currentWeek, currentYear.toString());
     } else {
       const firstDoc = querySnapshot.docs[0].data();
       // if most actual document is not the current week
