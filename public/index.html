@@ -349,7 +349,7 @@
       {{#each images}}
         {{#if downloadUrl}}
           <article id="imageDialog-{{id}}" onclick="showSingle(event, '{{id}}', '{{caption}}')" class="image" data-piio-bck="{{downloadUrl}}">
-            <div class="loader"></div>
+           <!-- <div class="loader"></div>-->
             <div class="imageoption">
               <div class="number" onclick="event.stopPropagation()">{{label}}</div>
               <div class="buttons">
