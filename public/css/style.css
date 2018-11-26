@@ -217,6 +217,14 @@ h2 {
   width: 50px;
   left: 0px;
 }
+.loader{
+    background-image: url(img/loading.gif);
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #e5e5e5;
+}
 #loginfield {
   width: 25%;
   height: 100%;
