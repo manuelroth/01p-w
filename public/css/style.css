@@ -694,7 +694,7 @@ position:absolute;
     width: auto;
   }
   #profilefield, #loginfield {
-    width: 100%;
+    min-width: 300px;
   }
   #optionbar {
     background-color: #fff;
@@ -717,7 +717,7 @@ position:absolute;
   }
 }
 @media (min-width: 240px) and (max-width: 500px) {
-  #loginfield {
+  #loginfield, #profilefield {
     width: 100%;
   }
 }
