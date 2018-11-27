@@ -678,7 +678,7 @@ article img {
 
 @media (min-width: 240px) and (max-width: 1024px) {
   #gallery .image {
-    width: calc(100vw - 2px);
+    width: calc(100vw - 16px);
     height: 66vw;
     border-right: none;
   }
