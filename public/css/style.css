@@ -682,6 +682,9 @@ article img {
     height: 66vw;
     border-right: none;
   }
+#profilefield, #loginfield {
+position:absolute;
+}
   .dialog {
     width: 100%;
     height: auto;
@@ -690,7 +693,7 @@ article img {
   #captionInput {
     width: auto;
   }
-  #profilefield {
+  #profilefield, #loginfield {
     width: 100%;
   }
   #optionbar {
