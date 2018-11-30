@@ -136,6 +136,7 @@ function showSingle(event, id, caption) {
     $("#gallery").addClass("hidden");
     $(`#single, .captionbar-button.fullscreen`).removeClass("hidden");
     $(`#single-${id}`).removeClass("hidden");
+    $("#captionInputElement").data("id", id);
     if (caption !== "") {
       $("#captionInput").addClass("hidden");
       $("#captionText").removeClass("hidden");
@@ -143,7 +144,6 @@ function showSingle(event, id, caption) {
     } else {
       $("#captionInput").removeClass("hidden");
       $("#captionText").addClass("hidden");
-      $("#captionInputElement").data("id", id);
     }
   } else {
     // when all is clicked
@@ -159,6 +159,7 @@ async function saveCaption(event) {
   event.stopPropagation();
   const id = $("#captionInputElement").data("id");
   const caption = $("#captionInputElement").val();
+  $("#captionText").text(caption);
   await firebase
     .firestore()
     .collection("images")
@@ -166,6 +167,15 @@ async function saveCaption(event) {
     .update({
       caption: caption
     });
+}
+
+function captionTextFocused(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  $("#captionInput").removeClass("hidden");
+  $("#captionText").addClass("hidden");
+  $("#captionInputElement").val($("#captionText").text());
+  $("#captionInputElement").focus();
 }
 
 function captionInputTextInserted() {

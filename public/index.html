@@ -338,7 +338,7 @@
         <input type="text"  id="captionInputElement" onkeyup="captionInputTextInserted()" onfocus="$('#captionSaveButton').removeClass('hidden')" placeholder="[Insert caption here]"/>
         <input type="button" id="captionSaveButton" class="hidden" value="Save" onclick="saveCaption(event)" disabled/> 
       </div>
-      <div id="captionText"></div>
+      <div id="captionText" onclick="captionTextFocused(event)"></div>
     </div>
     <div class="captionbar--right">
       <div class="captionbar-button fullscreen hidden"></div>
