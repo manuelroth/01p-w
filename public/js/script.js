@@ -634,24 +634,33 @@ async function addImage(event) {
     const file = document.querySelector(
       `#addimageinput-${event.target.dataset.id}`
     ).files[0];
-    const storageRef = firebase.storage().ref();
-    const yearAndWeek = getYearAndWeek(new Date());
-    const fileName = `${firebase.auth().currentUser.uid}/${yearAndWeek[0]}/${
-      yearAndWeek[1]
-    }-${getUUID()}`;
-    const snapshot = await storageRef.child(fileName).put(file, {
-      contentDisposition: `attachment; filename="${file.name}"`
-    });
-    const downloadUrl = await snapshot.ref.getDownloadURL();
-    await firebase
-      .firestore()
-      .collection("images")
-      .doc(event.target.dataset.id)
-      .update({
-        imagePath: snapshot.ref.fullPath,
-        downloadUrl: downloadUrl
-      });
-    addImageElement.style.backgroundImage = "url(../img/plus.png)";
+    const originalName = file.name;
+    loadImage(
+      file,
+      async function(canvas) {
+        await canvas.toBlob(async function(blob) {
+          const storageRef = firebase.storage().ref();
+          const yearAndWeek = getYearAndWeek(new Date());
+          const fileName = `${firebase.auth().currentUser.uid}/${
+            yearAndWeek[0]
+          }/${yearAndWeek[1]}-${getUUID()}`;
+          const snapshot = await storageRef.child(fileName).put(blob, {
+            contentDisposition: `attachment; filename="${originalName}"`
+          });
+          const downloadUrl = await snapshot.ref.getDownloadURL();
+          await firebase
+            .firestore()
+            .collection("images")
+            .doc(event.target.dataset.id)
+            .update({
+              imagePath: snapshot.ref.fullPath,
+              downloadUrl: downloadUrl
+            });
+          addImageElement.style.backgroundImage = "url(../img/plus.png)";
+        });
+      },
+      { orientation: true }
+    );
   } catch (error) {
     console.error(`(error): ${JSON.stringify(error)}`);
     addImageElement.style.backgroundImage = "url(../img/plus.png)";
