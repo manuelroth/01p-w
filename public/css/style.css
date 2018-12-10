@@ -32,6 +32,7 @@ header {
 }
 #optionbar {
   border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
   background-color: #fff;
 }
 .optionbar--left,
@@ -88,7 +89,7 @@ header {
   display: flex;
   flex-direction: row;
   color: #000;
-  height: 24px;
+  height: 25px;
 }
 input#captionInputElement {
   color: #000;
