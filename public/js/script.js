@@ -742,6 +742,9 @@ function addEventListeners() {
     });
   }
 
+  $("#optionbar .pointer").on("click", function() {
+$("#optionbar").addClass("hidden");
+  });
   $(".fullscreen").on("click", function() {
     if (screenfull.enabled) {
       screenfull.request();
