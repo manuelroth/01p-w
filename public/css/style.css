@@ -98,6 +98,7 @@ input#captionInputElement {
   font-family: "Unica77 LL";
   font-size: 16px;
   padding: 2px 0 0;
+	width:calc(100% - 46px);
 }
 
 input#captionInputElement::placeholder {
