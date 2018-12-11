@@ -89,7 +89,7 @@ header {
   display: flex;
   flex-direction: row;
   color: #000;
-  height: 25px;
+  height: 26px;
 }
 input#captionInputElement {
   color: #000;
@@ -145,7 +145,7 @@ div#captionInput {
   position: fixed;
   width: 50%;
   height: 100vh;
-  top: 59px;
+  top: 60px;
   background-color: #f0f0f0;
   padding: 7px;
   z-index: 21;
