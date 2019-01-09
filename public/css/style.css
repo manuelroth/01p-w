@@ -721,11 +721,16 @@ width: 100%;
   #optionbar {
     background-color: #fff;
     height: 25px;
+	  font-size:20px;
   }
 
   .optionbar--right div:last-of-type {
     white-space: nowrap;
   }
+.optionbar--left div, .optionbar--right div {
+    border-bottom: 1px solid #e5e5e5;
+    padding: 4px 7px;
+}
   .fullscreen {
     display: none;
   }
