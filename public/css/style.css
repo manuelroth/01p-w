@@ -190,6 +190,9 @@ h2 {
   font-size: 20px;
   padding: 39px 5px 0;
 }
+#description img{
+width:100%;
+height:auto;}
 #all {
   left: 0px;
   width: 34px;
