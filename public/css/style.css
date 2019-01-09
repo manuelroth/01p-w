@@ -409,6 +409,19 @@ p#signup_error {
 .deletemessage {
   padding: 7px;
 }
+.beback {
+    width: 100%;
+    height: 100%;
+    color: #FFF;
+    display:table;
+    top: 0;
+    position:absolute;
+}
+.beback p {
+    vertical-align:middle;
+    text-align: center;
+    display: table-cell;
+}
 .addimageelement {
   height: 100%;
   width: 100%;
