@@ -73,7 +73,7 @@ header {
 
 #gallery {
   position: relative;
-  top: 60px;
+  top: 59px;
 }
 #single {
   position: relative;
@@ -89,7 +89,7 @@ header {
   display: flex;
   flex-direction: row;
   color: #000;
-  height: 26px;
+  height: 24px;
 }
 input#captionInputElement {
   color: #000;
