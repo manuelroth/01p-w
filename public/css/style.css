@@ -34,7 +34,7 @@ header {
   border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
   background-color: #fff;
-height:25px;
+  height: 25px;
 }
 .optionbar--left,
 .optionbar--right {
@@ -99,7 +99,7 @@ input#captionInputElement {
   font-family: "Unica77 LL";
   font-size: 16px;
   padding: 2px 0 0;
-	width:calc(100% - 46px);
+  width: calc(100% - 46px);
 }
 
 input#captionInputElement::placeholder {
@@ -191,9 +191,10 @@ h2 {
   font-size: 20px;
   padding: 39px 5px 0;
 }
-#description img{
-width:100%;
-height:auto;}
+#description img {
+  width: 100%;
+  height: auto;
+}
 #all {
   left: 0px;
   width: 34px;
@@ -223,13 +224,13 @@ height:auto;}
   width: 50px;
   left: 0px;
 }
-.loader{
-    background-image: url(../img/loading.gif);
-    height: 100%;
-    width: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-background-size:20%;
+.loader {
+  background-image: url(../img/loading.gif);
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 20%;
 }
 #loginfield {
   width: 25%;
@@ -383,12 +384,13 @@ background-size:20%;
   float: right;
   cursor: pointer;
   font-weight: 100;
-}.progressjs-container {
-    height: 5px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+}
+.progressjs-container {
+  height: 5px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 #captionSaveButton {
   padding: 4px 5px 2px;
@@ -417,17 +419,17 @@ p#signup_error {
   padding: 7px;
 }
 .beback {
-    width: 100%;
-    height: 100%;
-    color: #FFF;
-    display:table;
-    top: 0;
-    position:absolute;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  display: table;
+  top: 0;
+  position: absolute;
 }
 .beback p {
-    vertical-align:middle;
-    text-align: center;
-    display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
 }
 .addimageelement {
   height: 100%;
@@ -546,7 +548,7 @@ a {
   border-right: 1px solid #fff;
   border-bottom: 1px solid #fff;
   cursor: pointer;
-background-color:#e5e5e5;
+  background-color: #e5e5e5;
 }
 /*BUTTONS*/
 
@@ -707,11 +709,12 @@ article img {
     height: 66vw;
     border-right: none;
   }
-#profilefield, #loginfield {
-position:absolute;
-}
+  #profilefield,
+  #loginfield {
+    position: absolute;
+  }
   .dialog {
-width: 100%;
+    width: 100%;
     padding: 7px 21px 7px 7px;
     height: auto;
     min-height: 100vh;
@@ -719,55 +722,59 @@ width: 100%;
     z-index: 2;
   }
 
-.optionbar{
-  width: 100%;
-  display: block;
-}
-.optionbar--left, .optionbar--right{
+  .optionbar {
+    width: 100%;
+    display: block;
+  }
+  .optionbar--left,
+  .optionbar--right {
     display: block;
     color: #9e9e9e;
-    background-color: #FFF;
-}
-.optionbar--left .pointer, .optionbar--right .pointer{
-width: 100%;
+    background-color: #fff;
+  }
+  .optionbar--left .pointer,
+  .optionbar--right .pointer {
+    width: 100%;
     display: inline-block;
-}
+  }
   #captionInput {
     width: auto;
   }
-  #profilefield, #loginfield {
+  #profilefield,
+  #loginfield {
     min-width: 300px;
   }
   #optionbar {
     background-color: #fff;
     height: 25px;
-	  font-size:20px;
+    font-size: 20px;
   }
-#optionbar {
+  #optionbar {
     display: -webkit-box;
     display: -moz-box;
     display: box;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
     box-orient: vertical;
-}
-.optionbar--left {
+  }
+  .optionbar--left {
     -webkit-box-ordinal-group: 2;
     -moz-box-ordinal-group: 2;
     box-ordinal-group: 2;
-}
-.optionbar--right {
+  }
+  .optionbar--right {
     -webkit-box-ordinal-group: 1;
     -moz-box-ordinal-group: 1;
     box-ordinal-group: 1;
-}	
- .optionbar--right div:last-of-type {
+  }
+  .optionbar--right div:last-of-type {
     white-space: nowrap;
   }
-.optionbar--left div, .optionbar--right div {
+  .optionbar--left div,
+  .optionbar--right div {
     border-bottom: 1px solid #e5e5e5;
     padding: 4px 7px;
-}
+  }
   .fullscreen {
     display: none;
   }
@@ -781,7 +788,8 @@ width: 100%;
   }
 }
 @media (min-width: 240px) and (max-width: 500px) {
-  #loginfield, #profilefield {
+  #loginfield,
+  #profilefield {
     width: 100%;
   }
 }

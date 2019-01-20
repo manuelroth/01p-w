@@ -743,10 +743,10 @@ function addEventListeners() {
   }
 
   $("#optionbar .pointer").on("click", function() {
-if ($(window).width() < 1025) {
-$("#optionbar").addClass("hidden");
-  $("#captionbar").removeClass("hidden");
-}
+    if ($(window).width() < 1025) {
+      $("#optionbar").addClass("hidden");
+      $("#captionbar").removeClass("hidden");
+    }
   });
   $(".fullscreen").on("click", function() {
     if (screenfull.enabled) {
