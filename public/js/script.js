@@ -630,7 +630,6 @@ async function addImage(event) {
     const addImageElement = document.querySelector(
       `#addimageelement-${event.target.dataset.id}`
     );
-    addImageElement.style.backgroundImage = "url(../img/loading.gif)";
     const file = document.querySelector(
       `#addimageinput-${event.target.dataset.id}`
     ).files[0];
@@ -644,19 +643,39 @@ async function addImage(event) {
           const fileName = `${firebase.auth().currentUser.uid}/${
             yearAndWeek[0]
           }/${yearAndWeek[1]}-${getUUID()}`;
-          const snapshot = await storageRef.child(fileName).put(blob, {
+          const uploadTask = storageRef.child(fileName).put(blob, {
             contentDisposition: `attachment; filename="${originalName}"`
           });
-          const downloadUrl = await snapshot.ref.getDownloadURL();
-          await firebase
-            .firestore()
-            .collection("images")
-            .doc(event.target.dataset.id)
-            .update({
-              imagePath: snapshot.ref.fullPath,
-              downloadUrl: downloadUrl
-            });
-          addImageElement.style.backgroundImage = "url(../img/plus.png)";
+          window.progressBarInstance = new ProgressBar.Line("#progress", {
+            color: "#000000"
+          });
+
+          uploadTask.on(
+            "state_changed",
+            snapshot => {
+              const progress = snapshot.bytesTransferred / snapshot.totalBytes;
+              console.log("Progress: ", progress);
+              window.progressBarInstance.set(progress);
+            },
+            error => {
+              window.progressBarInstance.destroy();
+              console.error(`(error): ${JSON.stringify(error)}`);
+              addImageElement.style.backgroundImage = "url(../img/plus.png)";
+            },
+            async () => {
+              window.progressBarInstance.destroy();
+              const downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
+              await firebase
+                .firestore()
+                .collection("images")
+                .doc(event.target.dataset.id)
+                .update({
+                  imagePath: uploadTask.snapshot.ref.fullPath,
+                  downloadUrl: downloadUrl
+                });
+              addImageElement.style.backgroundImage = "url(../img/plus.png)";
+            }
+          );
         });
       },
       { orientation: true }
