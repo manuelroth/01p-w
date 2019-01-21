@@ -822,3 +822,12 @@ article img {
 .pointer {
   cursor: pointer;
 }
+::-webkit-scrollbar {
+ width: 0;
+}
+::-webkit-scrollbar-track {
+ background-color: #FFF;
+}
+::-webkit-scrollbar-thumb {
+ background-color: #000;
+}
