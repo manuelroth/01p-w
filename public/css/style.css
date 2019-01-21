@@ -281,7 +281,7 @@ h2 {
   /* -webkit-appearance: checkbox; */
   -moz-appearance: checkbox;
   padding: 0px;
-  margin:0;
+  margin: 0;
   /* vertical-align: top; */
   float: left;
   display: inline-block;
@@ -291,11 +291,11 @@ h2 {
   color: #9e9e9e;
 }
 #loginfield input[type="checkbox"]:checked:after {
-    content: "\2715";
-    left: -1px;
-    top: -5px;
-    position: relative;
-    font-size: 15px;
+  content: "\2715";
+  left: -1px;
+  top: -5px;
+  position: relative;
+  font-size: 15px;
 }
 .checkbox {
   width: calc(100% - 70px);
@@ -386,12 +386,12 @@ h2 {
   font-weight: 100;
 }
 .progress {
-    height: 15px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 100;
+  height: 15px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
 }
 .progress > svg {
   display: block;
@@ -427,9 +427,10 @@ p#signup_error {
   width: 100%;
   height: 100%;
   color: #fff;
-  display: table;
   top: 0;
   position: absolute;
+  justify-content: center;
+  align-items: center;
 }
 .beback p {
   vertical-align: middle;

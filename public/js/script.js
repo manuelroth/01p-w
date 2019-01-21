@@ -491,8 +491,16 @@ function getImagesByUserId(userId) {
       await createImage(currentWeek, currentYear.toString());
     } else {
       const firstDoc = querySnapshot.docs[0].data();
-      // if most actual document is not the current week
-      if (firstDoc.year === currentYear && firstDoc.week !== currentWeek) {
+      // if most actual document is current week and has already an image
+      // add image for next week
+      if (
+        firstDoc.year === currentYear &&
+        firstDoc.week === currentWeek &&
+        firstDoc.downloadUrl
+      ) {
+        await createImage(currentWeek + 1, currentYear.toString());
+      } else if (firstDoc.year === currentYear && firstDoc.week < currentWeek) {
+        // if most actual document is not the current week
         const numberOfWeeks = currentWeek - firstDoc.week;
         for (let i = 0; i < numberOfWeeks; i++) {
           await createImage(currentWeek - i, currentYear.toString());
@@ -537,7 +545,11 @@ function getImagesByUserId(userId) {
             hidden: hidden
           });
         }
-        images.push(Object.assign({}, data, { id: doc.id, label: label }));
+        const other = { id: doc.id, label: label };
+        if (data.year === currentYear && data.week > currentWeek) {
+          other.nextWeek = true;
+        }
+        images.push(Object.assign({}, data, other));
         yearsSet.add(data.year);
       });
 
@@ -772,4 +784,16 @@ function addEventListeners() {
       screenfull.request();
     }
   });
+  $("#nextWeek").hover(
+    function() {
+      document.querySelector(`#addimageelement--nextweek`).style.display =
+        "none";
+      document.querySelector(`#nextweektext`).style.display = "flex";
+    },
+    function() {
+      document.querySelector(`#addimageelement--nextweek`).style.display =
+        "block";
+      document.querySelector(`#nextweektext`).style.display = "none";
+    }
+  );
 }

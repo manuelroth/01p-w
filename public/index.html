@@ -366,16 +366,23 @@
               <button class="submitbutton" onclick="hideDeleteImage(event, '{{id}}')">No</button>
             </div>
           </article>
+        {{else if nextWeek}}
+          <article id="nextWeek" class="image" style="background-color: #e5e5e5;">
+            <div class="imageoption">
+              <a href="" onclick="return false" class="number whitenumber">{{label}}</a>
+            </div>
+            <div id="addimageelement--nextweek" class="addimageelement"></div>
+            <div id="nextweektext" class="beback" style="display:none;"><p>See you next week</p></div>
+          </article>
         {{else}}
-        <article id="addImageDialog-{{id}}" class="image" style="background-color: #e5e5e5;" onclick="document.querySelector('#addimageinput-{{id}}').click();">
-          <div class="imageoption">
-            <a href="" onclick="return false" class="number whitenumber">{{label}}</a>
-          </div>
-          <div id="addimageelement-{{id}}" class="addimageelement">
-            <input type="file" id="addimageinput-{{id}}" class="hidden" name="image" accept="image/*" data-id="{{id}}" onchange="addImage(event)">
-          </div>
-      <div class="beback" style="display:none;"><p>See you next week</p></div>
-        </article>
+          <article id="addImageDialog-{{id}}" class="image" style="background-color: #e5e5e5;" onclick="document.querySelector('#addimageinput-{{id}}').click();">
+            <div class="imageoption">
+              <a href="" onclick="return false" class="number whitenumber">{{label}}</a>
+            </div>
+            <div id="addimageelement-{{id}}" class="addimageelement">
+              <input type="file" id="addimageinput-{{id}}" class="hidden" name="image" accept="image/*" data-id="{{id}}" onchange="addImage(event)">
+            </div>
+          </article>
         {{/if}}
       {{/each}}
   </div>
