@@ -802,17 +802,17 @@ $(document).ready( function () {
 document.getElementById('fullscreen').addEventListener('click', () => {
 	if (screenfull.enabled) {
 		screenfull.request();
-		$("header, footer, #captionbar").addClass("invisible");
-		$("article").addClass("fullsize");
+		$("header, footer, #captionbar, #optionbar").addClass("invisible");
+		$("#single").addClass("fullsize");
 	} else {
 	}
 });
 
-document.getElementById('cross').addEventListener('click', () => {
+document.getElementById('fullcross').addEventListener('click', () => {
 		if (screenfull.enabled) {
 		screenfull.exit();
-		$("header, footer, #captionbar").removeClass("invisible");
-		$("article").removeClass("fullsize");
+		$("header, footer, #captionbar, #optionbar").removeClass("invisible");
+		$("#single").removeClass("fullsize");
 		} else {
 	}
 });
