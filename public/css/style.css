@@ -662,7 +662,7 @@ a {
   position: fixed;
   right: 5px;
   background-size: cover;
-  background-image: url(../img/cross.png);
+  background-image: url(../img/fullcross.png);
   top: 5px;
   display: none;
   cursor: pointer;
