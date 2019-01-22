@@ -796,4 +796,24 @@ function addEventListeners() {
       document.querySelector(`#nextweektext`).style.display = "none";
     }
   );
+  
 }
+$(document).ready( function () {
+document.getElementById('fullscreen').addEventListener('click', () => {
+	if (screenfull.enabled) {
+		screenfull.request();
+		$("header, footer, #captionbar").addClass("invisible");
+		$("article").addClass("fullsize");
+	} else {
+	}
+});
+
+document.getElementById('cross').addEventListener('click', () => {
+		if (screenfull.enabled) {
+		screenfull.exit();
+		$("header, footer, #captionbar").removeClass("invisible");
+		$("article").removeClass("fullsize");
+		} else {
+	}
+});
+  });
