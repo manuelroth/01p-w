@@ -281,6 +281,7 @@ h2 {
   /* -webkit-appearance: checkbox; */
   -moz-appearance: checkbox;
   padding: 0px;
+	overflow:hidden;
   margin: 0;
   /* vertical-align: top; */
   float: left;
@@ -291,11 +292,17 @@ h2 {
   color: #9e9e9e;
 }
 #loginfield input[type="checkbox"]:checked:after {
-  content: "\2715";
-  left: -1px;
-  top: -5px;
-  position: relative;
-  font-size: 15px;
+content: "\2000";
+    left: 0;
+    top: 0;
+    position: relative;
+    width: 11px;
+    background-repeat: no-repeat;
+    /* font-size: 15px; */
+    background-image: url(../img/cross_new.png);
+    background-size: contain;
+    height: 11px;
+    font-size: 18px;
 }
 .checkbox {
   width: calc(100% - 70px);
