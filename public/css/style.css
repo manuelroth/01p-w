@@ -707,6 +707,8 @@ a {
 
 .fullsize {
   height: 100%;
+position:fixed;
+top:0;
 }
 .fullsize .cross {
   display: block;
