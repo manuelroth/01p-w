@@ -134,7 +134,7 @@ function showSingle(event, id, caption) {
   });
   if (id) {
     $("#gallery").addClass("hidden");
-    $(`#single, .captionbar-button.fullscreen`).removeClass("hidden");
+    $(`#single`).removeClass("hidden");
     $(`#single-${id}`).removeClass("hidden");
     $("#captionInputElement").data("id", id);
     if (caption !== "") {
@@ -150,7 +150,7 @@ function showSingle(event, id, caption) {
     window.singleElementPage = undefined;
     $("#caption").addClass("hidden");
     $("#gallery").removeClass("hidden");
-    $(`#single, .captionbar-button.fullscreen`).addClass("hidden");
+    $(`#single`).addClass("hidden");
   }
 }
 
@@ -781,7 +781,7 @@ function addEventListeners() {
   });
   $(".fullscreen").on("click", function() {
     if (screenfull.enabled) {
-      screenfull.request();
+      screenfull.toggle();
     }
   });
   $("#nextWeek").hover(
@@ -796,24 +796,19 @@ function addEventListeners() {
       document.querySelector(`#nextweektext`).style.display = "none";
     }
   );
-  
-}
-$(document).ready( function () {
-document.getElementById('fullscreen').addEventListener('click', () => {
-	if (screenfull.enabled) {
-		screenfull.request();
-		$("header, footer, #captionbar, #optionbar").addClass("invisible");
-		$("#single").addClass("fullsize");
-	} else {
-	}
-});
+  // document.getElementById("fullscreen").addEventListener("click", () => {
+  //   if (screenfull.enabled) {
+  //     screenfull.toggle();
+  //     // $("header, footer, #captionbar, #optionbar").addClass("invisible");
+  //     // $("#single").addClass("fullsize");
+  //   }
+  // });
 
-document.getElementById('fullcross').addEventListener('click', () => {
-		if (screenfull.enabled) {
-		screenfull.exit();
-		$("header, footer, #captionbar, #optionbar").removeClass("invisible");
-		$("#single").removeClass("fullsize");
-		} else {
-	}
-});
-  });
+  // document.getElementById("fullcross").addEventListener("click", () => {
+  //   if (screenfull.enabled) {
+  //     screenfull.exit();
+  //     // $("header, footer, #captionbar, #optionbar").removeClass("invisible");
+  //     // $("#single").removeClass("fullsize");
+  //   }
+  // });
+}
