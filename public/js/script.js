@@ -22,8 +22,9 @@ document.addEventListener("DOMContentLoaded", function() {
 function showHome() {
   if (!window.isLoggedIn) {
     window.location.href = "/";
+    $("#currentweek").text("All");
   } else {
-    showSingle(event, "", "");
+    showSingle(event, "", "", "All", new Date().getFullYear());
   }
 }
 
@@ -122,11 +123,13 @@ function toggleUIElement(element) {
   }
 }
 
-function showSingle(event, id, caption) {
+function showSingle(event, id, caption, week, year) {
   if (event) {
     event.stopPropagation();
   }
   window.singleElementPage = id;
+  $("#currentweek").text(week);
+  $("#currentyear").text(year);
   $("#caption").removeClass("hidden");
   $("#week").removeClass("visible");
   $("#single > div").each(function() {
@@ -190,6 +193,7 @@ function changeYear(event, year) {
   event.stopPropagation();
   $("#week").toggleClass("visible");
   $("#year").toggleClass("visible");
+  $("#currentyear").html(year);
   $(`.dropdownWeekItem`).addClass("hidden");
   $(`.dropdownWeekItem-`).removeClass("hidden");
   $(`.dropdownWeekItem-${year}`).removeClass("hidden");
@@ -604,7 +608,13 @@ function getImagesByUserId(userId) {
         const image = context.images.find(
           image => image.id === window.singleElementPage
         );
-        showSingle(null, window.singleElementPage, image.caption);
+        showSingle(
+          null,
+          window.singleElementPage,
+          image.caption,
+          image.label,
+          image.year
+        );
       }
     });
   });

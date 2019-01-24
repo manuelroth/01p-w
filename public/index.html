@@ -324,7 +324,7 @@
       <div onclick="$('#year').toggleClass('visible');" id="currentyear" class="captionbar-button">2018</div>
       <ul class="dropdown" id="week">
         {{#each weeks}}
-        <a class="dropdownWeekItem dropdownWeekItem-{{year}} {{hidden}}" onclick="showSingle(event, '{{id}}', '{{caption}}')" alt="{{label}}">
+        <a class="dropdownWeekItem dropdownWeekItem-{{year}} {{hidden}}" onclick="showSingle(event, '{{id}}', '{{caption}}', '{{label}}', '{{year}}')" alt="{{label}}">
           <li>{{label}}</li>
         </a>
         {{/each}}
@@ -351,7 +351,7 @@
   <div id="gallery" class="hidden">
       {{#each images}}
         {{#if downloadUrl}}
-          <article id="imageDialog-{{id}}" onclick="showSingle(event, '{{id}}', '{{caption}}')" class="image" data-piio-bck="{{downloadUrl}}">
+          <article id="imageDialog-{{id}}" onclick="showSingle(event, '{{id}}', '{{caption}}', '{{label}}', '{{year}}')" class="image" data-piio-bck="{{downloadUrl}}">
             <div class="imageoption">
               <div class="number" onclick="event.stopPropagation()">{{label}}</div>
               <div class="buttons">
@@ -393,10 +393,10 @@
 </article>
       <ul>
         <li class="prev">
-          <a onclick="showSingle(event, '{{prevId}}', '{{prevCaption}}')"></a>
+          <a onclick="showSingle(event, '{{prevId}}', '{{prevCaption}}', '{{label}}', '{{year}}')"></a>
         </li>
         <li class="next">
-          <a onclick="showSingle(event, '{{nextId}}', '{{nextCaption}}')"></a>
+          <a onclick="showSingle(event, '{{nextId}}', '{{nextCaption}}', '{{label}}', '{{year}}')"></a>
         </li>
       </ul>
     </div>
