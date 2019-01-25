@@ -835,6 +835,13 @@ function addEventListeners() {
   $("#single").toggleClass("fullsize");
     }
   });
+  $("#fullcross").on("click", function() {
+    if (screenfull.enabled) {
+      screenfull.toggle();
+  $("header, footer, #captionbar, #optionbar").toggleClass("hidden");
+  $("#single").toggleClass("fullsize");
+    }
+  });
   $("#nextWeek").hover(
     function() {
       document.querySelector(`#addimageelement--nextweek`).style.display =
