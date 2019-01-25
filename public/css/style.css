@@ -710,6 +710,9 @@ position:fixed;
 top:0;
 z-index:2;
 }
+.fullsize .image {
+    height: 100%;
+}
 .fullsize .cross, .fullsize #fullcross {
   display: block;
 }
