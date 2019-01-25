@@ -837,7 +837,7 @@ function addEventListeners() {
   });
   $("#fullcross").on("click", function() {
     if (screenfull.enabled) {
-      screenfull.toggle();
+      screenfull.exit();
   $("header, footer, #captionbar, #optionbar").toggleClass("hidden");
   $("#single").toggleClass("fullsize");
     }
