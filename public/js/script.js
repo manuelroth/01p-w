@@ -830,16 +830,16 @@ function addEventListeners() {
   });
   $(".fullscreen").on("click", function() {
     if (screenfull.enabled) {
-      screenfull.toggle();
-  $("header, footer, #captionbar, #optionbar").toggleClass("hidden");
-  $("#single").toggleClass("fullsize");
+      screenfull.request();
+  $("header, footer, #captionbar, #optionbar").addClass("hidden");
+  $("#single").addClass("fullsize");
     }
   });
   $("#fullcross").on("click", function() {
     if (screenfull.enabled) {
       screenfull.exit();
-  $("header, footer, #captionbar, #optionbar").toggleClass("hidden");
-  $("#single").toggleClass("fullsize");
+  $("header, footer, #captionbar, #optionbar").removeClass("hidden");
+  $("#single").removeClass("fullsize");
     }
   });
   $("#nextWeek").hover(
