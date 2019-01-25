@@ -497,7 +497,6 @@ input:focus {
   background-color: #e5e5e5;
   color: #999999;
   display: none;
-  overflow: scroll;
   top: 24px;
 }
 .dropdown li {
