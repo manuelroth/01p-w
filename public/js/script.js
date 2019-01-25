@@ -43,14 +43,14 @@ function signIn(event) {
         toggleUIElement("#loginfield");
       } else {
         document.querySelector("#login_error").innerHTML =
-          "Email address is not verified yet. Please check your inbox to confirm your address.";
+          "Email address is not verified yet. Please check your inbox to confirm your registration.";
         toggleUIElement("#resendEmail");
       }
     })
     .catch(error => {
       console.error(`(signIn): (${error.code}) ${error.message}`);
       document.querySelector("#login_error").innerHTML =
-        "Sorry we couldn't find you.</p> Please try again.";
+        "Sorry, invalid email or password. Please try again.";
     });
 }
 
