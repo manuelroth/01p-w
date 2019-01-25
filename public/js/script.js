@@ -839,7 +839,7 @@ function addEventListeners() {
       $("#single").addClass("fullsize");
     }
   });
-  $("#fullcross").on("click", function() {
+  $(".fullcross").on("click", function() {
     if (screenfull.enabled) {
       screenfull.exit();
       $("header, footer, #captionbar, #optionbar").removeClass("hidden");
