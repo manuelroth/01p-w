@@ -550,7 +550,7 @@ a {
   background-color: #000;
 }
 #gallery .image {
-  width: 25vw;
+  width: calc(25vw - 0.4px);
   background-size: cover;
   height: 30vh;
   bottom: auto;
