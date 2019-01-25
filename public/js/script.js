@@ -138,6 +138,7 @@ function showSingle(event, id, caption, week, year) {
   if (id) {
     $("#gallery").addClass("hidden");
     $(`#single`).removeClass("hidden");
+    $(`.fullscreen`).removeClass("hidden");
     $(`#single-${id}`).removeClass("hidden");
     $("#captionInputElement").data("id", id);
     if (caption !== "") {
@@ -154,6 +155,7 @@ function showSingle(event, id, caption, week, year) {
     $("#caption").addClass("hidden");
     $("#gallery").removeClass("hidden");
     $(`#single`).addClass("hidden");
+    $(`.fullscreen`).addClass("hidden");
   }
 }
 
@@ -470,6 +472,7 @@ function hideUI() {
     "#privacypolicy",
     "#termsofuse",
     "#single",
+    ".fullscreen",
     "#optionbar",
     "#captionbar"
   ];
