@@ -779,6 +779,7 @@ function setCountDown() {
     // Set the date we're counting down to
     var d = new Date();
     d.setDate(d.getDate() + ((1 + 7 - d.getDay()) % 7));
+    d.setHours(0, 0, 0, 0);
 
     var countDownDate = d.getTime();
 
@@ -831,15 +832,15 @@ function addEventListeners() {
   $(".fullscreen").on("click", function() {
     if (screenfull.enabled) {
       screenfull.request();
-  $("header, footer, #captionbar, #optionbar").addClass("hidden");
-  $("#single").addClass("fullsize");
+      $("header, footer, #captionbar, #optionbar").addClass("hidden");
+      $("#single").addClass("fullsize");
     }
   });
   $("#fullcross").on("click", function() {
     if (screenfull.enabled) {
       screenfull.exit();
-  $("header, footer, #captionbar, #optionbar").removeClass("hidden");
-  $("#single").removeClass("fullsize");
+      $("header, footer, #captionbar, #optionbar").removeClass("hidden");
+      $("#single").removeClass("fullsize");
     }
   });
   $("#nextWeek").hover(
