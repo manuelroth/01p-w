@@ -655,7 +655,7 @@ a {
 #gallery .downloadsingle {
   display: block;
 }
-.cross, #fullcross {
+.cross, .fullcross {
   height: 24px;
   width: 24px;
   position: fixed;
@@ -713,7 +713,7 @@ z-index:2;
 .fullsize .image {
     height: 100%;
 }
-.fullsize .cross, .fullsize #fullcross {
+.fullsize .cross, .fullsize .fullcross {
   display: block;
 }
 article img {
