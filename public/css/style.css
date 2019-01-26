@@ -92,6 +92,10 @@ header {
   color: #000;
   height: 24px;
 }
+input{-webkit-border-radius:0;
+border-radius:0;
+-webkit-appearance: none;
+}
 input#captionInputElement {
   color: #000;
   background-color: transparent;
