@@ -89,6 +89,7 @@ header {
   top: 34px;
   display: flex;
   flex-direction: row;
+	border-bottom: 1px solid #FFF;
   color: #000;
   height: 24px;
 }
