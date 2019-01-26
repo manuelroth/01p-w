@@ -402,6 +402,7 @@ height: 24px;
 }
 .progress > svg {
   display: block;
+	height:100%;
   width: 100%;
 }
 #captionSaveButton {
