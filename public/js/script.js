@@ -172,6 +172,9 @@ async function saveCaption(event) {
     .update({
       caption: caption
     });
+  $("#captionInput").addClass("hidden");
+  $("#captionText").removeClass("hidden");
+  $("#captionText").text(caption);
 }
 
 function captionTextFocused(event) {
