@@ -841,7 +841,7 @@ article img {
   cursor: pointer;
 }
 ::-webkit-scrollbar {
- width: 1px;
+ width: 0;
 }
 ::-webkit-scrollbar-track {
  background-color: #FFF;
