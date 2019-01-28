@@ -784,7 +784,7 @@ function setCountDown() {
   if (element) {
     // Set the date we're counting down to
     var d = new Date();
-    d.setDate(d.getDate() + ((1 + 7 - d.getDay()) % 7));
+    d.setDate(d.getDate() + ((7 - d.getDay()) % 7) + 1);
     d.setHours(0, 0, 0, 0);
 
     var countDownDate = d.getTime();
