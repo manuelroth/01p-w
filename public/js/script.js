@@ -43,7 +43,7 @@ function signIn(event) {
         toggleUIElement("#loginfield");
       } else {
         document.querySelector("#login_error").innerHTML =
-          "Email address is not verified yet. Please check your inbox to confirm your registration.";
+          "Email address is not verified yet. Please check your inbox to confirm your registration and refresh this page.";
         toggleUIElement("#resendEmail");
       }
     })
