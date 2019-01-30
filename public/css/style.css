@@ -337,7 +337,8 @@ content: "\2000";
   -webkit-appearance: none;
   -moz-appearance: none;
   font-family: "Unica77 LL";
-  background-color: #d4d4d4;
+  /*background-color: #d4d4d4;*/
+	background-color:transparent;
   font-size: inherit;
   color: #000;
   margin: 2px 0 6px;
