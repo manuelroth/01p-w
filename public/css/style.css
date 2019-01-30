@@ -397,9 +397,9 @@ https://stackoverflow.com/questions/175951/how-do-i-stop-chrome-from-yellowing-m
   cursor: pointer;
   font-weight: 100;
 }
-input:-webkit-autofill, input:focus:-webkit-autofill { 
+/*input:-webkit-autofill, input:focus:-webkit-autofill { 
 	-webkit-box-shadow: 0 0 0px 1000px transparent inset !important; 
-}
+}*/
 #deleteAccount input{
 	margin:5px 7px 0 0;
 }
