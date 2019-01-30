@@ -347,7 +347,6 @@ content: "\2000";
   border-radius: 0;
   width: 100%;
 }
-https://stackoverflow.com/questions/175951/how-do-i-stop-chrome-from-yellowing-my-sites-input-boxes
 #loginform input,
 #forgotpwForm input {
   background-color: #f0f0f0;
@@ -398,9 +397,15 @@ https://stackoverflow.com/questions/175951/how-do-i-stop-chrome-from-yellowing-m
   cursor: pointer;
   font-weight: 100;
 }
-/*input:-webkit-autofill, input:focus:-webkit-autofill { 
-	-webkit-box-shadow: 0 0 0px 1000px transparent inset !important; 
-}*/
+#lfield input:-webkit-autofill, #lfield textarea:-webkit-autofill, #lfield select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #f0f0f0 inset !important;
+}
+#rfield input:-webkit-autofill, #rfield textarea:-webkit-autofill, #rfield select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #d4d4d4 inset !important;
+}
+#profilefield input:-webkit-autofill, #profilefield textarea:-webkit-autofill, #profilefield select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #e5e5e5 inset !important;
+}
 #deleteAccount input{
 	margin:5px 7px 0 0;
 }
