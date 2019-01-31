@@ -17,6 +17,12 @@
     property="og:description">
   <link href="./css/style.css" rel="stylesheet">
   <link href="./img/favicon.png" rel="shortcut icon">
+  <!-- eliminate costly round-trips to important domains -> https://twitter.com/addyosmani/status/1090874825286000640 -->
+  <link rel="preconnect" href="https://beta.01p-w.com">
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.rawgit.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <!-- preload resources so they are already cached when needed -->
   <link rel="preload" href="./css/style.css" as="style">
   <link rel="preload" href="./js/script.js" as="script">
