@@ -654,7 +654,7 @@ a {
 .number {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 0;text-align: center;
   height: 30px;
   width: 33px;
   padding: 5px 7px;
@@ -864,3 +864,4 @@ article img {
 ::-webkit-scrollbar-thumb {
  background-color: #000;
 }
+
