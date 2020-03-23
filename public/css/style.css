@@ -190,6 +190,9 @@ h2 {
 #login {
   cursor: pointer;
 }
+#termsofuse p{
+	margin:0 0 1em;
+}
 #description {
   background-color: #e5e5e5;
   height: 100vh;
