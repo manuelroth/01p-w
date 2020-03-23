@@ -22,6 +22,9 @@ header {
   z-index: 2;
   padding: 5px;
 }
+#termsofuse p{
+	margin:0 0 1em;
+}
 #privacypolicy,
 #termsofuse,
 #description,
