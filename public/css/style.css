@@ -22,9 +22,6 @@ header {
   z-index: 2;
   padding: 5px;
 }
-#termsofuse p{
-	margin:0 0 1em;
-}
 #privacypolicy,
 #termsofuse,
 #description,
@@ -155,7 +152,7 @@ div#captionInput {
   position: fixed;
   width: 50%;
   height: 100vh;
-  top: 60px;
+  top: 57px;
   background-color: #f0f0f0;
   padding: 7px;
   z-index: 21;
