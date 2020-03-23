@@ -301,7 +301,7 @@
   <div id="captionbar" class="captionbar hidden">
     <div class="captionbar--left">
       <div onclick="$('#week').toggleClass('visible');" id="currentweek" class="captionbar-button">All</div>
-      <div onclick="$('#year').toggleClass('visible');" id="currentyear" class="captionbar-button">2018</div>
+     <!-- <div onclick="$('#year').toggleClass('visible');" id="currentyear" class="captionbar-button">2018</div>-->
       <ul class="dropdown" id="week">
         {{#each weeks}}
         <a class="dropdownWeekItem dropdownWeekItem-{{year}} {{hidden}}" onclick="showSingle(event, '{{id}}', '{{caption}}', '{{label}}', '{{year}}')" alt="{{label}}">
