@@ -152,7 +152,7 @@ div#captionInput {
   position: fixed;
   width: 50%;
   height: 100vh;
-  top: 60px;
+  top: 57px;
   background-color: #f0f0f0;
   padding: 7px;
   z-index: 21;
@@ -189,6 +189,9 @@ h2 {
 }
 #login {
   cursor: pointer;
+}
+#termsofuse p{
+	margin:0 0 1em;
 }
 #description {
   background-color: #e5e5e5;
