@@ -18,15 +18,27 @@
   <link href="./css/style.css" rel="stylesheet">
   <link href="./img/favicon.png" rel="shortcut icon">
   <!-- eliminate costly round-trips to important domains -> https://twitter.com/addyosmani/status/1090874825286000640 -->
+  <link rel="preconnect" href="https://01p-w.com">
   <link rel="preconnect" href="https://beta.01p-w.com">
   <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="preconnect" href="https://cdn.rawgit.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="//pcdn.piiojs.com">
+  <link rel="preload" as="script" href="//pcdn.piiojs.com/sgnclp/image.min.js">
   <!-- preload resources so they are already cached when needed -->
   <link rel="preload" href="./css/style.css" as="style">
   <link rel="preload" href="./js/script.js" as="script">
   <link rel="preload" href="./css/fonts/Unica77LL-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <script>
+    (function(i,m,a,g,e) {
+        e = i.getElementsByTagName(m)[0], (g = i.createElement(m)).src = "//pcdn.piiojs.com/"+a+"/image.min.js",
+        g.onerror = function() {
+            (g = i.createElement(m)).src = "https://fs.piio.co/image-failover.min.js",
+            e.parentNode.insertBefore(g, e);
+        }, e.parentNode.insertBefore(g, e);
+    }(document, "script", "sgnclp"));
+  </script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/2.20.1/load-image.all.min.js"></script>
@@ -386,8 +398,5 @@
   </div>
   <div class="progress" id="progress"></div>
   <script src="./js/script.js"></script>
-  <script type="application/javascript"> var piioData = { appKey: 'sgnclp', encodeSrc: false, domain: 'https://beta.01p-w.com' } </script>
-  <script src="https://js.piio.co/sgnclp/piio.min.js"></script>
 </body>
-
 </html>
